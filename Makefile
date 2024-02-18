@@ -4,7 +4,7 @@ LIBFTPATH	=	./libft
 LIBFT		=	$(LIBFTPATH)/libft.a
 SRCDIR		=	src
 SRCS		=	$(SRCDIR)/main.c	$(SRCDIR)/utils.c	$(SRCDIR)/run.c \
-				$(SRCDIR)/files.c	$(SRCDIR)/guess_prioritary.c
+				$(SRCDIR)/files.c
 OBJDIR		=	.obj
 OBJS		=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 

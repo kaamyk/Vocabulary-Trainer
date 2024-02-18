@@ -39,9 +39,9 @@ bool    wrong_answer( __uint8_t *nb_fails, unsigned int rank, int **prioritaries
 	}
     printf(">>> n_prio[%d] = -1\n", *len_priorities);
 	n_prio[(*len_priorities)] = -1;
-    if (prioritaries && *prioritaries){
+    if (prioritaries && *prioritaries && **prioritaries){
     	unsigned int i = 0;
-        while (prioritaries[0][i] != -1){
+        while ((*prioritaries)[i] != -1){
             printf(">>> (*prioritaries)[%d] == %d\n", i, (*prioritaries)[i]);
             n_prio[i] = (*prioritaries)[i];
             i++;
