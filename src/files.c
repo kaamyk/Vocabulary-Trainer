@@ -29,6 +29,12 @@ bool    read_priority_words( int **prioritaries ){
         free((*prioritaries));
     }
     const unsigned int  file_len =  get_file_len(file);
+	if (file_len == 0)
+	{
+		*prioritaries = malloc(sizeof(int*) * 1);
+		(*prioritaries)[0] = -1;
+		return (0);
+	}
     *prioritaries = malloc(sizeof(int*) * (file_len + 1));
     (*prioritaries)[file_len] = -1;
 
