@@ -15,6 +15,7 @@ int main( void ){
     srand(time(NULL));
 
     if (setup(&prioritaries, &dico)){
+        printf("setup failed\n");
         return (1);
     }
 

@@ -30,27 +30,24 @@ bool    check_answer( char* user_input, char **answers ){
 }
 
 bool    wrong_answer( __uint8_t *nb_fails, unsigned int rank, int **prioritaries, unsigned int *len_priorities ){
-    ++(*len_priorities);
-    printf (">>> Allocating %d bytes.\n", (*len_priorities) + 1);
-	int	*n_prio = malloc(sizeof(int) * ((*len_priorities) + 1));
+	int	*n_prio = malloc(sizeof(int) * ((*len_priorities) + 2));
 	if (n_prio == NULL){
 		write(2, "Error: wrong_answer(): n_prio allocation failed.\n", 50);
 		return (1);
 	}
-    printf(">>> n_prio[%d] = -1\n", *len_priorities);
-	n_prio[(*len_priorities)] = -1;
+	n_prio[(*len_priorities) + 1] = -1;
     if (prioritaries && *prioritaries && **prioritaries){
     	unsigned int i = 0;
         while ((*prioritaries)[i] != -1){
-            printf(">>> (*prioritaries)[%d] == %d\n", i, (*prioritaries)[i]);
             n_prio[i] = (*prioritaries)[i];
             i++;
         }
 	    n_prio[i] = rank;
     }
 	free(*prioritaries);
-	prioritaries = &n_prio;
-    ++(*nb_fails);
+	*prioritaries = n_prio;
+    *len_priorities += 1;
+    *nb_fails += 1;
 	return (0);
 }
 
@@ -79,7 +76,7 @@ int		define_rank(bool is_prio, unsigned int len_prio, unsigned int len_dico){
 }
 
 void    run( int **prioritaries, t_data *dico ){
-    
+    printf("Dans run\n");
     const unsigned int    len_dico = get_len_dico(dico);
 	if (len_dico < 2){
 		write(2, "Information: The dictionnary seems empty or having a single element.", 69);

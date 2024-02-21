@@ -7,7 +7,7 @@
 
 int     parse_priority_words( char *buf ){
     while (*buf != 0){
-        if (ft_isdigit(*buf) == 0){
+        if (ft_isdigit(*buf) == 0 && *buf != '\n'){
             return (1);
         }
         ++buf;
@@ -29,13 +29,15 @@ bool    read_priority_words( int **prioritaries ){
         free((*prioritaries));
     }
     const unsigned int  file_len =  get_file_len(file);
-    (*prioritaries) = malloc(sizeof(int*) * (file_len + 1));
+    *prioritaries = malloc(sizeof(int*) * (file_len + 1));
     (*prioritaries)[file_len] = -1;
 
     for (unsigned int i = 0; i < file_len && getline(&buf, &len, file) != -1; i++){
         if (parse_priority_words(buf)){
             //error_handling function;
-            free((*prioritaries));
+			printf("parse_priority_words failed\n");
+			free(buf);
+            free(*prioritaries);
             return (1);
         }
               
@@ -43,12 +45,14 @@ bool    read_priority_words( int **prioritaries ){
         if ((*prioritaries)[i] == -1){
             write(2, ">>> Error: read_priority_words(): ft_strdup() prioritaries allocation failed.\n", 72);
             //error_handling function;
-            free((*prioritaries));
+			free(buf);
+            free(*prioritaries);
             return (1);
         }
         printf("prioritaries[%d] = [%d]\n", i, (*prioritaries)[i]);
     }
 
+	free(buf);
     fclose(file);
     return (0);
 }
@@ -65,9 +69,12 @@ bool    reset_prioritary_file( int *prioritaries ){
     char    *tmp = NULL;
     for (size_t  i = 0; prioritaries[i] != -1; i++){
         tmp = ft_itoa(prioritaries[i]);
-        if (fwrite(tmp, sizeof(char), strlen(tmp), file) == 0){
+        if (tmp == NULL
+			|| fwrite(tmp, sizeof(char), strlen(tmp), file) == 0
+			|| fwrite("\n", sizeof(char), 1, file) == 0){
             write(2, "Error: reset_prioritary_files(): failed to wirte in \'tmp\' file\n", 64);
         }
+		free(tmp);
     }
     if (remove("./data/prioritaries.txt") == -1){
         write(2,"Error: reset_prioritaries(): removing old prioritaries file failed.\n", 69);
