@@ -11,10 +11,11 @@
 #include <signal.h>
 
 #include "../libft/libft.h"
+#include "color.h"
 
 #define MAX_LEN_INPUT 46
-#define NB_CORRECT 2
-#define NB_FAIL 2
+#define NB_CORRECT 5
+#define NB_FAIL 5
 
 typedef struct  s_data
 {
@@ -25,14 +26,15 @@ typedef struct  s_data
 	/*					*/
 	/*		 UTILS		*/
 	/*					*/
-char	**tabdup( char **t );
+void	print_tab( char **t );
 void	free_tab( void **t );
+void	print_prioritaries( int *p );
 void	free_data( const unsigned int len, t_data *data );
 unsigned int    get_file_len( FILE *file );
 unsigned int	get_len_dico( t_data *dico );
 unsigned int    get_len_prioritaries( int *prioritaries );
-void	print_tab( char **t );
-void	print_prioritaries( int *p );
+char	**tabdup( char **t );
+void	del_char( char *s, char c );
 
 
     /*					*/
@@ -41,7 +43,7 @@ void	print_prioritaries( int *p );
 int     parse_priority_words( char *buf );
 bool    read_priority_words( int **prioritaries );
 bool    reset_prioritary_file( int *prioritaries );
-void    error_read_dictionnary( t_data *word, size_t file_len, char **splitted_line, char *buf );
+int    error_read_dictionnary( t_data *word, size_t file_len, char **splitted_line, char *buf, FILE *file );
 bool	read_dictionnary( t_data **dico );
 
 

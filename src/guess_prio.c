@@ -2,7 +2,6 @@
 
 void	prio_right_answer( __uint8_t *nb_correct, int **prioritaries, unsigned int *len_prio, unsigned int rank_to_del )
 {
-	printf("rank_to_del == %d | len_prio == %d | prioritaries[%d] == %d\n", rank_to_del, *len_prio, rank_to_del, (*prioritaries)[rank_to_del]);
     if (rank_to_del < *len_prio && (*prioritaries)[rank_to_del] != -1)
 	{
         unsigned int i = rank_to_del;
@@ -15,19 +14,15 @@ void	prio_right_answer( __uint8_t *nb_correct, int **prioritaries, unsigned int 
         }
         (*prioritaries)[i] = -1;
 		*len_prio -= 1;
-		printf("*len_prio == %d\n", *len_prio);
     }
 }
 
 void	prio_wrong_answer( __uint8_t *nb_fails, char **right_answer ){
 	*nb_fails += 1;
-	// Ecrire la bonne reponse;
-	write(1, "Answers:\n", 10);
+	printf( "Answers:\n");
 	for (unsigned int i = 0; right_answer[i] != NULL; i++)
 	{
-		write(1, "\t", 1);
-		write(1, right_answer[i], strlen(right_answer[i]));
-		write(1, "\n", 1);
+		printf( "\t%s\n", right_answer[i]);
 	}
 }
 
@@ -46,20 +41,21 @@ bool    guess_prio( int **prioritaries, t_data *dico, unsigned int *len_priorita
 			return (1);
 		}
         rank_dico = (*prioritaries)[rank_prio];
-        printf("rank == %d\n", rank_dico);
 
         printf("Word to guess: %s\n\t", dico[rank_dico].to_guess);
         printf("Your answer: ");
 
         if (fgets(user_input, MAX_LEN_INPUT, stdin) == NULL)
 		{
-			write(1, "The word you typed is too long. (Max characters: 45)\n", 54);
+			printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
+			printf("The word you typed is too long. (Max characters: 45)\n");
 			prio_wrong_answer(nb_fails, dico[rank_dico].answers);
 			continue ;
 		}
 		else if (parse_user_input(user_input))
 		{
-			write(1, "Your answer contains unvalid characters. (Valid characters => [a, z] and [A, Z])\n", 82);
+			printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
+			printf("Your answer contains unvalid characters. (Valid characters => [a, z] and [A, Z])\n");
 			prio_wrong_answer(nb_fails, dico[rank_dico].answers);
 			continue ;
         }
@@ -69,12 +65,12 @@ bool    guess_prio( int **prioritaries, t_data *dico, unsigned int *len_priorita
 		
 		if (check_answer(user_input, dico[rank_dico].answers))
 		{
-            write(1, ">>> CORRECT <<<\n", 17);
+			printf(BGRN "\t>>> CORRECT <<<\n" COLOR_RESET);
 			prio_right_answer(nb_correct, prioritaries, len_prioritaries, rank_prio);
         }
 		else
 		{
-			write(1, ">>> FALSE <<<\n", 15);
+			printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
 			prio_wrong_answer(nb_fails, dico[rank_dico].answers);
 		}
 		reset_user_input(user_input);

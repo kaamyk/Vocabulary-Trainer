@@ -29,7 +29,6 @@ bool	dico_wrong_answer( int **prioritaries, unsigned int *len_prio, __uint8_t *n
 		{
 			if ((*prioritaries)[i] == rank)
 			{
-				printf("dico_wrong_answer(): rank already in list\n");
    				*nb_fails += 1;
 				free(n_prio);
 				return (0);
@@ -71,29 +70,29 @@ bool	guess_dico( int **prioritaries, unsigned int *len_prio, t_data *dico, __uin
 	int		good[NB_CORRECT + 1] = {0}; 
 
     while (*nb_fails < NB_FAIL && *nb_correct < NB_CORRECT){
-        // rank = rand() % len_dico;
-		rank = 2;
-        printf("rank == %d\n", rank);
+        rank = rand() % len_dico;
 		while (check_rank(rank, good, len_dico))
 		{
 			rank = rand() % len_dico;
 		}
-        printf("final rank == %d\n", rank);
-
         printf("Word to guess: %s\n\t", dico[rank].to_guess);
         printf("Your answer: ");
 
         if (fgets(user_input, MAX_LEN_INPUT, stdin) == NULL)
 		{
-			write(1, "The word you typed is too long. (Max characters: 45)\n", 54);
+			printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
+			printf("The word you typed is too long. (Max characters: 45)\n");
 			if (dico_wrong_answer(prioritaries, len_prio, nb_fails, rank))
 			{
 				return (1);
 			}
+			printf("Right answers were:\n");
+			print_tab(dico[rank].answers);
 			continue ;
 		}
 		else if (parse_user_input(user_input))
 		{
+			printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
 			if (dico_wrong_answer(prioritaries, len_prio, nb_fails, rank))
 			{
 				return (1);
@@ -106,15 +105,19 @@ bool	guess_dico( int **prioritaries, unsigned int *len_prio, t_data *dico, __uin
 
 		if (check_answer(user_input, dico[rank].answers))
 		{
-			write(1, ">>> CORRECT <<<\n", 17);
+			printf(BGRN "\t>>> CORRECT <<<\n" COLOR_RESET);
 			dico_correct_answer(good, rank, nb_correct);
         }
 		else
 		{
-			write(1, ">>> FALSE <<<\n", 15);
+			printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
 			if (dico_wrong_answer(prioritaries, len_prio, nb_fails, rank))
 			{
 				return (1);
+			}
+			for (unsigned int i = 0; dico[rank].answers[i] != NULL; i++)
+			{
+				printf("\t%s\n", dico[rank].answers[i]);
 			}
 		}
 		reset_user_input(user_input);

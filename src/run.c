@@ -14,16 +14,20 @@ bool   	parse_user_input( char* user_input )
 	__uint8_t i = 0;
     for (i = 0; i < len && user_input[i] != 0 && user_input[i] != '\n'; i++)
 	{
-        if (ft_isalpha(user_input[i]) == 0 && user_input[i] != ' ')
+        if (ft_isalpha(user_input[i]) == 0 && user_input[i] != ' ' && user_input[i] != '\'')
 		{
-			write(1, "Your answer contains unvalid characters. (Valid characters => [a, z] and [A, Z])\n", 82);
-            return (1);
-        }
-    }
+			printf( "Your answer contains unvalid characters. (Valid characters => [a - z], [A - Z], space, single quote )\n");
+			return (1);
+		}
+		if (strchr(user_input, '\'') != NULL)
+		{
+			del_char(user_input, '\'');
+		}
+	}
 
 	if (i < 2)
 	{
-		write(1, "Error: Your answer can not be empty.\n", 38);
+		printf( "Error: Your answer can not be empty.\n");
 		return (1);
 	}
 	else if (user_input[i] == '\n')
@@ -37,7 +41,6 @@ bool    check_answer( char* user_input, char **answers )
 {
     for (__uint8_t i = 0; answers[i] != NULL; i++)
 	{
-		printf("user_input == %s | answers[%d] == %s\n", user_input, i, answers[i]);
         if (strcmp(user_input, answers[i]) == 0)
 		{
             return (1);
@@ -52,7 +55,6 @@ void    run( int **prioritaries, t_data *dico )
 	if (len_dico < 2)
 	{
 		write(2, "Information: The dictionnary seems empty or having a single element.\n", 70);
-		write(2, "> Leaving program.\n", 20);
 		return ;
 	}
 
@@ -65,7 +67,6 @@ void    run( int **prioritaries, t_data *dico )
 		// Handle Memory
 		return ;
 	}
-	write(2, "ici\n", 4);
 	if (nb_fails < NB_FAIL && nb_correct < NB_CORRECT && guess_dico(prioritaries, &len_prioritaries, dico, &nb_fails, &nb_correct))
 	{
 		// Handle Memory
