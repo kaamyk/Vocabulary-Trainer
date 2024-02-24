@@ -46,8 +46,12 @@ bool	dico_wrong_answer( int **prioritaries, unsigned int *len_prio, __uint8_t *n
 	return (0);
 }
 
-bool	check_rank( int rank, int *good )
+bool	check_rank( int rank, int *good, int len_dico )
 {
+	if (rank >= len_dico)
+	{
+		return (1);
+	}
 	for (unsigned int i = 0; i < MAX_LEN_INPUT && good[i] != 0; i++)
 	{
 		if (good[i] == rank)
@@ -70,7 +74,7 @@ bool	guess_dico( int **prioritaries, unsigned int *len_prio, t_data *dico, __uin
         // rank = rand() % len_dico;
 		rank = 2;
         printf("rank == %d\n", rank);
-		while (check_rank(rank, good))
+		while (check_rank(rank, good, len_dico))
 		{
 			rank = rand() % len_dico;
 		}

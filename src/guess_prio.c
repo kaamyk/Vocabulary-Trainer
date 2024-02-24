@@ -35,12 +35,16 @@ bool    guess_prio( int **prioritaries, t_data *dico, unsigned int *len_priorita
 {
 	printf("\n>>> GUESS PRIO\n");
     int				rank_dico = 0;
-    int				rank_prio = 0;
+    unsigned int	rank_prio = 0;
     char			user_input[MAX_LEN_INPUT] = {0};
 
     while (*nb_fails < NB_FAIL && *nb_correct < NB_CORRECT && *len_prioritaries > 0)
 	{
 		rank_prio = *len_prioritaries != 1 ? rand() % *len_prioritaries : 0;
+		if (rank_prio >= *len_prioritaries)
+		{
+			return (1);
+		}
         rank_dico = (*prioritaries)[rank_prio];
         printf("rank == %d\n", rank_dico);
 

@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
+#include <signal.h>
 
 #include "../libft/libft.h"
 
@@ -21,9 +22,9 @@ typedef struct  s_data
     char    **answers;
 }               t_data;
 
-    /*					*/
-    /*		 UTILS		*/
-    /*					*/
+	/*					*/
+	/*		 UTILS		*/
+	/*					*/
 char	**tabdup( char **t );
 void	free_tab( void **t );
 void	free_data( const unsigned int len, t_data *data );
@@ -57,7 +58,7 @@ void    run( int **prioritaries, t_data *word );
 	/*						*/
 void	dico_correct_answer( int *good, unsigned int rank_to_del, __uint8_t *nb_correct );
 bool	dico_wrong_answer( int **prioritaries, unsigned int *len_prio, __uint8_t *nb_fails, int rank );
-bool	check_rank( int rank, int *good );
+bool	check_rank( int rank, int *good, int len );
 bool    guess_dico( int **prioritaries, unsigned int *len_prio, t_data *dico, __uint8_t *nb_fails, __uint8_t *nb_correct );
 
 	/*						*/
