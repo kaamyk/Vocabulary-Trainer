@@ -76,7 +76,7 @@ char	**tabdup( char **t ){
 	char	**res = NULL;
 
 	if (t == NULL){
-		write(2, ">>> Error: duptab(): no input tab.", 35);
+		write(2, ">>> Error: duptab(): no input tab.\n", 36);
 		return (NULL);
 	}
 	char	**ptr = t;
@@ -85,7 +85,7 @@ char	**tabdup( char **t ){
 	}
 	res = malloc(sizeof(char *) * (ptr - t + 1));
 	if (res == NULL){
-		write(2, ">>> Error: read_file()->duptab(): res allocation failed.", 57);
+		write(2, ">>> Error: read_file()->duptab(): res allocation failed.\n", 58);
 		return (NULL);
 	}
 	res[ptr - t] = NULL;

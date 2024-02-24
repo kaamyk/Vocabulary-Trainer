@@ -1,6 +1,6 @@
 #include "../inc/german.h"
 
-void	dico_correct_answer( int *good, unsigned int rank_to_del )
+void	dico_correct_answer( int *good, unsigned int rank_to_del, __uint8_t *nb_correct )
 {
 	// Ajouter l'index devine a une liste
 	unsigned int i = 0;
@@ -9,9 +9,10 @@ void	dico_correct_answer( int *good, unsigned int rank_to_del )
 		i++;
 	}
 	good[i] = rank_to_del;
+	*nb_correct += 1;
 }
 
-bool	dico_wrong_answer( int **prioritaries, unsigned int *len_prio, __uint8_t *nb_fails, unsigned int rank )
+bool	dico_wrong_answer( int **prioritaries, unsigned int *len_prio, __uint8_t *nb_fails, int rank )
 {
 	int	*n_prio = malloc(sizeof(int) * ((*len_prio) + 2));
 	if (n_prio == NULL)
@@ -20,11 +21,19 @@ bool	dico_wrong_answer( int **prioritaries, unsigned int *len_prio, __uint8_t *n
 		return (1);
 	}
 	n_prio[(*len_prio) + 1] = -1;
-    if (prioritaries && *prioritaries && **prioritaries)
+
+    if (prioritaries && *prioritaries)
 	{
     	unsigned int i = 0;
         while ((*prioritaries)[i] != -1)
 		{
+			if ((*prioritaries)[i] == rank)
+			{
+				printf("dico_wrong_answer(): rank already in list\n");
+   				*nb_fails += 1;
+				free(n_prio);
+				return (0);
+			}
             n_prio[i] = (*prioritaries)[i];
             i++;
         }
@@ -58,7 +67,8 @@ bool	guess_dico( int **prioritaries, unsigned int *len_prio, t_data *dico, __uin
 	int		good[NB_CORRECT + 1] = {0}; 
 
     while (*nb_fails < NB_FAIL && *nb_correct < NB_CORRECT){
-        rank = rand() % len_dico;
+        // rank = rand() % len_dico;
+		rank = 2;
         printf("rank == %d\n", rank);
 		while (check_rank(rank, good))
 		{
@@ -80,18 +90,20 @@ bool	guess_dico( int **prioritaries, unsigned int *len_prio, t_data *dico, __uin
 		}
 		else if (parse_user_input(user_input))
 		{
-			write(1, "Your answer contains unvalid characters. (Valid characters => [a, z] and [A, Z])\n", 82);
 			if (dico_wrong_answer(prioritaries, len_prio, nb_fails, rank))
 			{
 				return (1);
 			}
 			continue ;
         }
+		else if (strcmp(user_input, "STOP") == 0){
+			return (1);
+		}
 
 		if (check_answer(user_input, dico[rank].answers))
 		{
 			write(1, ">>> CORRECT <<<\n", 17);
-			dico_correct_answer(good, rank);
+			dico_correct_answer(good, rank, nb_correct);
         }
 		else
 		{

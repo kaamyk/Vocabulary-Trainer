@@ -21,7 +21,10 @@ int main( void ){
 
     run(&prioritaries, dico);
 
-    reset_prioritary_file(prioritaries);
+    if (prioritaries != NULL)
+    {
+        reset_prioritary_file(prioritaries);
+    }
 
     free(prioritaries);
     free_data(get_len_dico(dico), dico);

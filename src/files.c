@@ -44,6 +44,7 @@ bool    read_priority_words( int **prioritaries ){
 			printf("parse_priority_words failed\n");
 			free(buf);
             free(*prioritaries);
+            fclose(file);
             return (1);
         }
               
@@ -53,6 +54,7 @@ bool    read_priority_words( int **prioritaries ){
             //error_handling function;
 			free(buf);
             free(*prioritaries);
+            fclose(file);
             return (1);
         }
         printf("prioritaries[%d] = [%d]\n", i, (*prioritaries)[i]);
@@ -138,6 +140,7 @@ bool    read_dictionnary( t_data **dico ){
             //error
             write(2, "Error: setup_strings(): ft_split failed.\n", 42);
             error_read_dictionnary((*dico), file_len, splitted_line, buf);
+            fclose(file);
             return (1);
         }
         //  parse_line();
@@ -145,19 +148,21 @@ bool    read_dictionnary( t_data **dico ){
         if ((*dico)[i].to_guess == NULL){
             write(2, ">>> Error: setup_strings(): ft_strdup() to_guess allocation failed.\n", 57);
             error_read_dictionnary((*dico), file_len, splitted_line, buf);
+            fclose(file);
             return (1);
         }
         (*dico)[i].answers = tabdup(splitted_line + 1);
         if ((*dico)[i].answers == NULL){
             write(2, ">>> Error: setup_strings(): ft_strdup() answers allocation failed.\n", 57);
             error_read_dictionnary((*dico), file_len, splitted_line, buf);
+            fclose(file);
             return (1);
         }
 
         if (splitted_line != NULL){
             free_tab((void **)splitted_line);
         }
-        printf("The german (*dico) to guess is : [%s].\n", (*dico)[i].to_guess);
+        printf("The german dico to guess is : [%s].\n", (*dico)[i].to_guess);
         printf("answers:\n");
         print_tab((*dico)[i].answers);
 
