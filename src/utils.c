@@ -18,6 +18,15 @@ void	print_prioritaries( int *p )
 	}
 }
 
+void	print_results( __uint8_t nb_fails, __uint8_t nb_correct )
+{
+	printf("\tEND OF SESSION !\n");
+	printf(WHT "\n\tRight answers: " reset);
+	printf(BGRN "%d" reset, nb_correct);
+	printf(WHT "\tWrong answers: " reset);
+	printf(BRED "%d\n" reset, nb_fails);
+}
+
 	/*		FREE		*/
 
 void	free_tab( void **t )

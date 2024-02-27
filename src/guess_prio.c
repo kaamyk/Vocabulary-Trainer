@@ -2,31 +2,34 @@
 
 void	prio_right_answer( __uint8_t *nb_correct, int **prioritaries, unsigned int *len_prio, unsigned int rank_to_del )
 {
-    if (rank_to_del < *len_prio && (*prioritaries)[rank_to_del] != -1)
+    if (rank_to_del >= *len_prio || (*prioritaries)[rank_to_del] == -1)
 	{
-        unsigned int i = rank_to_del;
-		
-		*nb_correct += 1;
-        while (i + 1 < *len_prio && (*prioritaries)[i + 1] != -1)
-		{
-            (*prioritaries)[i] = (*prioritaries)[i + 1];
-            ++i;
-        }
-        (*prioritaries)[i] = -1;
-		*len_prio -= 1;
-    }
+		printf("Error: prio_right_answer(): rank_to_del is invalid.");
+		return ;
+	}
+	printf(BGRN "\t>>> CORRECT <<<\n" COLOR_RESET);
+	unsigned int i = rank_to_del;
+	
+	*nb_correct += 1;
+	while (i + 1 < *len_prio && (*prioritaries)[i + 1] != -1)
+	{
+		(*prioritaries)[i] = (*prioritaries)[i + 1];
+		++i;
+	}
+	(*prioritaries)[i] = -1;
+	*len_prio -= 1;
 }
 
 void	prio_wrong_answer( __uint8_t *nb_fails, char **right_answer ){
+	printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
 	*nb_fails += 1;
 	printf( "Answers:\n");
-	for (unsigned int i = 0; right_answer[i] != NULL; i++)
-	{
-		printf( "\t%s\n", right_answer[i]);
-	}
+	print_tab(right_answer);
 }
 
-bool    guess_prio( int **prioritaries, t_data *dico, unsigned int *len_prioritaries, __uint8_t *nb_fails, __uint8_t *nb_correct )
+
+
+bool    guess_prio( int **prioritaries, unsigned int *len_prioritaries, t_data *dico, __uint8_t *nb_fails, __uint8_t *nb_correct )
 {
 	printf("\n>>> GUESS PRIO\n");
     int				rank_dico = 0;
@@ -45,32 +48,24 @@ bool    guess_prio( int **prioritaries, t_data *dico, unsigned int *len_priorita
         printf("Word to guess: %s\n\t", dico[rank_dico].to_guess);
         printf("Your answer: ");
 
-        if (fgets(user_input, MAX_LEN_INPUT, stdin) == NULL)
+		if (get_input(user_input))
 		{
-			printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
-			printf("The word you typed is too long. (Max characters: 45)\n");
 			prio_wrong_answer(nb_fails, dico[rank_dico].answers);
 			continue ;
 		}
-		else if (parse_user_input(user_input))
+
+		if (strcmp(user_input, "STOP") == 0)
 		{
-			printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
-			printf("Your answer contains unvalid characters. (Valid characters => [a, z] and [A, Z])\n");
-			prio_wrong_answer(nb_fails, dico[rank_dico].answers);
-			continue ;
-        }
-		else if (strcmp(user_input, "STOP") == 0){
+			printf("Stopping the session.");
 			return (1);
 		}
 		
 		if (check_answer(user_input, dico[rank_dico].answers))
 		{
-			printf(BGRN "\t>>> CORRECT <<<\n" COLOR_RESET);
 			prio_right_answer(nb_correct, prioritaries, len_prioritaries, rank_prio);
         }
 		else
 		{
-			printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
 			prio_wrong_answer(nb_fails, dico[rank_dico].answers);
 		}
 		reset_user_input(user_input);

@@ -27,8 +27,9 @@ typedef struct  s_data
 	/*		 UTILS		*/
 	/*					*/
 void	print_tab( char **t );
-void	free_tab( void **t );
 void	print_prioritaries( int *p );
+void	print_results( __uint8_t nb_fails, __uint8_t nb_correct );
+void	free_tab( void **t );
 void	free_data( const unsigned int len, t_data *data );
 unsigned int    get_file_len( FILE *file );
 unsigned int	get_len_dico( t_data *dico );
@@ -53,21 +54,24 @@ bool	read_dictionnary( t_data **dico );
 bool   	parse_user_input( char* user_input );
 void	reset_user_input( char *user_input );
 bool    check_answer( char* user_input, char **answers );
+bool	get_input( char *user_input );
 void    run( int **prioritaries, t_data *word );
+
 
 	/*						*/
 	/*      GUESS DICO		*/
 	/*						*/
 void	dico_correct_answer( int *good, unsigned int rank_to_del, __uint8_t *nb_correct );
-bool	dico_wrong_answer( int **prioritaries, unsigned int *len_prio, __uint8_t *nb_fails, int rank );
+bool	dico_wrong_answer( int **prioritaries, unsigned int *len_prio, __uint8_t *nb_fails, int rank, char **right_answers );
 bool	check_rank( int rank, int *good, int len );
 bool    guess_dico( int **prioritaries, unsigned int *len_prio, t_data *dico, __uint8_t *nb_fails, __uint8_t *nb_correct );
+
 
 	/*						*/
 	/*      GUESS PRIO		*/
 	/*						*/
 void	prio_right_answer( __uint8_t *nb_correct, int **prioritaries, unsigned int *len_prio, unsigned int rank_to_del );
 void	prio_wrong_answer( __uint8_t *nb_fails, char **right_answer );
-bool    guess_prio( int **prioritaries, t_data *dico, unsigned int *len_prioritaries, __uint8_t *nb_fails, __uint8_t *nb_correct );
+bool    guess_prio( int **prioritaries, unsigned int *len_prioritaries, t_data *dico, __uint8_t *nb_fails, __uint8_t *nb_correct );
 
 #endif

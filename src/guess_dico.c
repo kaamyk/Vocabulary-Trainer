@@ -5,6 +5,7 @@ void	dico_correct_answer( int *good, unsigned int rank_to_del, __uint8_t *nb_cor
 	// Ajouter l'index devine a une liste
 	unsigned int i = 0;
 
+	printf(BGRN "\t>>> CORRECT <<<\n" COLOR_RESET);
 	while (i < MAX_LEN_INPUT && good[i] != 0){
 		i++;
 	}
@@ -12,8 +13,9 @@ void	dico_correct_answer( int *good, unsigned int rank_to_del, __uint8_t *nb_cor
 	*nb_correct += 1;
 }
 
-bool	dico_wrong_answer( int **prioritaries, unsigned int *len_prio, __uint8_t *nb_fails, int rank )
+bool	dico_wrong_answer( int **prioritaries, unsigned int *len_prio, __uint8_t *nb_fails, int rank, char **right_answers )
 {
+	printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
 	int	*n_prio = malloc(sizeof(int) * ((*len_prio) + 2));
 	if (n_prio == NULL)
 	{
@@ -38,10 +40,13 @@ bool	dico_wrong_answer( int **prioritaries, unsigned int *len_prio, __uint8_t *n
         }
 	    n_prio[i] = rank;
     }
-	free(*prioritaries);
-	*prioritaries = n_prio;
     *len_prio += 1;
     *nb_fails += 1;
+	printf("Right answers were:\n");
+	print_tab(right_answers);
+
+	free(*prioritaries);
+	*prioritaries = n_prio;
 	return (0);
 }
 
@@ -49,6 +54,7 @@ bool	check_rank( int rank, int *good, int len_dico )
 {
 	if (rank >= len_dico)
 	{
+		printf("Error: prio_right_answer(): rank_to_del is invalid.");
 		return (1);
 	}
 	for (unsigned int i = 0; i < MAX_LEN_INPUT && good[i] != 0; i++)
@@ -78,46 +84,29 @@ bool	guess_dico( int **prioritaries, unsigned int *len_prio, t_data *dico, __uin
         printf("Word to guess: %s\n\t", dico[rank].to_guess);
         printf("Your answer: ");
 
-        if (fgets(user_input, MAX_LEN_INPUT, stdin) == NULL)
+        if (get_input(user_input))
 		{
-			printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
-			printf("The word you typed is too long. (Max characters: 45)\n");
-			if (dico_wrong_answer(prioritaries, len_prio, nb_fails, rank))
+			if (dico_wrong_answer(prioritaries, len_prio, nb_fails, rank, dico[rank].answers))
 			{
 				return (1);
 			}
-			printf("Right answers were:\n");
-			print_tab(dico[rank].answers);
 			continue ;
 		}
-		else if (parse_user_input(user_input))
+		else if (strcmp(user_input, "STOP") == 0)
 		{
-			printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
-			if (dico_wrong_answer(prioritaries, len_prio, nb_fails, rank))
-			{
-				return (1);
-			}
-			continue ;
-        }
-		else if (strcmp(user_input, "STOP") == 0){
+			printf("Stopping the session.");
 			return (1);
 		}
 
 		if (check_answer(user_input, dico[rank].answers))
 		{
-			printf(BGRN "\t>>> CORRECT <<<\n" COLOR_RESET);
 			dico_correct_answer(good, rank, nb_correct);
         }
 		else
 		{
-			printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
-			if (dico_wrong_answer(prioritaries, len_prio, nb_fails, rank))
+			if (dico_wrong_answer(prioritaries, len_prio, nb_fails, rank, dico[rank].answers))
 			{
 				return (1);
-			}
-			for (unsigned int i = 0; dico[rank].answers[i] != NULL; i++)
-			{
-				printf("\t%s\n", dico[rank].answers[i]);
 			}
 		}
 		reset_user_input(user_input);
