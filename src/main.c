@@ -5,7 +5,7 @@ bool	setup( int **prioritaries, t_data **dico ){
     {
         return (1);
     }
-    if (read_dictionnary(dico))
+    if (parse_dictionnary(dico))
     {
         free(*prioritaries);    
         return (1);
@@ -33,6 +33,6 @@ int main( void ){
     }
 
     free(prioritaries);
-    free_data(get_len_dico(dico), dico);
+    free_data(len_dico(dico), dico);
     return (0);
 }

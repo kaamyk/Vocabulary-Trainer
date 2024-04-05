@@ -27,13 +27,11 @@ void	prio_wrong_answer( __uint8_t *nb_fails, char **right_answer ){
 	print_tab(right_answer);
 }
 
-
-
-bool    guess_prio( int **prioritaries, unsigned int *len_prioritaries, t_data *dico, __uint8_t *nb_fails, __uint8_t *nb_correct )
+bool    guess_prio( int **prioritaries, unsigned int *len_prioritaries, __uint8_t *nb_fails, __uint8_t *nb_correct )
 {
-	printf("\n>>> GUESS PRIO\n");
-    int				rank_dico = 0;
-    unsigned int	rank_prio = 0;
+	printf(BYEL "\n\t>>> GUESS PRIO\n" COLOR_RESET);
+    unsigned int	rank_dico = 0;
+    uint8_t	rank_prio = 0;
     char			user_input[MAX_LEN_INPUT] = {0};
 
     while (*nb_fails < NB_FAIL && *nb_correct < NB_CORRECT && *len_prioritaries > 0)
@@ -59,8 +57,7 @@ bool    guess_prio( int **prioritaries, unsigned int *len_prioritaries, t_data *
 			printf("Stopping the session.");
 			return (1);
 		}
-		
-		if (check_answer(user_input, dico[rank_dico].answers))
+		else if (check_answer(user_input, dico[rank_dico].answers))
 		{
 			prio_right_answer(nb_correct, prioritaries, len_prioritaries, rank_prio);
         }

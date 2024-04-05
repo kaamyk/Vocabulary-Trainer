@@ -52,7 +52,7 @@ bool	dico_wrong_answer( int **prioritaries, unsigned int *len_prio, __uint8_t *n
 
 bool	check_rank( int rank, int *good, int len_dico )
 {
-	if (rank >= len_dico)
+	if (rank >= len_
 	{
 		printf("Error: prio_right_answer(): rank_to_del is invalid.");
 		return (1);
@@ -69,17 +69,19 @@ bool	check_rank( int rank, int *good, int len_dico )
 
 bool	guess_dico( int **prioritaries, unsigned int *len_prio, t_data *dico, __uint8_t *nb_fails, __uint8_t *nb_correct )
 {
-	printf(">>> GUESS DICO\n");
-    const unsigned int    len_dico = get_len_dico(dico);
+	printf(BBLU ">>> GUESS DICO\n" COLOR_RESET);
+    const unsigned int    l_dico = len_dico(dico);
     int		rank = 0;
     char	user_input[MAX_LEN_INPUT] = {0};
 	int		good[NB_CORRECT + 1] = {0}; 
 
     while (*nb_fails < NB_FAIL && *nb_correct < NB_CORRECT){
-        rank = rand() % len_dico;
+        rank = rand() % l_dico;
+		if (rank % 3 == 0)
+			srand(time(NULL));
 		while (check_rank(rank, good, len_dico))
 		{
-			rank = rand() % len_dico;
+			rank = rand() % l_dico;
 		}
         printf("Word to guess: %s\n\t", dico[rank].to_guess);
         printf("Your answer: ");

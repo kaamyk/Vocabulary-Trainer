@@ -62,7 +62,7 @@ void	free_data( const unsigned int len, t_data *data )
 
 	/*		LENGHT		*/
 
-unsigned int    get_file_len( FILE *file ){
+unsigned int    len_file( FILE *file ){
 
     char    *buf = NULL;
     size_t  n = 0;
@@ -77,23 +77,7 @@ unsigned int    get_file_len( FILE *file ){
     return (len);
 }
 
-unsigned int	get_len_dico( t_data *dico )
-{
-	if (dico == NULL)
-	{
-		printf(">>> dico is empty\n");
-		return (0);
-	}
-	
-	unsigned int l = 0;
-	while (dico[l].answers != NULL && dico[l].to_guess != NULL)
-	{
-		l++;
-	}
-	return (l);
-}
-
-unsigned int	get_len_prioritaries( int *prioritaries )
+unsigned int	len_prioritaries( int *prioritaries )
 {
 	unsigned int l = 0;
 	while (prioritaries[l] != -1)
@@ -101,6 +85,15 @@ unsigned int	get_len_prioritaries( int *prioritaries )
 		l++;
 	}
 	return (l);
+}
+
+uint8_t	len_tab( char **t )
+{
+	uint8_t	i = 0;
+
+	while ((*t)[i] != NULL)
+		++i;
+	return (i);
 }
 
 	/*		ALLOCATION		*/
