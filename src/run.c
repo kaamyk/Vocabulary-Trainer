@@ -57,17 +57,17 @@ void    run( int **prioritaries )
 {
 	__uint8_t		nb_fails = 0;
     __uint8_t		nb_correct = 0;
-    unsigned int	len_prioritaries = len_prioritaries(*prioritaries);
+    unsigned int	l_prioritaries = len_prioritaries(*prioritaries);
 
-	if (len_prioritaries > 0
-		&& guess_prio(prioritaries, &len_prioritaries, &nb_fails, &nb_correct))
+	if (l_prioritaries > 0
+		&& guess_prio(prioritaries, &l_prioritaries, &nb_fails, &nb_correct))
 	{
 		// Handle Memory
 		print_results(nb_fails, nb_correct);
 		return ;
 	}
 	if (nb_fails < NB_FAIL && nb_correct < NB_CORRECT
-		&& guess_dico(prioritaries, &len_prioritaries, &nb_fails, &nb_correct))
+		&& guess_dico(prioritaries, &l_prioritaries, &nb_fails, &nb_correct))
 	{
 		// Handle Memory
 		print_results(nb_fails, nb_correct);

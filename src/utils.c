@@ -39,27 +39,6 @@ void	free_tab( void **t )
 	t = NULL;
 }
 
-void	free_data( const unsigned int len, t_data *data )
-{
-	for (unsigned int i = 0; i < len; i++)
-	{
-		if (data[i].to_guess != NULL){
-			free(data[i].to_guess);
-		}
-		if (data[i].answers != NULL)
-		{
-			char	**ptr = data[i].answers;
-			for (unsigned int j = 0; ptr[j] != NULL; j++)
-			{
-				free(ptr[j]);
-			}
-			free(ptr);
-		}
-	}
-	free(data);
-	data = NULL;
-}
-
 	/*		LENGHT		*/
 
 unsigned int    len_file( FILE *file ){
@@ -128,6 +107,23 @@ char	**tabdup( char **t )
 	return (res);
 }
 
+bool	init_tab( char **tab, const unsigned int l )
+{
+	if (l == 0)
+		return (0);
+	else if (tab != NULL)
+		free_tab(tab);
+
+	tab = malloc(sizeof(char *) * l + 1);
+	if (tab == NULL)
+		return (1);
+	for (unsigned int i = 0; i < l; i++)
+		tab[l] = NULL;
+	return (0);
+}
+
+	/*		MODIFY VALUES		*/
+
 void	del_char( char *s, char c )
 {
 	unsigned int j = 0;
@@ -149,4 +145,63 @@ void	del_char( char *s, char c )
 		}
 	}
 	return ;
+}
+
+void	clear_tab( char **tab )
+{
+	
+}
+
+	/*		DEFINE VALUES		*/
+
+void	define_rank_dico( unsigned int *rank, const unsigned int l_dico, int *good )
+{
+	*rank = rand() % l_dico;
+	if (*rank % 3 == 0)
+		srand(time(NULL));
+	while (check_rank(*rank, good, l_dico))
+	{
+		*rank = rand() % l_dico;
+	}
+}
+
+void	define_rank_prio( unsigned *rank_dico, unsigned int **prioritaries, uint8_t *len_prioritaries )
+{
+    uint8_t	rank_prio = 0;
+
+	rank_prio = *len_prioritaries != 1 ? rand() % *len_prioritaries : 0;
+	if (rank_prio >= *len_prioritaries)
+	{
+		return (1);
+	}
+	*rank_dico = (*prioritaries)[rank_prio];
+}
+
+uint8_t	define_word_to_guess( char **splitted_line )
+{
+	bool	key_val = rand() % 2;
+
+	if (!key_val)
+		return (0);
+	else
+	{
+		uint8_t	res = rand() % (len_tab(splitted_line) - 1);
+		return (res + 1);
+	}
+
+}
+
+void	define_key_value_pair( char *word_to_guess, char **values, unsigned int *rank_dico )
+{
+	char	**splitted_line = read_dictionary(*rank_dico, file);
+	uint8_t	r_to_guess = define_word_to_guess(splitted_line);
+
+	word_to_guess = strdup((*splitted_line)[r_to_guess]);
+	if (r_to_guess == 0)
+		values = tabdup(splitted_line + 1);
+	else
+	{
+		clear_tab(values);
+		values[0] = strdup((*splitted_line)[0]);
+	}
 }

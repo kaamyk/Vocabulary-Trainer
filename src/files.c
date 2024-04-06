@@ -117,12 +117,12 @@ bool    reset_prioritary_file( int *prioritaries )
     /*      READ DICO       */
     /*                      */
 
-int    error_parse_dictionary( t_data *word, size_t file_len, char **splitted_line, char *buf, FILE *file )
+bool    error_parse_dictionary( char **splitted_line, char *buf, FILE *file )
 {
-    free_tab((void **)splitted_line);
+    if (splitted_line != NULL)
+        free_tab((void **)splitted_line);
     if (buf != NULL)
         free(buf);
-    free_data(file_len, word);
     fclose(file);
     return (1);
 }
@@ -180,14 +180,15 @@ bool    parse_line( char *l, size_t l_nb )
     return (0);
 }
 
-bool    parse_dictionary( void ){
+bool    parse_dictionary( void )
+{
 	FILE  *file = fopen("./data/.dico.csv", "r");
 	if (file == NULL)
 	{
 		write(2, "Error: read_doctionnary(): file failed to open\n", 48);
 		return (1);
 	}
-    
+
     char    **splitted_line = NULL;
     char    *buf = NULL;
     size_t  len = 0;
@@ -197,39 +198,28 @@ bool    parse_dictionary( void ){
 	{
 		buf[strlen(buf) - 1] = 0;
         if (parse_line(buf, i))
+        {
+            splitted_line = ft_split(buf, ',');
             return (error_parse_dictionary(file_len, splitted_line, buf, file));
-		splitted_line = ft_split(buf, ',');
-		if (splitted_line == NULL || handle_input(splitted_line, i))
-			return (error_parse_dictionary(file_len, splitted_line, buf, file));
-		free_tab((void **)splitted_line);
+        }
 	}
 
-	free(buf);
 	fclose(file);
 	return (0);
 }
 
-char	**read_dico( uint8_t file_line, uint8_t word_to_guess )
+char	**read_dictionary( unsigned int file_line, FILE *file )
 {
-	FILE  *file = fopen("./data/.dico.csv", "r");
-	if (file == NULL)
-	{
-		write(2, "Error: read_doctionnary(): file failed to open\n", 48);
-		return (1);
-	}
-
 	char	**splitted_line = NULL;
 	char	*buf = NULL;
 	size_t	len = 0;
-	const unsigned int file_len = len_file(file);
 
 	for (unsigned int i = 0; i < file_line && getline(&buf, &len, file) != -1; i++)
 	{;}
-	splitted_line = ft_split(buf, ',');
+    splitted_line = ft_split(buf, ',');
 	if (splitted_line == NULL || parse_word(splitted_line, file_line))
-		return (error_parse_dictionary(file_len, splitted_line, buf, file));
+		return (error_parse_dictionary(splitted_line, buf, file));
 
 	free(buf);
-	fclose(file);
 	return (splitted_line);
 }

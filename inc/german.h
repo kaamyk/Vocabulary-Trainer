@@ -27,15 +27,24 @@
 /*					*/
 /*		UTILS		*/
 /*					*/
+	/* print */
 void	print_tab( char **t );
 void	print_prioritaries( int *p );
 void	print_results( __uint8_t nb_fails, __uint8_t nb_correct );
+	/* free */
 void	free_tab( void **t );
+	/* lenght */
 unsigned int	len_file( FILE *file );
 unsigned int	len_prioritaries( int *prioritaries );
 uint8_t	len_tab( char **t );
+	/* Allocation */
 char	**tabdup( char **t );
+bool	init_tab( char **tab, const unsigned int l );
+	/* Modify values */
 void	del_char( char *s, char c );
+	/* Define values */
+uint8_t	define_word_to_guess( char **splitted_line );
+void    define_key_value_pair( char *key, char **values, unsigned int *rank_dico );
 
 
 /*					*/
@@ -44,7 +53,7 @@ void	del_char( char *s, char c );
 int		parse_priority_words( char *buf );
 bool	read_priority_words( int **prioritaries );
 bool	reset_prioritary_file( int *prioritaries );
-int		error_parse_dictionary( size_t file_len, char **splitted_line, char *buf, FILE *file );
+bool		error_parse_dictionary( size_t file_len, char **splitted_line, char *buf, FILE *file );
 bool	parse_dictionary( void );
 
 
