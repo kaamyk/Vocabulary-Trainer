@@ -18,7 +18,7 @@ void	print_prioritaries( int *p )
 	}
 }
 
-void	print_results( __uint8_t nb_fails, __uint8_t nb_correct )
+void	print_results( uint8_t nb_fails, uint8_t nb_correct )
 {
 	printf("\tEND OF SESSION !\n");
 	printf(WHT "\n\tRight answers: " reset);
@@ -41,11 +41,17 @@ void	free_tab( void **t )
 
 	/*		LENGHT		*/
 
-unsigned int    len_file( FILE *file ){
+int    len_file( FILE *file ){
+
+	if (file == NULL)
+	{
+		printf("len_file(): file parameter is NULL.\n");
+		return (-1);
+	}
 
     char    *buf = NULL;
     size_t  n = 0;
-    unsigned int    len = 0;
+    int    len = 0;
 
     while (getline(&buf, &n, file) != -1)
 	{
@@ -70,7 +76,7 @@ uint8_t	len_tab( char **t )
 {
 	uint8_t	i = 0;
 
-	while ((*t)[i] != NULL)
+	while (t[i] != NULL)
 		++i;
 	return (i);
 }
@@ -100,26 +106,29 @@ char	**tabdup( char **t )
 	res[ptr - t] = NULL;
 	for (unsigned int i = 0; t[i] != NULL && i < ptr - t; i++){
 		res[i] = ft_strdup(t[i]);
-		if (res[i] == NULL){
+		if (res[i] == NULL)
+		{
 			// error
 		}
 	}
 	return (res);
 }
 
-bool	init_tab( char **tab, const unsigned int l )
+char	**init_tab( const unsigned int l )
 {
+	char	**tab = NULL;
+	
 	if (l == 0)
-		return (0);
+		return (NULL);
 	else if (tab != NULL)
-		free_tab(tab);
+		free_tab((void **)tab);
 
 	tab = malloc(sizeof(char *) * l + 1);
 	if (tab == NULL)
-		return (1);
+		return (NULL);
 	for (unsigned int i = 0; i < l; i++)
-		tab[l] = NULL;
-	return (0);
+		tab[i] = NULL;
+	return (tab);
 }
 
 	/*		MODIFY VALUES		*/
@@ -147,34 +156,47 @@ void	del_char( char *s, char c )
 	return ;
 }
 
-void	clear_tab( char **tab )
+bool	check_rank( int rank, int *good, int *l_dico )
 {
-	
+	if (rank >= *l_dico)
+	{
+		printf("Error: prio_right_answer(): rank_to_del is invalid.");
+		return (1);
+	}
+	for (unsigned int i = 0; i < MAX_LEN_INPUT && good[i] != 0; i++)
+	{
+		if (good[i] == rank)
+		{
+			return (1);
+		}
+	}
+	return (0);
 }
 
 	/*		DEFINE VALUES		*/
 
-void	define_rank_dico( unsigned int *rank, const unsigned int l_dico, int *good )
+bool	define_rank_dico( int *rank, int *good, int *l_dico )
 {
-	*rank = rand() % l_dico;
+	*rank = rand() % *l_dico;
+	if (*rank >= *l_dico)
+		return (1);
 	if (*rank % 3 == 0)
 		srand(time(NULL));
 	while (check_rank(*rank, good, l_dico))
 	{
-		*rank = rand() % l_dico;
+		*rank = rand() % *l_dico;
 	}
+	return (0);
 }
 
-void	define_rank_prio( unsigned *rank_dico, unsigned int **prioritaries, uint8_t *len_prioritaries )
+bool	define_rank_prio( int *rank_dico, t_data *data )
 {
-    uint8_t	rank_prio = 0;
-
-	rank_prio = *len_prioritaries != 1 ? rand() % *len_prioritaries : 0;
-	if (rank_prio >= *len_prioritaries)
-	{
+    uint8_t	rank_prio = data->l_prio != 1 ? rand() % data->l_prio : 0;
+	if (rank_prio >= data->l_prio)
 		return (1);
-	}
-	*rank_dico = (*prioritaries)[rank_prio];
+
+	*rank_dico = data->prioritaries[rank_prio];
+	return (0);
 }
 
 uint8_t	define_word_to_guess( char **splitted_line )
@@ -188,20 +210,32 @@ uint8_t	define_word_to_guess( char **splitted_line )
 		uint8_t	res = rand() % (len_tab(splitted_line) - 1);
 		return (res + 1);
 	}
-
 }
 
-void	define_key_value_pair( char *word_to_guess, char **values, unsigned int *rank_dico )
+void	clear_tab( char **tab )
+{
+	if (tab == NULL)
+		return ;
+	while (*tab != NULL)
+	{
+		free(*tab);
+		++(*tab);
+	}
+}
+
+void	define_key_value_pair( char **word_to_guess, char ***values, int *rank_dico, FILE *file )
 {
 	char	**splitted_line = read_dictionary(*rank_dico, file);
 	uint8_t	r_to_guess = define_word_to_guess(splitted_line);
 
-	word_to_guess = strdup((*splitted_line)[r_to_guess]);
+	(void) word_to_guess;
+	*word_to_guess = strdup(splitted_line[r_to_guess]);
 	if (r_to_guess == 0)
-		values = tabdup(splitted_line + 1);
+		*values = tabdup(splitted_line + 1);
 	else
 	{
-		clear_tab(values);
-		values[0] = strdup((*splitted_line)[0]);
+		clear_tab(*values);
+		(*values)[0] = strdup(splitted_line[0]);
 	}
+	free_tab((void **)splitted_line);
 }

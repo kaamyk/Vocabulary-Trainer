@@ -18,11 +18,15 @@
 #define NB_CORRECT 20
 #define NB_FAIL 10
 
-// typedef struct  s_data
-// {
-//     char    *to_guess;
-//     char    **answers;
-// }               t_data;
+typedef struct  s_data
+{
+	FILE	*file;
+	int	l_dico;
+	int	*prioritaries;
+	uint8_t	l_prio;
+	uint8_t	nb_fails;
+	uint8_t	nb_correct;
+}               t_data;
 
 /*					*/
 /*		UTILS		*/
@@ -30,31 +34,39 @@
 	/* print */
 void	print_tab( char **t );
 void	print_prioritaries( int *p );
-void	print_results( __uint8_t nb_fails, __uint8_t nb_correct );
+void	print_results( uint8_t nb_fails, uint8_t nb_correct );
 	/* free */
 void	free_tab( void **t );
 	/* lenght */
-unsigned int	len_file( FILE *file );
+int	len_file( FILE *file );
 unsigned int	len_prioritaries( int *prioritaries );
 uint8_t	len_tab( char **t );
 	/* Allocation */
 char	**tabdup( char **t );
-bool	init_tab( char **tab, const unsigned int l );
+char	**init_tab( const unsigned int l );
 	/* Modify values */
 void	del_char( char *s, char c );
+bool	check_rank( int rank, int *good, int *l_dico );
+void	clear_tab( char **tab );
 	/* Define values */
+bool	define_rank_dico( int *rank, int *good, int *l_dico );	
+bool	define_rank_prio( int *rank_dico, t_data *data );
 uint8_t	define_word_to_guess( char **splitted_line );
-void    define_key_value_pair( char *key, char **values, unsigned int *rank_dico );
+void    define_key_value_pair( char **key, char ***values, int *rank_dico, FILE *file );
 
 
 /*					*/
 /*		FILES		*/
 /*					*/
+bool	error_prio( const char *err_mess, FILE *file, int *prioritaries );
 int		parse_priority_words( char *buf );
-bool	read_priority_words( int **prioritaries );
+bool	read_priority_words( t_data *data );
 bool	reset_prioritary_file( int *prioritaries );
-bool		error_parse_dictionary( size_t file_len, char **splitted_line, char *buf, FILE *file );
-bool	parse_dictionary( void );
+bool    error_parse_dictionary( char ***splitted_line, char **buf, FILE *file );
+bool	parse_word( char **l, int l_nb );
+bool	parse_line( char *l, int l_nb );
+bool	parse_dictionary( t_data *data );
+char	**read_dictionary( unsigned int file_line, FILE *file );
 
 
 /*				*/
@@ -64,23 +76,22 @@ bool	parse_user_input( char* user_input );
 void	reset_user_input( char *user_input );
 bool	check_answer( char* user_input, char **answers );
 bool	get_input( char *user_input );
-void	run( int **prioritaries );
+void	run( t_data *data );
 
 
 /*						*/
 /*		GUESS DICO		*/
 /*						*/
-void	dico_correct_answer( int *good, unsigned int rank_to_del, __uint8_t *nb_correct );
-bool	dico_wrong_answer( int **prioritaries, unsigned int *len_prio, __uint8_t *nb_fails, int rank, char **right_answers );
-bool	check_rank( int rank, int *good, int len );
-bool    guess_dico( int **prioritaries, unsigned int *len_prio, __uint8_t *nb_fails, __uint8_t *nb_correct );
+void	dico_correct_answer( int *good, unsigned int rank_to_del, uint8_t *nb_correct );
+bool	dico_wrong_answer( t_data *data, int rank, char **right_answers );
+bool    guess_dico( t_data *data );
 
 
 /*						*/
 /*		GUESS PRIO		*/
 /*						*/
-void	prio_right_answer( __uint8_t *nb_correct, int **prioritaries, unsigned int *len_prio, unsigned int rank_to_del );
-void	prio_wrong_answer( __uint8_t *nb_fails, char **right_answer );
-bool	guess_prio( int **prioritaries, unsigned int *len_prioritaries, __uint8_t *nb_fails, __uint8_t *nb_correct );
+void	prio_right_answer( t_data *data, unsigned int rank_to_del );
+void	prio_wrong_answer( uint8_t *nb_fails, char **right_answer );
+bool	guess_prio( t_data *data );
 
 #endif

@@ -2,41 +2,35 @@
 
 void	reset_user_input( char *user_input )
 {
-    for (__uint8_t i = 0; user_input[i] && i < MAX_LEN_INPUT; i++)
-	{
+    for (uint8_t i = 0; user_input[i] && i < MAX_LEN_INPUT; i++)
         user_input[i] = 0;
-    }
 }
 
 bool   	parse_user_input( char* user_input )
 {
-    const __uint8_t  len = strlen(user_input);
-	__uint8_t i = 0;
+    const uint8_t  len = strlen(user_input);
+	uint8_t i = 0;
+
     for (i = 0; i < len && user_input[i] != 0 && user_input[i] != '\n'; i++)
 	{
 		if (strchr(user_input, '\'') != NULL)
 			del_char(user_input, '\'');
 	}
-
+	
 	if (i < 1)
-	{
 		return (1);
-	}
 	else if (user_input[i] == '\n')
-	{
 		user_input[i] = 0;
-	}
+
     return (0);
 }
 
 bool    check_answer( char* user_input, char **answers )
 {
-    for (__uint8_t i = 0; answers[i] != NULL; i++)
+    for (uint8_t i = 0; answers[i] != NULL; i++)
 	{
         if (strcmp(user_input, answers[i]) == 0)
-		{
             return (1);
-        }
     }
     return (0);
 }
@@ -53,25 +47,28 @@ bool	get_input( char *user_input )
 	return (0);
 }
 
-void    run( int **prioritaries )
+void    run( t_data *data )
 {
-	__uint8_t		nb_fails = 0;
-    __uint8_t		nb_correct = 0;
-    unsigned int	l_prioritaries = len_prioritaries(*prioritaries);
+	uint8_t		nb_fails = 0;
+    uint8_t		nb_correct = 0;
+    unsigned int	l_prioritaries = len_prioritaries(data->prioritaries);
+
+	data->file = fopen("./data/.dico.csv", "r");
 
 	if (l_prioritaries > 0
-		&& guess_prio(prioritaries, &l_prioritaries, &nb_fails, &nb_correct))
+		&& guess_prio(data))
 	{
 		// Handle Memory
 		print_results(nb_fails, nb_correct);
-		return ;
 	}
-	if (nb_fails < NB_FAIL && nb_correct < NB_CORRECT
-		&& guess_dico(prioritaries, &l_prioritaries, &nb_fails, &nb_correct))
+	else if (nb_fails < NB_FAIL && nb_correct < NB_CORRECT
+		&& guess_dico(data))
 	{
 		// Handle Memory
 		print_results(nb_fails, nb_correct);
+		fclose(data->file);
 		return ;
 	}
+	fclose(data->file);
 	print_results(nb_fails, nb_correct);
 }
