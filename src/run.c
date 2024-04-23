@@ -2,6 +2,7 @@
 
 int	guess_err( char *err_mess, char **buf, char **to_guess, char ***answers, t_data *data)
 {
+<<<<<<< HEAD
 	if (err_mess != NULL)
 		write(2, err_mess, strlen(err_mess));
 	free_all(buf, to_guess, answers);
@@ -11,10 +12,15 @@ int	guess_err( char *err_mess, char **buf, char **to_guess, char ***answers, t_d
 		data->priority = NULL;
 	}
 	return (1);
+=======
+    for (uint8_t i = 0; user_input[i] && i < MAX_LEN_INPUT; i++)
+        user_input[i] = 0;
+>>>>>>> 7ca858be2ac805eef042a8bc86736451b9b1c618
 }
 
 bool	define_guess_answers( char *to_guess, char **answers, char *buf )
 {
+<<<<<<< HEAD
 	if (to_guess == NULL || answers == NULL || buf == NULL)
 		return (1);
 	
@@ -156,4 +162,69 @@ bool	run( t_data *data )
 	else if (guess_dictionary(data))
 		return (1);
 	return (0);
+=======
+    const uint8_t  len = strlen(user_input);
+	uint8_t i = 0;
+
+    for (i = 0; i < len && user_input[i] != 0 && user_input[i] != '\n'; i++)
+	{
+		if (strchr(user_input, '\'') != NULL)
+			del_char(user_input, '\'');
+	}
+	
+	if (i < 1)
+		return (1);
+	else if (user_input[i] == '\n')
+		user_input[i] = 0;
+
+    return (0);
+}
+
+bool    check_answer( char* user_input, char **answers )
+{
+    for (uint8_t i = 0; answers[i] != NULL; i++)
+	{
+        if (strcmp(user_input, answers[i]) == 0)
+            return (1);
+    }
+    return (0);
+}
+
+bool	get_input( char *user_input )
+{
+	if (fgets(user_input, MAX_LEN_INPUT, stdin) == NULL)
+	{
+		printf("The word you typed is too long. (Max characters: 45)\n");
+		return (1) ;
+	}
+	else if (parse_user_input(user_input))
+		return (1) ;
+	return (0);
+}
+
+void    run( t_data *data )
+{
+	uint8_t		nb_fails = 0;
+    uint8_t		nb_correct = 0;
+    unsigned int	l_prioritaries = len_prioritaries(data->prioritaries);
+
+	data->file = fopen("./data/.dico.csv", "r");
+
+	if (l_prioritaries > 0
+		&& guess_prio(data))
+	{
+		// Handle Memory
+		print_results(nb_fails, nb_correct);
+	}
+	else if (nb_fails < NB_FAIL && nb_correct < NB_CORRECT
+		&& guess_dico(data))
+	{
+		// Handle Memory
+		print_results(nb_fails, nb_correct);
+		fclose(data->file);
+		return ;
+	}
+	fclose(data->file);
+	print_results(nb_fails, nb_correct);
+>>>>>>> 7ca858be2ac805eef042a8bc86736451b9b1c618
 }
