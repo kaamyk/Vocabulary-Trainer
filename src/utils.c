@@ -1,24 +1,25 @@
 #include "../inc/german.h"
 
-	/*		PRINTING		*/
+	/*		PRINT		*/
 
 void	print_tab( char **t )
 {
-	for (char **ptr = t; ptr != NULL && *ptr != NULL; ptr++)
+	for (char **ptr = t; ptr != NULL && *ptr != NULL && **ptr != 0; ptr++)
 	{
-		printf("%s\n", *ptr);
+		write(1, *ptr, strlen(*ptr));
+		write(1, "\n", 1);
 	}
 }
 
-void	print_prioritaries( int *p )
+void	print_int_tab( int *t )
 {
-	for (unsigned int i = 0; p[i] != -1; i++)
+	for (int *ptr = t; ptr != NULL && *ptr != -1  && *ptr != 0; ptr++)
 	{
-		printf("prio[%d] = %d\n", i, p[i]);
+		printf("%d\n", *ptr);
 	}
 }
 
-void	print_results( __uint8_t nb_fails, __uint8_t nb_correct )
+void	print_results( uint8_t nb_fails, uint8_t nb_correct )
 {
 	printf("\tEND OF SESSION !\n");
 	printf(WHT "\n\tRight answers: " reset);
@@ -27,133 +28,118 @@ void	print_results( __uint8_t nb_fails, __uint8_t nb_correct )
 	printf(BRED "%d\n" reset, nb_fails);
 }
 
-	/*		FREE		*/
+	/*		LENGTH		*/
 
-void	free_tab( void **t )
+int	l_tab( char **t )
 {
-	for (unsigned int i = 0; t[i]; i++)
-	{
-		free(t[i]);
-	}
-	free(t);
-	t = NULL;
+	char	**tmp = t;
+
+	while (*tmp != NULL)
+		++tmp;
+	return (tmp - t);
 }
 
-void	free_data( const unsigned int len, t_data *data )
+	/*	FREE	*/
+
+char	**ft_freetab(char ***s)
 {
-	for (unsigned int i = 0; i < len; i++)
-	{
-		if (data[i].to_guess != NULL){
-			free(data[i].to_guess);
-		}
-		if (data[i].answers != NULL)
-		{
-			char	**ptr = data[i].answers;
-			for (unsigned int j = 0; ptr[j] != NULL; j++)
-			{
-				free(ptr[j]);
-			}
-			free(ptr);
-		}
-	}
-	free(data);
-	data = NULL;
-}
-
-	/*		LENGHT		*/
-
-unsigned int    get_file_len( FILE *file ){
-
-    char    *buf = NULL;
-    size_t  n = 0;
-    unsigned int    len = 0;
-
-    while (getline(&buf, &n, file) != -1)
-	{
-        ++len;
-    }
-    fseek(file, 0, SEEK_SET);
-    free(buf);
-    return (len);
-}
-
-unsigned int	get_len_dico( t_data *dico )
-{
-	if (dico == NULL)
-	{
-		printf(">>> dico is empty\n");
-		return (0);
-	}
+	if (s == NULL || s[0] == NULL)
+		return (NULL);
 	
-	unsigned int l = 0;
-	while (dico[l].answers != NULL && dico[l].to_guess != NULL)
+	int	i = 0;
+	while (s[0][i] != NULL)
 	{
-		l++;
+		free(s[0][i]);
+		i++;
 	}
-	return (l);
+	free (s[0]);
+	return (NULL);
 }
 
-unsigned int	get_len_prioritaries( int *prioritaries )
+void	free_all( char **buf, char **to_guess, char ***answers )
 {
-	unsigned int l = 0;
-	while (prioritaries[l] != -1)
-	{
-		l++;
-	}
-	return (l);
+	if (buf != NULL && *buf != NULL)
+		free(*buf);
+	if (to_guess != NULL && *to_guess != NULL)
+		free(*to_guess);
+	if (answers != NULL && *answers != NULL)
+		*answers = ft_freetab(answers);
 }
 
-	/*		ALLOCATION		*/
 
-char	**tabdup( char **t )
+	/*	MODIFY VALUES	*/
+
+void	del_nl( char *s )
 {
-	char	**res = NULL;
+	if (s == NULL)
+		return ;
+	char	*tmp = strchr(s, '\n');
+	// printf("tmp == %s\n", tmp);
+	if (tmp != NULL)
+		*tmp = 0;
+}
 
-	if (t == NULL)
-	{
-		write(2, "Error: duptab(): no input tab.\n", 32);
-		return (NULL);
-	}
-	char	**ptr = t;
-	while (*ptr != NULL)
-	{
-		ptr++;
-	}
-	res = malloc(sizeof(char *) * (ptr - t + 1));
+char	**init_answers( void )
+{
+	char	**res = calloc(LEN_ANSWERS + 1, sizeof(char *));
 	if (res == NULL)
-	{
-		write(2, "Error: read_file()->duptab(): res allocation failed.\n", 54);
 		return (NULL);
-	}
-	res[ptr - t] = NULL;
-	for (unsigned int i = 0; t[i] != NULL && i < ptr - t; i++){
-		res[i] = ft_strdup(t[i]);
-		if (res[i] == NULL){
-			// error
+	res[LEN_ANSWERS] = NULL;
+	for (int i = 0; i < LEN_ANSWERS && res != NULL; i++)
+	{
+		res[i] = calloc(MAX_LEN_INPUT + 1, sizeof(char));
+		if (res[i] == NULL)
+		{
+			res = ft_freetab(&res);
+			return (NULL);
 		}
 	}
 	return (res);
 }
 
-void	del_char( char *s, char c )
+	/*	OTHER */
+
+bool	get_input( char *user_input )
 {
-	unsigned int j = 0;
-	if (c == 0 || s == NULL)
+	if (fgets(user_input, MAX_LEN_INPUT, stdin) == NULL)
 	{
-		return ;
+		printf("The word you typed is too long. (Max characters: 45)\n");
+		return (1) ;
 	}
-	for (unsigned int i = 0; s[i] != 0; i++)
+	del_nl(user_input);
+	// printf("\tuser_input: [%s]\n", user_input);
+	return (strlen(user_input) < 1 ? 1 : 0);
+}
+
+char	*find_first_not_of( char *to_find, char *str )
+{
+	while(*str)
 	{
-		if (s[i] == c)
-		{
-			j = i + 1;
-			while (s[j] != 0)
-			{
-				s[j - 1] = s[j];
-				++j;
-			}
-			s[j - 1] = 0;
-		}
+		if (strchr(to_find, *str) == NULL)
+			return (str);
+		++str;
 	}
-	return ;
+	return (NULL);
+}
+
+bool	find_int_in_tab( int n, int *t )
+{
+	while (*t != -1)
+	{
+		if (*t == n)
+			return (1);
+		++t;
+	}
+	return (0);
+}
+
+bool	check_answer( char *user_input, char **answers )
+{
+	// printf("check_answers():\n");
+	for (uint8_t i = 0; answers[i] != NULL; i++)
+	{
+		if (strcmp(user_input, answers[i]) == 0)
+			return (1);
+	}
+	return (0);
 }

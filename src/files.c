@@ -1,235 +1,108 @@
 #include "../inc/german.h"
 
+	/*					*/
+	/*	PRIORITARIES	*/
+	/*					*/
 
-    /*                              */
-    /*      READ PRIORITY WORDS     */
-    /*                              */
-
-int     parse_priority_words( char *buf ){
-    while (*buf != 0){
-        if (ft_isdigit(*buf) == 0 && *buf != '\n')
-        {
-            return (1);
-        }
-        ++buf;
-    }
-    return (0);
+int	len_file( const char *file_name )
+{
+	int	res = 0;
+	size_t	n = 0;
+	char	*buf = NULL;
+	FILE	*file = fopen(file_name, "r");
+	if (file == NULL)
+		return (-1);
+		
+	while (getline(&buf, &n, file) != -1)
+	{
+		++res;
+	}
+	fclose(file);
+	free(buf);
+	return (res);
 }
 
-bool    read_priority_words( int **prioritaries ){
-    FILE  *file = fopen("./data/.prioritaries.txt", "r");
-    if (file == NULL){
-        write(2, "Error: read_priority_words(): file failed to open.\n", 52);
-        return (1);
-    }
+void	parse_priority_error( char *err_mess, char *buf, t_data *data )
+{
+	write(2, err_mess, strlen(err_mess));
+	if (buf != NULL)
+		free(buf);
+	fclose(data->file);
+}
 
-    char    *buf = NULL;
-    size_t  len = 0;
+bool	atoi_file( t_data *data )
+{
+	size_t	n = 0;
+	char	*buf = NULL;
 
-    if ((*prioritaries) != NULL){
-        free((*prioritaries));
-    }
-    const unsigned int  file_len =  get_file_len(file);
-	if (file_len == 0)
+	data->file = fopen("./data/priority.txt", "r");
+	if (data->file == NULL)
+		return (1);
+
+	data->l_dico = len_file("./data/dico.csv");
+	if (data->l_dico == -1)
 	{
-		*prioritaries = malloc(sizeof(int*) * 1);
-        if (*prioritaries == NULL)
-        {
-            write(2, "Error: read_prioritary_words(): allocation failed. (l.38)\n", 59);
-            return (1);
-        }
-		(*prioritaries)[0] = -1;
-		return (0);
-	}
-    *prioritaries = malloc(sizeof(int*) * (file_len + 1));
-    if (*prioritaries == NULL)
-	{
-		write(2, "Error: read_prioritary_words(): allocation failed. (l.38)\n", 59);
+		parse_priority_error("Error: dictionary is invalid.\n", buf, data);
 		return (1);
 	}
-    (*prioritaries)[file_len] = -1;
-
-	for (unsigned int i = 0; i < file_len && getline(&buf, &len, file) != -1; i++){
-		if (parse_priority_words(buf))
+	
+	for (int i = 0; getline(&buf, &n, data->file) != -1 && i < data->l_prio; i++)
+	{
+		del_nl(buf);
+		if (find_first_not_of("0123456789", buf) != NULL)
 		{
-			printf("parse_priority_words failed\n");
-			free(buf);
-			free(*prioritaries);
-			fclose(file);
+			parse_priority_error("Error: priority.txt contains unvalid characters.\n", buf, data);
 			return (1);
-		}      
-		(*prioritaries)[i] = ft_atoi(buf);
-		if ((*prioritaries)[i] == -1)
+		}
+		data->priority[i] = atoi(buf);
+		printf("atoi_file(): data->priority[%d]: %d\n", i, data->priority[i]);
+		if (data->priority[i] > data->l_dico)
 		{
-			write(2, ">>> Error: read_priority_words(): ft_strdup() prioritaries allocation failed.\n", 72);
-			free(buf);
-			free(*prioritaries);
-			fclose(file);
+			parse_priority_error("Error: priority.txt contains an invalid rank.\n", buf, data);
 			return (1);
 		}
 	}
-
 	free(buf);
-    fclose(file);
-    return (0);
+	fclose(data->file);
+	return (0);
 }
 
-
-
-bool    reset_prioritary_file( int *prioritaries )
+bool	parse_priority_file( t_data *data )
 {
-    FILE    *file = fopen("./data/tmp", "w");
-    if (file == NULL)
-    {
-        write(2, "Error: reset_prioritary_files(): \'tmp\' file failes to open\n", 60);
-        return (1);
-    }
-    
-    char    *tmp = NULL;
-    for (size_t  i = 0; prioritaries[i] != -1; i++)
-    {
-        tmp = ft_itoa(prioritaries[i]);
-        if (tmp == NULL
-	    || fwrite(tmp, sizeof(char), strlen(tmp), file) == 0
-		|| fwrite("\n", sizeof(char), 1, file) == 0)
-        {
-            write(2, "Error: reset_prioritary_files(): failed to write in \'tmp\' file\n", 64);
-        }
-		free(tmp);
-    }
-    if (remove("./data/.prioritaries.txt") == -1)
-    {
-        write(2,"Error: reset_prioritaries(): removing old prioritaries file failed.\n", 69);
-        fclose(file);
-        return (1);
-    }
-    if (rename("./data/tmp", "./data/.prioritaries.txt") == -1)
-    {
-        write(2,"Error: reset_prioritaries(): renaming of tmp file failed.\n", 59);
-        fclose(file);
-        return (1);
-    }
-    fclose(file);
-    return (0);
-}
-
-    /*                      */
-    /*      READ DICO       */
-    /*                      */
-
-int    error_read_dictionnary( t_data *word, size_t file_len, char **splitted_line, char *buf, FILE *file )
-{
-    free_tab((void **)splitted_line);
-    if (buf != NULL)
-        free(buf);
-    free_data(file_len, word);
-    fclose(file);
-    return (1);
-}
-
-bool    parse_word( char **l )
-{
-    unsigned int i = 0;
-    for (i = 0; l[i] != NULL; i++)
-    {
-        if (strlen(l[i]) == 0 || strlen(l[i]) > 46)
-        {
-            printf("word: %s\n", l[0]);
-            printf("line: %s\n", l[i]);
-            return (1);
-        }
-        unsigned int j = 0;
-        for (j = 0; l[i][j] != 0; j++)
-        {
-            if (ft_isalpha(l[i][j]) == 0 && l[i][j] != ' ' && l[i][j] != '\'')
-            {
-                printf("Invalid Character\n");
-                printf("word: %s\n", l[0]);
-                printf("line: %s\n", l[i]);
-                return (1);
-            }
-        }
-        if(strchr(l[i], '\'') != NULL)
-        {
-            del_char(l[i], '\'');
-        }
-    }
-    if (l[i] == NULL && i < 2)
-    {
-        printf("len error\n");
-        printf("word: %s\n", l[0]);
-        printf("line: %s\n", l[i]);
-        return (1);
-    }
-    return (0);
-}
-
-bool	handle_input( char **splitted_line, t_data **dico, const unsigned int r )
-{
-	if (parse_word(splitted_line))
-	{
-		write(2, "Error: parse_word().\n", 22);
+	data->l_prio = len_file("./data/priority.txt");
+	if (data->l_prio == -1)
 		return (1);
-	}
-	(*dico)[r].to_guess = ft_strdup(splitted_line[0]);
-	if ((*dico)[r].to_guess == NULL)
-	{
-		write(2, "Error: setup_strings(): ft_strdup() to_guess allocation failed.\n", 65);
+
+	data->priority = calloc(data->l_prio + 1, sizeof(int));
+	if (data->priority == NULL)
 		return (1);
-	}
-	(*dico)[r].answers = tabdup(splitted_line + 1);
-	if ((*dico)[r].answers == NULL)
+	data->priority[data->l_prio] = -1;
+	if (atoi_file(data))
 	{
-		write(2, "Error: setup_strings(): ft_strdup() answers allocation failed.\n", 64);
+		free(data->priority);
 		return (1);
 	}
 	return (0);
 }
 
-bool    read_dictionnary( t_data **dico ){
-    FILE  *file = fopen("./data/.dico.csv", "r");
-    if (file == NULL)
+	/*				*/
+	/*	DICTIONARY	*/
+	/*				*/
+bool	parse_dictionary_line( char *buf, int l_nb, t_data *data )
+{
+	if (buf == NULL)
+		return (0);
+	else if (find_int_in_tab(l_nb, data->invalid_lines))
+		return (1);
+	for (unsigned int j = 0; buf[j]; j++)
 	{
-        write(2, "Error: read_doctionnary(): file failed to open\n", 48);
-        return (1);
-    }
-    
-    char    **splitted_line = NULL;
-    char    *buf = NULL;
-    size_t  len = 0;
-    const unsigned int file_len = get_file_len(file);
-
-    if ((*dico) != NULL)
-	{
-        free_data(get_len_dico((*dico)), (*dico));
-    }
-    (*dico) = calloc(file_len + 1, sizeof(t_data));
-    if ((*dico) == NULL)
-	{
-        write(2, "Error: struct (*dico): allocation failed.\n", 43);
-        fclose(file);
-        return (0);
-    }
-
-    for (unsigned int i = 0; i < file_len && getline(&buf, &len, file) != -1; i++)
-	{
-		buf[strlen(buf) - 1] = 0;
-		splitted_line = ft_split(buf, ',');
-		if (splitted_line == NULL)
+		if (buf[j] == ',' && isalpha(buf[j + 1]) == 0)
 		{
-			write(2, "Error: setup_strings(): ft_split failed.\n", 42);
-			return (error_read_dictionnary((*dico), file_len, splitted_line, buf, file));
+			// write(2, "Error: dictionnary format is invalid.\n", 39);
+			data->invalid_lines[data->l_invalid_lines] = l_nb;
+			data->l_invalid_lines += 1;
+			return (1);
 		}
-		else if (handle_input(splitted_line, dico, i))
-		{
-			return (error_read_dictionnary((*dico), file_len, splitted_line, buf, file));
-		}
-		free_tab((void **)splitted_line);
 	}
-	(*dico)[file_len].to_guess = NULL;
-	(*dico)[file_len].answers = NULL;
-
-	free(buf);
-	fclose(file);
 	return (0);
 }
