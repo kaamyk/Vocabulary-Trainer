@@ -70,6 +70,7 @@ int	define_line( t_data *data, bool is_dico )
 		do
 		{
 			res = rand() % data->l_dico;
+			printf("la\n");
 		} while (find_int_in_tab(res, data->past_ranks));
 	}
 	else
@@ -80,34 +81,60 @@ int	define_line( t_data *data, bool is_dico )
 	return (res);
 }
 
+bool	jump_to_line( char **buf, size_t *n, int *i, int l_nb[2], t_data *data )
+{
+	while (*i < l_nb[0]) // Jump to the wanted line
+	{
+		if (getline(buf, n, data->file) == -1)
+		{
+			printf("Error: File reading failed.\n");
+			return (1);
+		}
+		(*i)++;
+	}
+	return (0);
+}
+
 bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dico )
 {
 	char	*buf = NULL;
 	char	user_input[MAX_LEN_INPUT + 1] = {0};
 	size_t	n = 0;
-	int	l_nb = 0;
+	int	l_nb[2] = {0}; // [0]: actual line; [1]: previous line
+	int	i = 0;
 
 	while (data->nb_correct < NB_CORRECT && data->nb_fails < NB_FAIL)
 	{
 		if (!is_dico && data->l_prio <= 0)
 			break ;
 		//	Setup the word to guess and the answers
-		fseek(data->file, 0, SEEK_SET);
-		l_nb =  define_line(data, is_dico);
-		for (int i = 0; i < l_nb; i++) // Jump to the line l_nb
+		l_nb[1] = l_nb[0];
+		l_nb[0] =  define_line(data, is_dico);
+		if (l_nb[0] < l_nb[1])
 		{
-			if (getline(&buf, &n, data->file) == -1)
+			i = 0;
+			fseek(data->file, 0, SEEK_SET);
+		}
+		else
+		{
+			i = l_nb[1];
+		}
+		if (jump_to_line(&buf, &n, &i, l_nb, data))
+		{
+			free_all(&buf, NULL, NULL);
+			return (1);
+		}
+		if (parse_dictionary_line(buf, l_nb[0], data))
+		{
+			if (!is_dico)
 			{
-				guess_err("Error: File reading failed.\n", \
-					&buf, &to_guess, &answers, data);
+				printf("Error: a priority line has a format error.\n");
+				free_all(&buf, NULL, NULL);
 				return (1);
 			}
-		}
-		if (parse_dictionary_line(buf, l_nb, data))
-		{
 			if (data->l_invalid_lines >= MAX_INVALID_LINE)
 			{
-				printf(RED "Information: Too many invalid lines. Stopping the session ...\n" COLOR_RESET);
+				printf(RED "Information: Too many invalid lines has a format error. Stopping the session ...\n" COLOR_RESET);
 				free_all(&buf, NULL, NULL);
 				return (1);
 			}
@@ -129,19 +156,19 @@ bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dic
 			}
 
 			if (is_dico)
-				dico_wrong_answer(l_nb, data);
+				dico_wrong_answer(l_nb[0], data);
 			else
 				prio_wrong_answer(answers, data);
 		}
 		else
 		{
 			if (is_dico)
-				dico_right_answer(l_nb, data);
+				dico_right_answer(l_nb[0], data);
 			else
-				prio_right_answer(l_nb, data);
+				prio_right_answer(l_nb[0], data);
 		}
 		//	Adding the line to the already seen
-		data->past_ranks[data->l_past_ranks] = l_nb;
+		data->past_ranks[data->l_past_ranks] = l_nb[0];
 		printf("last past rank == %d\n", data->past_ranks[data->l_past_ranks]);
 		data->l_past_ranks += 1;
 	}

@@ -55,8 +55,9 @@ int main( void )
 
 	if (data->l_invalid_lines > 0)
 	{
-		printf("Information: invalid lines were found in dictionary:\n");
+		printf("Information: invalid lines were found in dictionary: ");
 		print_int_tab(data->invalid_lines);
+		printf("\n");
 	}
 
 	free(data->priority);
