@@ -4,7 +4,7 @@ int	guess_err( char *err_mess, char **buf, char **to_guess, char ***answers, t_d
 {
 	if (err_mess != NULL)
 		write(2, err_mess, strlen(err_mess));
-	free_all(buf, to_guess, answers);
+	free_loop(buf, to_guess, answers);
 	if (data != NULL && data->priority != NULL)
 	{
 		free(data->priority);
@@ -120,7 +120,7 @@ bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dic
 		}
 		if (jump_to_line(&buf, &n, &i, l_nb, data))
 		{
-			free_all(&buf, NULL, NULL);
+			free_loop(&buf, NULL, NULL);
 			return (1);
 		}
 		if (parse_dictionary_line(buf, l_nb[0], data))
@@ -128,13 +128,13 @@ bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dic
 			if (!is_dico)
 			{
 				printf("Error: a priority line has a format error.\n");
-				free_all(&buf, NULL, NULL);
+				free_loop(&buf, NULL, NULL);
 				return (1);
 			}
 			if (data->l_invalid_lines >= MAX_INVALID_LINE)
 			{
 				printf(RED "Information: Too many invalid lines has a format error. Stopping the session ...\n" COLOR_RESET);
-				free_all(&buf, NULL, NULL);
+				free_loop(&buf, NULL, NULL);
 				return (1);
 			}
 			continue ;
@@ -150,7 +150,7 @@ bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dic
 			if (strcmp(user_input, "STOP") == 0)
 			{
 				printf(BLU "\n> Stopping the session ..." COLOR_RESET);
-				free_all(&buf, NULL, NULL);
+				free_loop(&buf, NULL, NULL);
 				return (1);
 			}
 
@@ -171,7 +171,7 @@ bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dic
 		printf("last past rank == %d\n", data->past_ranks[data->l_past_ranks]);
 		data->l_past_ranks += 1;
 	}
-	free_all(&buf, NULL, NULL);
+	free_loop(&buf, NULL, NULL);
 	return (0);
 }
 

@@ -12,6 +12,8 @@
 #include <signal.h>
 #include <ctype.h>
 #include <stdint.h>
+#include <errno.h>
+#include <string.h>
 
 #include "color.h"
 
@@ -42,9 +44,6 @@ typedef struct  s_data
 void	print_tab( char **t );
 void	print_int_tab( int *t );
 
-	// free
-char	**ft_freetab(char ***s);
-void	free_all( char **buf, char **to_guess, char ***answers );
 
 	// lenght
 int	l_tab( char **t );
@@ -64,6 +63,17 @@ char	*find_first_not_of( char *to_find, char *str );
 bool	find_int_in_tab( int n, int *t );
 bool	check_answer( char *user_input, char **answers );
 
+/*					*/
+/*		FREE		*/
+/*					*/
+char	**ft_freetab(char ***s);
+void	free_loop( char **buf, char **to_guess, char ***answers );
+void	free_data( t_data **data );
+
+/*					*/
+/*		ERROR		*/
+/*					*/
+int print_error( int err_code );
 
 /*					*/
 /*		FILES		*/

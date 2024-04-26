@@ -35,7 +35,7 @@ bool	guess_dictionary( t_data *data )
 	printf(BBLU "\n\t>>> GUESS DICO\n" COLOR_RESET);
 	res = guess_loop(to_guess, answers, data, 1);
 
-	free_all(NULL, &to_guess, &answers);
+	free_loop(NULL, &to_guess, &answers);
 	fclose(data->file);
 	return (res);
 }

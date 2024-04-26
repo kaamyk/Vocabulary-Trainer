@@ -47,7 +47,7 @@ bool	guess_priority( t_data *data )
 	printf(BYEL "\n\t>>> GUESS PRIO\n" COLOR_RESET);
 	res = guess_loop(to_guess, answers, data, 0);
 
-	free_all(NULL, &to_guess, &answers);
+	free_loop(NULL, &to_guess, &answers);
 	fclose(data->file);
 	return (res);
 }

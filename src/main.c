@@ -12,9 +12,9 @@ t_data	*init_data( void )
 	data->nb_correct = 0;
 	data->l_dico = 0;
 	data->priority = calloc(NB_FAIL + 1, sizeof(int));
-	if (data->priority == NULL)
+	if (errno != 0)
 	{
-		free(data);
+		free_data(&data);
 		return (NULL);
 	}
 	data->priority[NB_FAIL] = -1;
@@ -22,18 +22,16 @@ t_data	*init_data( void )
 	data->past_ranks = calloc(NB_CORRECT + NB_FAIL + 1, sizeof(int));
 	if (data->past_ranks == NULL)
 	{
-		free(data->priority);
-		free(data);
+		free_data(&data);
 		return (NULL);
 	}
 	data->past_ranks[NB_CORRECT + NB_FAIL] = -1;
 	data->l_past_ranks = 0;
-	data->invalid_lines = calloc(MAX_INVALID_LINE + 1, sizeof(int));
+	// data->invalid_lines = calloc(MAX_INVALID_LINE + 1, sizeof(int));
+	data->invalid_lines = NULL;
 	if (data->invalid_lines == NULL)
 	{
-		free(data->priority);
-		free(data->past_ranks);
-		free(data);
+		free_data(&data);
 		return (NULL);
 	}
 	data->invalid_lines[MAX_INVALID_LINE] = -1;
@@ -45,11 +43,7 @@ int main( void )
 {
 	t_data  *data = init_data();
 	if (data == NULL)
-	{
-		printf("Data == NULL\n");
-		printf(RED "> Setup Failed.\n" COLOR_RESET);
-		return (1);
-	}
+		return (print_error(errno));
 	else if (parse_priority_file(data))
 	{
 		free(data);

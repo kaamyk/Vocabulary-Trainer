@@ -39,34 +39,6 @@ int	l_tab( char **t )
 	return (tmp - t);
 }
 
-	/*	FREE	*/
-
-char	**ft_freetab(char ***s)
-{
-	if (s == NULL || s[0] == NULL)
-		return (NULL);
-	
-	int	i = 0;
-	while (s[0][i] != NULL)
-	{
-		free(s[0][i]);
-		i++;
-	}
-	free (s[0]);
-	return (NULL);
-}
-
-void	free_all( char **buf, char **to_guess, char ***answers )
-{
-	if (buf != NULL && *buf != NULL)
-		free(*buf);
-	if (to_guess != NULL && *to_guess != NULL)
-		free(*to_guess);
-	if (answers != NULL && *answers != NULL)
-		*answers = ft_freetab(answers);
-}
-
-
 	/*	MODIFY VALUES	*/
 
 void	del_nl( char *s )

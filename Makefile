@@ -5,7 +5,8 @@ NAME	=	germanVoc
 SRCDIR		=	src
 SRCS		=	$(SRCDIR)/main.c	$(SRCDIR)/utils.c	$(SRCDIR)/ft_split.c \
 				$(SRCDIR)/files.c	$(SRCDIR)/run.c		$(SRCDIR)/guess_prio.c \
-				$(SRCDIR)/guess_dico.c
+				$(SRCDIR)/guess_dico.c	$(SRCDIR)/error.c	$(SRCDIR)/signal.c \
+				$(SRCDIR)/free.c
 
 OBJDIR		=	.obj
 OBJS		=	$(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
