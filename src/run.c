@@ -70,7 +70,6 @@ int	define_line( t_data *data, bool is_dico )
 		do
 		{
 			res = rand() % data->l_dico;
-			printf("la\n");
 		} while (find_int_in_tab(res, data->past_ranks));
 	}
 	else
@@ -103,7 +102,7 @@ bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dic
 	int	l_nb[2] = {0}; // [0]: actual line; [1]: previous line
 	int	i = 0;
 
-	while (data->nb_correct < NB_CORRECT && data->nb_fails < NB_FAIL)
+	while (data->nb_correct < NB_CORRECT && data->nb_fails < NB_FAIL && data->l_past_ranks < data->l_dico )
 	{
 		if (!is_dico && data->l_prio <= 0)
 			break ;

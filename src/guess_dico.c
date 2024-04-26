@@ -10,7 +10,7 @@ void	dico_right_answer( int l_nb, t_data *data )
 
 void	dico_wrong_answer( int l_nb, t_data *data )
 {
-	printf(BRED "\t>>> WRONG <<<\n" COLOR_RESET);
+	printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
 	data->nb_fails += 1;
 	data->past_ranks[data->l_past_ranks] = l_nb;
 	data->l_past_ranks += 1;

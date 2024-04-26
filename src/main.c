@@ -11,11 +11,18 @@ t_data	*init_data( void )
 	data->nb_fails = 0;
 	data->nb_correct = 0;
 	data->l_dico = 0;
-	data->priority = NULL;
+	data->priority = calloc(NB_FAIL + 1, sizeof(int));
+	if (data->priority == NULL)
+	{
+		free(data);
+		return (NULL);
+	}
+	data->priority[NB_FAIL] = -1;
 	data->l_prio = 0;
 	data->past_ranks = calloc(NB_CORRECT + NB_FAIL + 1, sizeof(int));
 	if (data->past_ranks == NULL)
 	{
+		free(data->priority);
 		free(data);
 		return (NULL);
 	}
@@ -24,6 +31,7 @@ t_data	*init_data( void )
 	data->invalid_lines = calloc(MAX_INVALID_LINE + 1, sizeof(int));
 	if (data->invalid_lines == NULL)
 	{
+		free(data->priority);
 		free(data->past_ranks);
 		free(data);
 		return (NULL);

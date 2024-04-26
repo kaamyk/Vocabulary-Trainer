@@ -73,9 +73,9 @@ bool	parse_priority_file( t_data *data )
 	if (data->l_prio == -1)
 		return (1);
 
-	data->priority = calloc(data->l_prio + 1, sizeof(int));
-	if (data->priority == NULL)
-		return (1);
+	// data->priority = calloc(data->l_prio + 1, sizeof(int));
+	// if (data->priority == NULL)
+	// 	return (1);
 	data->priority[data->l_prio] = -1;
 	if (atoi_file(data))
 	{
