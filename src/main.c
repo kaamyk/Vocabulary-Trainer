@@ -12,13 +12,14 @@ t_data	*init_data( void )
 	data->nb_correct = 0;
 	data->l_dico = 0;
 	data->priority = calloc(NB_FAIL + 1, sizeof(int));
-	if (errno != 0)
+	if (data->priority == NULL)
 	{
 		free_data(&data);
 		return (NULL);
 	}
 	data->priority[NB_FAIL] = -1;
 	data->l_prio = 0;
+
 	data->past_ranks = calloc(NB_CORRECT + NB_FAIL + 1, sizeof(int));
 	if (data->past_ranks == NULL)
 	{
@@ -26,9 +27,9 @@ t_data	*init_data( void )
 		return (NULL);
 	}
 	data->past_ranks[NB_CORRECT + NB_FAIL] = -1;
+
 	data->l_past_ranks = 0;
-	// data->invalid_lines = calloc(MAX_INVALID_LINE + 1, sizeof(int));
-	data->invalid_lines = NULL;
+	data->invalid_lines = calloc(MAX_INVALID_LINE + 1, sizeof(int));
 	if (data->invalid_lines == NULL)
 	{
 		free_data(&data);
@@ -36,11 +37,13 @@ t_data	*init_data( void )
 	}
 	data->invalid_lines[MAX_INVALID_LINE] = -1;
 	data->l_invalid_lines = 0;
+	data->err_code = 0;
 	return (data);
 }
 
 int main( void )
 {
+	int	return_value = 0;
 	t_data  *data = init_data();
 	if (data == NULL)
 		return (print_error(errno));
@@ -62,11 +65,9 @@ int main( void )
 		printf("\n");
 	}
 
-	free(data->priority);
-	free(data->invalid_lines);
-	free(data->past_ranks);
-	free(data);
+	return_value = data->err_code;
+	free_data(&data);
 
 	printf(GRN " Good bye !\n" COLOR_RESET);
-	return (0);
+	return (return_value);
 }

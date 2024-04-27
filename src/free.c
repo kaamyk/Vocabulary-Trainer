@@ -15,10 +15,16 @@ char	**ft_freetab(char ***s)
 	return (NULL);
 }
 
-void	free_loop( char **buf, char **to_guess, char ***answers )
+void	free_loop( char **buf, char **user_input )
 {
 	if (buf != NULL && *buf != NULL)
 		free(*buf);
+	if (user_input != NULL && *user_input != NULL)
+		free(*user_input);
+}		
+
+void	free_guess( char **to_guess, char ***answers )
+{
 	if (to_guess != NULL && *to_guess != NULL)
 		free(*to_guess);
 	if (answers != NULL && *answers != NULL)

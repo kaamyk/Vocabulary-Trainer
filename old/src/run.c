@@ -61,7 +61,7 @@ void    run( t_data *data )
     uint8_t		nb_correct = 0;
 
     data->l_prio = len_prioritaries(data->prioritaries);
-	data->file = fopen("./data/.dico.csv", "r");
+	data->file = fopen("./data/dico.csv", "r");
 
 	if ( data->l_prio > 0
 		&& guess_prio(data))

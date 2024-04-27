@@ -35,6 +35,7 @@ typedef struct  s_data
 	int	l_past_ranks;
 	int	*invalid_lines;
 	int	l_invalid_lines;
+	int	err_code;
 }               t_data;
 
 /*					*/
@@ -67,13 +68,16 @@ bool	check_answer( char *user_input, char **answers );
 /*		FREE		*/
 /*					*/
 char	**ft_freetab(char ***s);
-void	free_loop( char **buf, char **to_guess, char ***answers );
+void	free_loop( char **buf, char **user_input );
+void	free_guess( char **to_guess, char ***answers );
 void	free_data( t_data **data );
 
 /*					*/
 /*		ERROR		*/
 /*					*/
 int print_error( int err_code );
+bool	error_guess( int err_code, char **to_guess, char ***answers, t_data *data );
+bool	error_loop( int err_code, char **user_input, char **buf, t_data *data );
 
 /*					*/
 /*		FILES		*/

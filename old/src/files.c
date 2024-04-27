@@ -29,7 +29,7 @@ int     parse_priority_words( char *buf )
 
 bool    read_priority_words( t_data *data )
 {
-	data->file = fopen("./data/.prioritaries.txt", "r");
+	data->file = fopen("./data/priority.txt", "r");
 	if (data->file == NULL)
 	{
 		write(2, "Error: read_priority_words(): file failed to open.\n", 52);
@@ -83,8 +83,6 @@ bool    read_priority_words( t_data *data )
 	return (0);
 }
 
-
-
 bool    reset_prioritary_file( int *prioritaries )
 {
 	if (prioritaries == NULL)
@@ -109,13 +107,13 @@ bool    reset_prioritary_file( int *prioritaries )
         }
 		free(tmp);
     }
-    if (remove("./data/.prioritaries.txt") == -1)
+    if (remove("./data/priority.txt") == -1)
     {
         write(2,"Error: reset_prioritaries(): removing old prioritaries file failed.\n", 69);
         fclose(file);
         return (1);
     }
-    if (rename("./data/tmp", "./data/.prioritaries.txt") == -1)
+    if (rename("./data/tmp", "./data/priority.txt") == -1)
     {
         write(2,"Error: reset_prioritaries(): renaming of tmp file failed.\n", 59);
         fclose(file);
@@ -198,7 +196,7 @@ bool    parse_dictionary( t_data *data )
     size_t  *len = NULL;
     int file_len = 0;
 
-	data->file = fopen("./data/.dico.csv", "r");
+	data->file = fopen("./data/dico.csv", "r");
 	if (data->file == NULL)
 	{
 		write(2, "Error: read_doctionnary(): file failed to open\n", 48);

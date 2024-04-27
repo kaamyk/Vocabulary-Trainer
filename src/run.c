@@ -1,18 +1,5 @@
 #include "../inc/german.h"
 
-int	guess_err( char *err_mess, char **buf, char **to_guess, char ***answers, t_data *data)
-{
-	if (err_mess != NULL)
-		write(2, err_mess, strlen(err_mess));
-	free_loop(buf, to_guess, answers);
-	if (data != NULL && data->priority != NULL)
-	{
-		free(data->priority);
-		data->priority = NULL;
-	}
-	return (1);
-}
-
 bool	define_guess_answers( char *to_guess, char **answers, char *buf )
 {
 	if (to_guess == NULL || answers == NULL || buf == NULL)
@@ -86,7 +73,8 @@ bool	jump_to_line( char **buf, size_t *n, int *i, int l_nb[2], t_data *data )
 	{
 		if (getline(buf, n, data->file) == -1)
 		{
-			printf("Error: File reading failed.\n");
+			// printf("Error: File reading failed.\n");
+			data->err_code = errno;
 			return (1);
 		}
 		(*i)++;
@@ -96,11 +84,15 @@ bool	jump_to_line( char **buf, size_t *n, int *i, int l_nb[2], t_data *data )
 
 bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dico )
 {
+	// printf(">> guess_loop() << \n");
 	char	*buf = NULL;
-	char	user_input[MAX_LEN_INPUT + 1] = {0};
 	size_t	n = 0;
 	int	l_nb[2] = {0}; // [0]: actual line; [1]: previous line
 	int	i = 0;
+	// char	user_input[MAX_LEN_INPUT + 1] = {0};
+	char	*user_input = calloc(MAX_LEN_INPUT + 1, sizeof(char));
+	if (errno != 0)
+		return (error_loop(errno, &user_input, &buf, data));
 
 	while (data->nb_correct < NB_CORRECT && data->nb_fails < NB_FAIL && data->l_past_ranks < data->l_dico )
 	{
@@ -119,22 +111,19 @@ bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dic
 			i = l_nb[1];
 		}
 		if (jump_to_line(&buf, &n, &i, l_nb, data))
-		{
-			free_loop(&buf, NULL, NULL);
-			return (1);
-		}
+			return (error_loop(data->err_code, &user_input, &buf, data));
 		if (parse_dictionary_line(buf, l_nb[0], data))
 		{
 			if (!is_dico)
 			{
-				printf("Error: a priority line has a format error.\n");
-				free_loop(&buf, NULL, NULL);
+				perror("Error: a priority line has a format error.\n");
+				free_loop(&buf, &user_input);
 				return (1);
 			}
 			if (data->l_invalid_lines >= MAX_INVALID_LINE)
 			{
 				printf(RED "Information: Too many invalid lines has a format error. Stopping the session ...\n" COLOR_RESET);
-				free_loop(&buf, NULL, NULL);
+				free_loop(&buf, &user_input);
 				return (1);
 			}
 			continue ;
@@ -150,7 +139,7 @@ bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dic
 			if (strcmp(user_input, "STOP") == 0)
 			{
 				printf(BLU "\n> Stopping the session ..." COLOR_RESET);
-				free_loop(&buf, NULL, NULL);
+				free_loop(&buf, &user_input);
 				return (1);
 			}
 
@@ -171,7 +160,7 @@ bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dic
 		printf("last past rank == %d\n", data->past_ranks[data->l_past_ranks]);
 		data->l_past_ranks += 1;
 	}
-	free_loop(&buf, NULL, NULL);
+	free_loop(&buf, &user_input);
 	return (0);
 }
 

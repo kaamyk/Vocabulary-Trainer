@@ -36,18 +36,21 @@ bool	guess_priority( t_data *data )
 {
 	bool	res = 0;
 	char	*to_guess = calloc(MAX_LEN_INPUT + 1, sizeof(char));
+	if (errno != 0)
+		return (error_guess(errno, &to_guess, NULL, data));
+
 	char	**answers = init_answers();
-	if (to_guess == NULL || answers == NULL)
-		return (guess_err("Error: guesspriority(): allocation failed.\n", NULL, &to_guess, &answers, data));
-	
+	if (errno != 0)
+		return (error_guess(errno, &to_guess, &answers, data));
+
 	data->file = fopen("./data/dico.csv", "r");
-	if (data->file == NULL)
-		return (guess_err("Error: dictionnary file does not open.\n", NULL, &to_guess, &answers, data));
+	if (errno != 0)
+		return (error_guess(errno, &to_guess, &answers, data));
 
 	printf(BYEL "\n\t>>> GUESS PRIO\n" COLOR_RESET);
 	res = guess_loop(to_guess, answers, data, 0);
 
-	free_loop(NULL, &to_guess, &answers);
+	free_guess(&to_guess, &answers);
 	fclose(data->file);
 	return (res);
 }
