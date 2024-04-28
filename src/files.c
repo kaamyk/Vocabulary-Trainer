@@ -1,7 +1,7 @@
 #include "../inc/german.h"
 
 	/*					*/
-	/*	PRIORITARIES	*/
+	/*	FILE UTILS		*/
 	/*					*/
 
 int	len_file( const char *file_name )
@@ -21,6 +21,10 @@ int	len_file( const char *file_name )
 	free(buf);
 	return (res);
 }
+
+	/*					*/
+	/*	PRIORITARIES	*/
+	/*					*/
 
 void	parse_priority_error( char *err_mess, char *buf, t_data *data )
 {
@@ -82,6 +86,35 @@ bool	parse_priority_file( t_data *data )
 		free(data->priority);
 		return (1);
 	}
+	return (0);
+}
+
+bool	reset_prioritary_file( t_data *data )
+{
+	if (data->priority == NULL)
+		return (0);
+
+	FILE    *file = fopen("./data/tmp", "w");
+	if (file == NULL)
+		return (error_reset(errno, data));
+
+	char    *tmp = NULL;
+	for (size_t  i = 0; data->priority[i] != -1 && data->priority[i] != 0; i++)
+	{
+		tmp = ft_itoa(data->priority[i]);
+		if (tmp == NULL
+		|| fwrite(tmp, sizeof(char), strlen(tmp), file) == 0
+		|| fwrite("\n", sizeof(char), 1, file) == 0)
+		{
+			write(2, "Error: reset_prioritary_files(): failed to write an element in \'tmp\' file\n", 75);
+		}
+		free(tmp);
+	}
+	if (remove("./data/priority.txt") == -1)
+		return (error_reset(errno, data));
+	if (rename("./data/tmp", "./data/priority.txt") == -1)
+		return (error_reset(errno, data));
+	fclose(file);
 	return (0);
 }
 

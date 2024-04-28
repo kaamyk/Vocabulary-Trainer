@@ -21,3 +21,12 @@ bool	error_loop( int err_code, char **user_input, char **buf, t_data *data )
 	free_loop(user_input, buf);
 	return (1);
 }
+
+bool	error_reset( int err_code, t_data *data )
+{
+	perror(strerror(err_code));
+	data->err_code = err_code;
+	if (data->file != NULL)
+		fclose(data->file);
+	return (1);
+}

@@ -65,6 +65,8 @@ int main( void )
 		printf("\n");
 	}
 
+	reset_prioritary_file(data);
+
 	return_value = data->err_code;
 	free_data(&data);
 

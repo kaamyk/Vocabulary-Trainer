@@ -64,6 +64,8 @@ char	*find_first_not_of( char *to_find, char *str );
 bool	find_int_in_tab( int n, int *t );
 bool	check_answer( char *user_input, char **answers );
 
+char	*ft_itoa(int n);
+
 /*					*/
 /*		FREE		*/
 /*					*/
@@ -78,6 +80,7 @@ void	free_data( t_data **data );
 int print_error( int err_code );
 bool	error_guess( int err_code, char **to_guess, char ***answers, t_data *data );
 bool	error_loop( int err_code, char **user_input, char **buf, t_data *data );
+bool	error_reset( int err_code, t_data *data );
 
 /*					*/
 /*		FILES		*/
@@ -86,6 +89,7 @@ int	len_file( const char *file_name );
 void	parse_priority_error( char *err_mess, char *buf, t_data *data );
 bool	atoi_file( t_data *data );
 bool	parse_priority_file( t_data *data );
+bool	reset_prioritary_file( t_data *data );
 bool	parse_dictionary_line( char *buf, int l_nb, t_data *data );
 
 

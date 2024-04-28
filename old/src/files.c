@@ -83,44 +83,44 @@ bool    read_priority_words( t_data *data )
 	return (0);
 }
 
-bool    reset_prioritary_file( int *prioritaries )
+bool	reset_prioritary_file( int *prioritaries )
 {
 	if (prioritaries == NULL)
 		return (0);
-	
-    FILE    *file = fopen("./data/tmp", "w");
-    if (file == NULL)
-    {
-        write(2, "Error: reset_prioritary_files(): \'tmp\' file failes to open\n", 60);
-        return (1);
-    }
-    
-    char    *tmp = NULL;
-    for (size_t  i = 0; prioritaries[i] != -1; i++)
-    {
-        tmp = ft_itoa(prioritaries[i]);
-        if (tmp == NULL
-	    || fwrite(tmp, sizeof(char), strlen(tmp), file) == 0
+
+	FILE    *file = fopen("./data/tmp", "w");
+	if (file == NULL)
+	{
+		write(2, "Error: reset_prioritary_files(): \'tmp\' file failes to open\n", 60);
+		return (1);
+	}
+
+	char    *tmp = NULL;
+	for (size_t  i = 0; prioritaries[i] != -1; i++)
+	{
+		tmp = ft_itoa(prioritaries[i]);
+		if (tmp == NULL
+		|| fwrite(tmp, sizeof(char), strlen(tmp), file) == 0
 		|| fwrite("\n", sizeof(char), 1, file) == 0)
-        {
-            write(2, "Error: reset_prioritary_files(): failed to write in \'tmp\' file\n", 64);
-        }
+		{
+			write(2, "Error: reset_prioritary_files(): failed to write in \'tmp\' file\n", 64);
+		}
 		free(tmp);
-    }
-    if (remove("./data/priority.txt") == -1)
-    {
-        write(2,"Error: reset_prioritaries(): removing old prioritaries file failed.\n", 69);
-        fclose(file);
-        return (1);
-    }
-    if (rename("./data/tmp", "./data/priority.txt") == -1)
-    {
-        write(2,"Error: reset_prioritaries(): renaming of tmp file failed.\n", 59);
-        fclose(file);
-        return (1);
-    }
-    fclose(file);
-    return (0);
+	}
+	if (remove("./data/priority.txt") == -1)
+	{
+		write(2,"Error: reset_prioritaries(): removing old prioritaries file failed.\n", 69);
+		fclose(file);
+		return (1);
+	}
+	if (rename("./data/tmp", "./data/priority.txt") == -1)
+	{
+		write(2,"Error: reset_prioritaries(): renaming of tmp file failed.\n", 59);
+		fclose(file);
+		return (1);
+	}
+	fclose(file);
+	return (0);
 }
 
     /*                      */
