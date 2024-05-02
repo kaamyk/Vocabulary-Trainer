@@ -4,7 +4,7 @@ enshuldigung,sorry,pardon,desole
 Haus,house,maison
 der Apfel,appel,la pomme
 vorstellen,to introduce,presenter
-begrUSSen,to welcome,to say hello,accueillir,dire bonjour
+begrUßen,to welcome,to say hello,accueillir,dire bonjour
 buchstabieren,to spell,epeler
 das Land,country,le pays
 das Lernziel,study goal
@@ -20,20 +20,19 @@ verabschieden,to say goodbye,dire au revoir
 sprechen,to speak,parler
 Uber,about,a propos
 und,and,et
-die Kursliste,roster,list of participant,la liste de cours
 aus,from,de
 der Kurs,course,class,le cours
 fragen,to ask,demander
 Guten Tag,good day,bonjour
-heiSSen,to be called,s'appeler
+heißen,to be called,s'appeler
 im,in,dans
 kommen,to come,venir
 wie,how,comment
 woher,where from,d'ou
 der Deutschkurs,german course,le cours d'allemand
 der Dialog,dialogue,le dialogue
-der Lehrer,teacher,le professeur
-die Lehrerin,teacher,la professeure
+der Lehrer,teacher(M)
+die Lehrerin,teacher(F)
 ergAnzen,to complete,completer
 Herr,mister,monsieur
 hOren,to listen,ecouter
@@ -81,7 +80,7 @@ wo,where,ou
 ander,other,autre
 sammeln,to collect,to gather,rassembler,accumuler
 der Nachbar,neighbor,le voisin
-die Nachbarin,neighbor,la voisine
+die Nachbarin,neighbor(F)
 das Alphabet,alphabet,l'alphabet
 der Rhytmus,rythm,le rythme
 lernen,to learn,to study,apprendre,etudier
@@ -93,14 +92,18 @@ das Deutsch,german,l'allemand
 verstehen,to understand,comprendre
 das Auto,the car,la voiture
 der Mechaniker,mechanic,le mecanicien
-die Mechanikerin,mechanic,la mecanicienne
+die Mechanikerin,mechanic(F)
 der Sekretar,secretary,le secretaire
-die Sekretarin,secretary,la secretaire
+die Sekretarin,secretary(F)
 der Wohnort,place of residence,le lieu de residence
 die Information,information,l'information
 der Beruf,profession,job,la profession,le metier
 der Alltag,ordinary week day,la vie quotidienne
-auf,at,a,dans,pour
+auf,on
+bei,at(here)
+am,at(day)
+zu,at(moving)
+um,at(hour)
 Tshus,see you,salut
 der Artikel,article,l'article
 der Sprachenname,name of a language,le nom d'un langage
@@ -109,7 +112,6 @@ haben,to have,avoir
 oft,often,souvent
 die Grammatik,grammar,la grammaire
 das Fragewort,question word,le mot interrogatif
-am,at,a
 das Satzende,end of sentence,la fin de phrase
 fallen,to fall,tomber
 man,one,il
@@ -130,13 +132,12 @@ nehmen,to take,prendre
 sagen,to say,dire
 super,super
 trinken,to drink,boire
-von,from,de
 was,what,quoi
 wie geht's,how are you,comment vas tu
 zAhlen,to count,compter
 zeichnen,to draw,dessiner
 ganz,whole,entire,tout,entier,completement,assez
-ansehen,to look at,regarder
+ansehen,to look at
 die Szene,scene,la scene
 der Zucker,sugar,le sucre
 die Milch,milk,le lait
@@ -147,14 +148,12 @@ gern,with pleasure,gladly,avec plaisir
 lieber,with pleasure,gladly
 ja,yes,oui
 nur,only,seulement
-an,at,a
 die Tafel,chalkboard,le tableau blanc
 kennen,to know,savoir
 der Orangesaft,orange juice,le jus d'orange
 vorlesen,to read to something,lire quelque chose
 die Cafeteria,cafeteria,la cafeteria
 richtig,correct,right
-zu,at,a
 dann,then,ensuite
 das Mineralwasser,mineral water,l'eau minerale
 frei,free,libre
@@ -207,13 +206,12 @@ die Nummer,number,le numero
 erreichen,to reach,atteindre,attraper
 fahren,to drive,to ride,conduire,aller,circuler
 kOnnen,to can,pouvoir
-nach,to,apres,a
+nach,apres,at(moving)
 nicht,not,pas
-um,at,a
 unter,under,sous
 von nach,from to,de a
 beschreiben,to describe,decrire
-das VerkaufsgesprAch,sales talk,le discours de vente
+das Verkaufsgespräch,sales talk,le discours de vente
 der Gegenstand,object,l'objet
 der Preis,price,le prix
 die Kleinanzeige,small as,la petite annonce
@@ -241,12 +239,12 @@ fast,almost,presque
 kaputt,broken,casse
 klein,small,little,petit
 neu,new,neuf
-schauen,to look,regarder
+schauen,to look
 sehr,very,tres
 teuer,expensive,cher
 wenig,little,peu
 der Kaufer,buyer,l'acheteur
-die Kauferin,buyer,l'acheteuse
+die Kauferin,buyer(F)
 der VerkAufer,sales man,le vendeur
 die VerfAuerin,sales woman,la vendeuse
 nennen,to name,nommer
@@ -258,8 +256,6 @@ das Papierkorb,paper basket,la corbeille a papier
 das Projekt,porject,le project
 die Region,region,la region
 wann,when,quand
-ab,from,de
-bei,at,a
 brauchen,to need,avoir besoin
 das Jahr,year,l'annee
 das Kind,child,l'enfant
@@ -271,7 +267,7 @@ die Musik,music,la musique
 die Sache,objet,thing,objet,chose
 die Spulmaschine,dishwasher,le lave-vaisselle
 einkaufen,to buy,acheter
-fernsehen,to watch television,to watch TV,regarder la television,regarder la tele,regarder la TV
+fernsehen,to watch television,to watch TV
 je,each,per,chaque
 melden,to answer,repondre
 preiswert,inexpensive,reasonably priced,bon marche
@@ -328,13 +324,13 @@ der Zoo,zoo,le zoo
 die Bäckerei,bakery,la boulangerie
 die Bibliothek,library,la librairie
 geöfnet,open
-intensiv,intensiver,am intensivstenintense,intensive
+intensiv,intense,intensive
 zu ende sein,to end/be over/ finish
 zumachen,er macht zu,zugemacht,to close,to shut
 das interview,interview
 die Pause,break
 zum,to the
-berichten,er berichtet,berichtetto repor
+berichten,to report
 mitkommen,er kommt mit,to come along
 ist mitgekommen,about
 ca,end,food
@@ -380,8 +376,8 @@ der anruf,phone call
 der arbeitstag,workday
 der Chef,boss
 die Cheﬁn,boss
-der Informatiker,computer scientist
-die Informatikerin,computer scientist
+der Informatiker,computer scientist(M)
+die Informatikerin,computer scientist(F)
 der Text,text
 der Zettel,note,slip of paper
 die arbeitswoche,working week
@@ -408,7 +404,7 @@ weg,to be gone/away
 wegen,because of
 stehen,to be
 zu sein,to be closed
-Was ist los?,What’s happening?
+Was ist los?,What's happening?
 die Vergangenheitsform,forms of the past tense
 die Vergangenheit,past tense
 die Woche,week
@@ -528,7 +524,7 @@ das Mittagessen,lunch
 die Sprechblase,speech bubble
 die Pluralform,plural form
 die Lernkarte,study card
-tauschen,to exchangeto swap
+tauschen,to exchange,to swap
 trainieren,to practice
 das Spiel,game
 das Menü,menu
@@ -667,7 +663,7 @@ erziehen,to raise / to bring up children
 getrennt,to live seperately
 manchmal,sometimes
 das Familienfoto,family photograph
-alleinstehend,living alone,on one’s own,single
+alleinstehend,living alone,on one's own,single
 das Thema,topic
 der Vater,father
 die Mutter,mother
@@ -677,7 +673,7 @@ der Großvater,grandfather
 die Großeltern,grandparents
 die Großmutter,grandmother
 wie alt,how old
-zusammenpassen,to matchto go together
+zusammenpassen,to match,to go together
 bald,soon
 der/die Verwandte,relative
 die Hochzeit,marriagewedding
@@ -720,7 +716,7 @@ die Einladung,invitation
 die SMS,SMS
 erst,not until
 schade,too bad
-doch,afer all
+doch,after all
 gratulieren,to congratulate
 später,later
 Alles Gute,All the best!

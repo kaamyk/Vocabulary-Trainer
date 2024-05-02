@@ -4,9 +4,11 @@ void	prio_wrong_answer( char **answers, t_data *data )
 {
 	printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
 	data->nb_fails += 1;
-	printf(BHCYN "Answers:\n");
+	printf(BCYN "Rights answers were:\n");
 	print_tab(answers);
 	printf(COLOR_RESET);
+
+
 }
 
 void	prio_right_answer( int l_nb, t_data *data )

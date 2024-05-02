@@ -44,7 +44,7 @@ typedef struct  s_data
 	// print
 void	print_tab( char **t );
 void	print_int_tab( int *t );
-
+void	print_results( int nb_fails, int nb_correct );
 
 	// lenght
 int	l_tab( char **t );
@@ -97,7 +97,7 @@ bool	parse_dictionary_line( char *buf, int l_nb, t_data *data );
 /*		GUESS DICO		*/
 /*						*/
 void	dico_right_answer( int l_nb, t_data *data );
-void	dico_wrong_answer( int l_nb, t_data *data );
+void	dico_wrong_answer( int l_nb, char **answers, t_data *data );
 bool	guess_dictionary( t_data *data );
 
 

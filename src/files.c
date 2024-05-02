@@ -59,7 +59,7 @@ bool	atoi_file( t_data *data )
 			return (1);
 		}
 		data->priority[i] = atoi(buf);
-		printf("atoi_file(): data->priority[%d]: %d\n", i, data->priority[i]);
+		// printf("atoi_file(): data->priority[%d]: %d\n", i, data->priority[i]);
 		if (data->priority[i] > data->l_dico)
 		{
 			parse_priority_error("Error: priority.txt contains an invalid rank.\n", buf, data);

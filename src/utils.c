@@ -19,7 +19,7 @@ void	print_int_tab( int *t )
 	}
 }
 
-void	print_results( uint8_t nb_fails, uint8_t nb_correct )
+void	print_results( int nb_fails, int nb_correct )
 {
 	printf("\tEND OF SESSION !\n");
 	printf(WHT "\n\tRight answers: " reset);
@@ -108,9 +108,16 @@ bool	find_int_in_tab( int n, int *t )
 bool	check_answer( char *user_input, char **answers )
 {
 	// printf("check_answers():\n");
+	char	*tmp = NULL;
+	
 	for (uint8_t i = 0; answers[i] != NULL; i++)
 	{
-		if (strcmp(user_input, answers[i]) == 0)
+		tmp = strchr(answers[i], 'ß');
+		if (tmp != NULL && strchr(user_input, 'ß') == NULL)
+		{
+			
+		}
+		else if (strcmp(user_input, answers[i]) == 0)
 			return (1);
 	}
 	return (0);

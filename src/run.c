@@ -5,7 +5,7 @@ bool	define_guess_answers( char *to_guess, char **answers, char *buf )
 	if (to_guess == NULL || answers == NULL || buf == NULL)
 		return (1);
 	
-	char	*s_tmp = NULL;
+	// char	*s_tmp = NULL;
 	bzero(to_guess, strlen(to_guess));
 
 	char	**splitted_line = ft_split(buf, ',');
@@ -34,7 +34,7 @@ bool	define_guess_answers( char *to_guess, char **answers, char *buf )
 		bzero(*answers, strlen(*answers));
 		strcpy(*answers, splitted_line[0]);
 		del_nl(*answers);
-		s_tmp = *answers;
+		// s_tmp = *answers;
 		++answers;
 		while(*answers != NULL && *answers[0] != 0)
 		{
@@ -42,8 +42,8 @@ bool	define_guess_answers( char *to_guess, char **answers, char *buf )
 			++answers;	
 		}
 	}
-	printf("to_guess: [%s]\n", to_guess);
-	printf("answers[0]: [%s]\n", s_tmp);
+	// printf("to_guess: [%s]\n", to_guess);
+	// printf("answers[0]: [%s]\n", s_tmp);
 	splitted_line = ft_freetab(&splitted_line);
 	return (0);
 }
@@ -82,6 +82,8 @@ bool	jump_to_line( char **buf, size_t *n, int *i, int l_nb[2], t_data *data )
 	return (0);
 }
 
+
+
 bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dico )
 {
 	// printf(">> guess_loop() << \n");
@@ -94,7 +96,8 @@ bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dic
 	if (errno != 0)
 		return (error_loop(errno, &user_input, &buf, data));
 
-	while (data->nb_correct < NB_CORRECT && data->nb_fails < NB_FAIL && data->l_past_ranks < data->l_dico )
+	while (data->nb_correct < NB_CORRECT && data->nb_fails < NB_FAIL \
+		&& data->l_past_ranks < data->l_dico && data->l_past_ranks < NB_CORRECT + NB_FAIL )
 	{
 		if (!is_dico && data->l_prio <= 0)
 			break ;
@@ -144,7 +147,7 @@ bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dic
 			}
 
 			if (is_dico)
-				dico_wrong_answer(l_nb[0], data);
+				dico_wrong_answer(l_nb[0], answers, data);
 			else
 				prio_wrong_answer(answers, data);
 		}
@@ -157,7 +160,7 @@ bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dic
 		}
 		//	Adding the line to the already seen
 		data->past_ranks[data->l_past_ranks] = l_nb[0];
-		printf("last past rank == %d\n", data->past_ranks[data->l_past_ranks]);
+		// printf("last past rank == %d\n", data->past_ranks[data->l_past_ranks]);
 		data->l_past_ranks += 1;
 	}
 	free_loop(&buf, &user_input);
@@ -170,5 +173,6 @@ bool	run( t_data *data )
 		return (1);
 	else if (guess_dictionary(data))
 		return (1);
+	print_results(data->nb_fails, data->nb_correct);
 	return (0);
 }
