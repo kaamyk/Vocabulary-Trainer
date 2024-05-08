@@ -159,7 +159,7 @@ das Mineralwasser,mineral water,l'eau minerale
 frei,free,libre
 hier,here,ici,la
 klar,certainly,certainement
-natUrlich,naturally,certainly,naturellement,certainement
+natürlich,naturally,certainly,naturellement,certainement
 toll,great,genial
 das Personalpronomen,personal pronoun,le pronom personnel
 markieren,to mark,marquer
@@ -205,8 +205,8 @@ die Nachrichten,the news,le journal
 die Nummer,number,le numero
 erreichen,to reach,atteindre,attraper
 fahren,to drive,to ride,conduire,aller,circuler
-kOnnen,to can,pouvoir
-nach,apres,at(moving)
+können,to can,pouvoir
+nach,at(moving),according to
 nicht,not,pas
 unter,under,sous
 von nach,from to,de a
@@ -218,7 +218,7 @@ die Kleinanzeige,small as,la petite annonce
 fUhren,to conduct,mener
 das BUgeleisen,iron,le fer
 das Heft,booklet,le cahier
-das WOrterbuch,dictionary,le dictionnaire
+das Wörterbuch,dictionary,le dictionnaire
 der Bleistift,pencil,le crayon
 der Computer,computer,l'ordinateur
 der Drucker,printer,l'imprimante
@@ -259,12 +259,12 @@ wann,when,quand
 brauchen,to need,avoir besoin
 das Jahr,year,l'annee
 das Kind,child,l'enfant
-der Kunde,customer,le client
-die Kundin,customer,la cliente
+der Kunde,customer(M),le client
+die Kundin,customer(F),la cliente
 der Samstag,Saturday,le Samedi
 die Grundschule,elementary school,l'ecole elementaire
 die Musik,music,la musique
-die Sache,objet,thing,objet,chose
+die Sache,object,thing,objet,chose
 die Spulmaschine,dishwasher,le lave-vaisselle
 einkaufen,to buy,acheter
 fernsehen,to watch television,to watch TV
@@ -345,7 +345,7 @@ der Trefpunkt,meeting point
 die Aktivität,activity
 die eltern,parents
 die Fitness,physical ftness
-die Fußgängerzone,pedestrian zone/precinct
+die Fußgängerzone,pedestrian zone
 die Reservierung,reservation 
 spannend,thrilling,exciting
 das Konzert,concert
@@ -409,7 +409,7 @@ die Vergangenheitsform,forms of the past tense
 die Vergangenheit,past tense
 die Woche,week
 erkennen,to recognize
-letzte Woche,last
+letzte Woche,last week
 der Freitagabend,Friday evening
 warum,why
 der Wochentag,week day
@@ -440,44 +440,9 @@ braun,brown
 das Kochrezept,recipe
 der Einkaufsdialog,shopping dialogue
 der Einkaufszettel,die Vergangenheitsform,forms of the past tense
-die Vergangenheit,past tense
-die Woche,week
-erkennen,to recognize
-letzte Woche,last
-der Freitagabend,Friday evening
-warum,why
-der Wochentag,week day
-die Zeitangabe,time specification
-der Wortteil,part of the word
-die Polizei,police
-entschuldigen,to excuse
-die Betonung,stress
-einfach,simple
-der Markt,market
-das Bier,beer
-das Brot,bread
-das Fleisch,meat
-das Lebensmittel,food stufs
-der apfel,apple
-der Käse,cheese
-der Kuchen,cake
-der Salat,salad
-der Schinken,ham
-die Banane,banana
-die Butter,butter
-die Wurst,sausage
-die Kartofel,potato
-das Gemüse,vegetable
-das Obst,fruit
-blau,blue
-braun,brown
-das Kochrezept,recipe
-der Einkaufsdialog,shopping dialogue
-der Einkaufszettel,shopping list
 die Farbe,color
 gelb,yellow
 grün,green
-nach,according to
 rot,red
 weiß,white
 das Ei,egg
@@ -571,7 +536,7 @@ die Gemüsesuppe,vegetable soup
 die Hefe,yeast
 die Möhre,carrot
 die Scheibe,slice
-die Soße,saucegravy
+die Soße,sauce,gravy
 reichen,to be enough
 schneiden,to cut
 sonst,otherwise,further (Nothing else?)
@@ -582,7 +547,7 @@ der Nominativ,nominative
 planen,to plan
 holen,to get,to fetch
 anbraten,to sear
-das Ganze,the wholeeverything
+das Ganze,the whole,everything
 der Auflauf,casserole
 der Backofen,oven
 der Deckel,coverlid
@@ -601,7 +566,7 @@ füllen,to fillto stuff
 gießen,to pour
 gleichmäßig,even
 legen,to lay
-mittler-,middle
+mittler,middle
 schälen,to peel
 stellen,to put
 süß,sweet
@@ -654,7 +619,7 @@ die Tante,aunt
 die Wohngemeinschaf,people sharing their residence
 leben,to live
 mitnehmen,to take along
-schwer,difculthard
+schwer,dificult,hard
 zwischen,between
 der Haushalt,household
 der onkel,uncle
@@ -687,7 +652,7 @@ der Kanadier,Canadian
 der Monat,month
 ein Mal jeden Monat,one time a month
 ersetzen,to replace
-grillen,to grillto cook on the charcoal
+grillen,to grillto cook on the wchar_tcoal
 nun,now
 studieren,to study
 der Familienstammbaum,family tree

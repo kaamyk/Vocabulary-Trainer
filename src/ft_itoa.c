@@ -22,15 +22,15 @@ int	ft_nblen(int nb)
 	return (len);
 }
 
-char	*ft_itoa(int n)
+wchar_t	*ft_itoa(int n)
 {
 	long	nb;
 	int		len;
-	char	*res;
+	wchar_t	*res;
 
 	nb = n;
 	len = ft_nblen(n);
-	res = malloc(sizeof(char) * (len + 1));
+	res = malloc(sizeof(wchar_t) * (len + 1));
 	if (!res)
 		return (NULL);
 	res[len] = 0;

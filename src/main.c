@@ -45,11 +45,14 @@ int main( void )
 {
 	int	return_value = 0;
 	t_data  *data = init_data();
+
+	setlocale(LC_ALL, "C.UTF-8");
+
 	if (data == NULL)
 		return (print_error(errno));
 	else if (parse_priority_file(data))
 	{
-		free(data);
+		free_data(&data);
 		printf(RED "> Setup Failed.\n" COLOR_RESET);
 		return (1);
 	}

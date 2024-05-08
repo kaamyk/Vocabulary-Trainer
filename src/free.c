@@ -1,6 +1,6 @@
 #include "../inc/german.h"
 
-char	**ft_freetab(char ***s)
+wchar_t	**ft_freetab(wchar_t ***s)
 {
 	if (s == NULL || s[0] == NULL)
 		return (NULL);
@@ -15,7 +15,7 @@ char	**ft_freetab(char ***s)
 	return (NULL);
 }
 
-void	free_loop( char **buf, char **user_input )
+void	free_loop( wchar_t **buf, wchar_t **user_input )
 {
 	if (buf != NULL && *buf != NULL)
 		free(*buf);
@@ -23,7 +23,7 @@ void	free_loop( char **buf, char **user_input )
 		free(*user_input);
 }		
 
-void	free_guess( char **to_guess, char ***answers )
+void	free_guess( wchar_t **to_guess, wchar_t ***answers )
 {
 	if (to_guess != NULL && *to_guess != NULL)
 		free(*to_guess);

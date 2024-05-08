@@ -1,6 +1,6 @@
 #include "../inc/german.h"
 
-void	prio_wrong_answer( char **answers, t_data *data )
+void	prio_wrong_answer( wchar_t **answers, t_data *data )
 {
 	printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
 	data->nb_fails += 1;
@@ -37,11 +37,11 @@ void	prio_right_answer( int l_nb, t_data *data )
 bool	guess_priority( t_data *data )
 {
 	bool	res = 0;
-	char	*to_guess = calloc(MAX_LEN_INPUT + 1, sizeof(char));
+	wchar_t	*to_guess = calloc(MAX_LEN_INPUT + 1, sizeof(wchar_t));
 	if (errno != 0)
 		return (error_guess(errno, &to_guess, NULL, data));
 
-	char	**answers = init_answers();
+	wchar_t	**answers = init_answers();
 	if (errno != 0)
 		return (error_guess(errno, &to_guess, &answers, data));
 

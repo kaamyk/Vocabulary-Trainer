@@ -8,7 +8,7 @@ void	dico_right_answer( int l_nb, t_data *data )
 	data->l_past_ranks += 1;
 }
 
-void	dico_wrong_answer( int l_nb, char ** answers, t_data *data )
+void	dico_wrong_answer( int l_nb, wchar_t ** answers, t_data *data )
 {
 	printf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
 
@@ -26,11 +26,11 @@ void	dico_wrong_answer( int l_nb, char ** answers, t_data *data )
 bool	guess_dictionary( t_data *data )
 {
 	bool	res = 0;
-	char	*to_guess = calloc(MAX_LEN_INPUT + 1, sizeof(char));
+	wchar_t	*to_guess = calloc(MAX_LEN_INPUT + 1, sizeof(wchar_t));
 	if (errno != 0)
 		return (error_guess(errno, &to_guess, NULL, data));
 
-	char	**answers = init_answers();
+	wchar_t	**answers = init_answers();
 	if (errno != 0)
 		return (error_guess(errno, &to_guess, NULL, data));
 

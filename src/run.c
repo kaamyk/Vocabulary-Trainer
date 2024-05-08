@@ -1,49 +1,49 @@
 #include "../inc/german.h"
 
-bool	define_guess_answers( char *to_guess, char **answers, char *buf )
+bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf )
 {
 	if (to_guess == NULL || answers == NULL || buf == NULL)
 		return (1);
 	
-	// char	*s_tmp = NULL;
-	bzero(to_guess, strlen(to_guess));
+	// wchar_t	*s_tmp = NULL;
+	bzero(to_guess, wcslen(to_guess));
 
-	char	**splitted_line = ft_split(buf, ',');
+	wchar_t	**splitted_line = ft_split(buf, ',');
 	if (splitted_line == NULL)
 		return (1);
 
-	bzero(to_guess, strlen(to_guess));
+	bzero(to_guess, wcslen(to_guess));
 	if (rand() % 2)
 	{
-		strcpy(to_guess, splitted_line[0]);
+		wcscpy(to_guess, splitted_line[0]);
 		for (int i = 0; answers[i] != NULL && answers[i][0] != 0; i++)
 		{
-			bzero(answers[i], strlen(answers[i]));
+			bzero(answers[i], wcslen(answers[i]));
 		}
 		for (int i = 1; splitted_line[i] != NULL && answers[i] != NULL && i < 6; i++)
 		{
-			strcpy(answers[i - 1], splitted_line[i]);
+			wcscpy(answers[i - 1], splitted_line[i]);
 			del_nl(answers[i - 1]);
 		}
 	}
 	else
 	{
-		strcpy(to_guess, splitted_line[rand() % (l_tab(splitted_line) - 1) + 1]);
+		wcscpy(to_guess, splitted_line[rand() % (l_tab(splitted_line) - 1) + 1]);
 		del_nl(to_guess);
 		
-		bzero(*answers, strlen(*answers));
-		strcpy(*answers, splitted_line[0]);
+		bzero(*answers, wcslen(*answers));
+		wcscpy(*answers, splitted_line[0]);
 		del_nl(*answers);
 		// s_tmp = *answers;
 		++answers;
 		while(*answers != NULL && *answers[0] != 0)
 		{
-			bzero(*answers, strlen(*answers));
+			bzero(*answers, wcslen(*answers));
 			++answers;	
 		}
 	}
-	// printf("to_guess: [%s]\n", to_guess);
-	// printf("answers[0]: [%s]\n", s_tmp);
+	// printf("to_guess: [%ls]\n", to_guess);
+	// printf("answers[0]: [%ls]\n", s_tmp);
 	splitted_line = ft_freetab(&splitted_line);
 	return (0);
 }
@@ -67,11 +67,11 @@ int	define_line( t_data *data, bool is_dico )
 	return (res);
 }
 
-bool	jump_to_line( char **buf, size_t *n, int *i, int l_nb[2], t_data *data )
+bool	jump_to_line( int *i, int l_nb[2], t_data *data )
 {
 	while (*i < l_nb[0]) // Jump to the wanted line
 	{
-		if (getline(buf, n, data->file) == -1)
+		if (get_next_wline(data->file) == NULL)
 		{
 			// printf("Error: File reading failed.\n");
 			data->err_code = errno;
@@ -82,17 +82,15 @@ bool	jump_to_line( char **buf, size_t *n, int *i, int l_nb[2], t_data *data )
 	return (0);
 }
 
-
-
-bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dico )
+bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool is_dico )
 {
 	// printf(">> guess_loop() << \n");
-	char	*buf = NULL;
-	size_t	n = 0;
+	wchar_t	*buf = NULL;
+	// size_t	n = 0;
 	int	l_nb[2] = {0}; // [0]: actual line; [1]: previous line
 	int	i = 0;
-	// char	user_input[MAX_LEN_INPUT + 1] = {0};
-	char	*user_input = calloc(MAX_LEN_INPUT + 1, sizeof(char));
+	// wchar_t	user_input[MAX_LEN_INPUT + 1] = {0};
+	wchar_t	*user_input = calloc(MAX_LEN_INPUT + 1, sizeof(wchar_t));
 	if (errno != 0)
 		return (error_loop(errno, &user_input, &buf, data));
 
@@ -113,7 +111,7 @@ bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dic
 		{
 			i = l_nb[1];
 		}
-		if (jump_to_line(&buf, &n, &i, l_nb, data))
+		if (jump_to_line(&i, l_nb, data))
 			return (error_loop(data->err_code, &user_input, &buf, data));
 		if (parse_dictionary_line(buf, l_nb[0], data))
 		{
@@ -135,11 +133,11 @@ bool	guess_loop( char *to_guess, char **answers, t_data *data, const bool is_dic
 
 		//	User guess the answer
 		//	Then parse input and checking if try is Right or Wrong
-		printf("Word to guess: %s\n\tYour answer: ", to_guess);
+		printf("Word to guess: %ls\n\tYour answer: ", to_guess);
 
 		if (get_input(user_input) || check_answer(user_input, answers) == 0)
 		{
-			if (strcmp(user_input, "STOP") == 0)
+			if (wcscmp(user_input, (wchar_t *)"STOP") == 0)
 			{
 				printf(BLU "\n> Stopping the session ..." COLOR_RESET);
 				free_loop(&buf, &user_input);

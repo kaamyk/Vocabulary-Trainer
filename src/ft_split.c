@@ -1,7 +1,7 @@
 #include "../inc/german.h"
 
 	/* FT_SPLIT */
-int	ft_wdlen(const char *s, int c)
+int	ft_wdlen(const wchar_t *s, int c)
 {
 	int	len;
 
@@ -12,7 +12,7 @@ int	ft_wdlen(const char *s, int c)
 	return (len);
 }
 
-int	ft_wdcount(const char *s, int c)
+int	ft_wdcount(const wchar_t *s, int c)
 {
 	int	count;
 
@@ -34,7 +34,7 @@ int	ft_wdcount(const char *s, int c)
 	return (count);
 }
 
-void	ft_scat(char **dest, const char **src, int len)
+void	ft_scat(wchar_t **dest, const wchar_t **src, int len)
 {
 	int	i;
 
@@ -49,15 +49,15 @@ void	ft_scat(char **dest, const char **src, int len)
 	**dest = 0;
 }
 
-char	**ft_split(char const *s, char c)
+wchar_t	**ft_split(wchar_t const *s, wchar_t c)
 {
-	char	**tab;
-	char	*tmp;
+	wchar_t	**tab;
+	wchar_t	*tmp;
 	int		j;
 
 	if (!s)
 		return (NULL);
-	tab = malloc(sizeof(char *) * ft_wdcount(s, c));
+	tab = malloc(sizeof(wchar_t *) * ft_wdcount(s, c));
 	if (!tab)
 		return (NULL);
 	j = 0;
@@ -65,7 +65,7 @@ char	**ft_split(char const *s, char c)
 	{
 		if (*s != c && ++j)
 		{
-			tab[j - 1] = malloc(sizeof(char) * ft_wdlen(s, c));
+			tab[j - 1] = malloc(sizeof(wchar_t) * ft_wdlen(s, c));
 			if (!(*tab))
 				return (ft_freetab(&tab));
 			tmp = tab[j - 1];

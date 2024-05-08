@@ -6,7 +6,7 @@ int	print_error( int err_code )
 	return (err_code);
 }
 
-bool	error_guess( int err_code, char **to_guess, char ***answers, t_data *data )
+bool	error_guess( int err_code, wchar_t **to_guess, wchar_t ***answers, t_data *data )
 {
 	data->err_code = err_code;
 	perror(strerror(err_code));
@@ -14,7 +14,7 @@ bool	error_guess( int err_code, char **to_guess, char ***answers, t_data *data )
 	return (1);
 }
 
-bool	error_loop( int err_code, char **user_input, char **buf, t_data *data )
+bool	error_loop( int err_code, wchar_t **user_input, wchar_t **buf, t_data *data )
 {
 	data->err_code = err_code;
 	perror(strerror(err_code));
