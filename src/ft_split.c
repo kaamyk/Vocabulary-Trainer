@@ -57,7 +57,7 @@ wchar_t	**ft_split(wchar_t const *s, wchar_t c)
 
 	if (!s)
 		return (NULL);
-	tab = malloc(sizeof(wchar_t *) * ft_wdcount(s, c));
+	tab = (wchar_t **)malloc(sizeof(wchar_t *) * ft_wdcount(s, c));
 	if (!tab)
 		return (NULL);
 	j = 0;
@@ -65,7 +65,7 @@ wchar_t	**ft_split(wchar_t const *s, wchar_t c)
 	{
 		if (*s != c && ++j)
 		{
-			tab[j - 1] = malloc(sizeof(wchar_t) * ft_wdlen(s, c));
+			tab[j - 1] = (wchar_t *)malloc(sizeof(wchar_t) * ft_wdlen(s, c));
 			if (!(*tab))
 				return (ft_freetab(&tab));
 			tmp = tab[j - 1];

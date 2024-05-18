@@ -1,43 +1,20 @@
 #include "../inc/german.h"
 
 	/*					*/
-	/*	FILE UTILS		*/
-	/*					*/
-
-int	len_file( const char *file_name )
-{
-	int	res = 0;
-	// size_t	n = 0;
-	wchar_t	*buf = NULL;
-	FILE	*file = fopen(file_name, "r");
-	if (file == NULL)
-		return (-1);
-		
-	while ((buf = get_next_wline(file) )!= NULL)
-	{
-		++res;
-		free(buf);
-	}
-	fclose(file);
-	return (res);
-}
-
-	/*					*/
 	/*	PRIORITARIES	*/
 	/*					*/
 
 void	parse_priority_error( char *err_mess, wchar_t *buf, t_data *data )
 {
+	(void) buf;
 	write(2, err_mess, strlen(err_mess));
-	if (buf != NULL)
-		free(buf);
 	fclose(data->file);
 }
 
 bool	atoi_file( t_data *data )
 {
 	// size_t	n = 0;
-	wchar_t	*buf = NULL;
+	wchar_t	buf[MAX_INVALID_LINE] = {0};
 
 	data->file = fopen("./data/priority.txt", "r");
 	if (data->file == NULL)
@@ -49,25 +26,24 @@ bool	atoi_file( t_data *data )
 		parse_priority_error("Error: dictionary is invalid.\n", buf, data);
 		return (1);
 	}
-	
-	for (int i = 0; (buf = get_next_wline(data->file)) != NULL && i < data->l_prio; i++)
+
+	for (int i = 0; (fgetws(buf, MAX_LEN_INPUT / sizeof(wchar_t), data->file)) != NULL && i < data->l_prio; i++)
 	{
 		del_nl(buf);
-		wprintf(L"atoi_file():buf == [%ls]\n", buf);
-		if (find_first_not_of((wchar_t *)"0123456789", buf) != NULL)
+		// wprintf(L"atoi_file():buf == [%ls]\n", buf);
+		if (find_first_not_of(L"0123456789", buf) != NULL)
 		{
 			parse_priority_error("Error: priority.txt contains unvalid characters.\n", buf, data);
 			return (1);
 		}
 		data->priority[i] = (buf != NULL) ? ft_wctoi(buf) : 0;
-		// printf("atoi_file(): data->priority[%d]: %d\n", i, data->priority[i]);
+		printf("atoi_file(): data->priority[%d]: %d | l_dico == %d\n", i, data->priority[i], data->l_dico);
 		if (data->priority[i] > data->l_dico)
 		{
 			parse_priority_error("Error: priority.txt contains an invalid rank.\n", buf, data);
 			return (1);
 		}
 	}
-	free(buf);
 	fclose(data->file);
 	return (0);
 }
@@ -78,7 +54,7 @@ bool	parse_priority_file( t_data *data )
 	if (data->l_prio == -1)
 		return (1);
 
-	// data->priority = calloc(data->l_prio + 1, sizeof(int));
+	// data->priority = (wchar_t *)calloc(data->l_prio + 1, sizeof(int));
 	// if (data->priority == NULL)
 	// 	return (1);
 	data->priority[data->l_prio] = -1;

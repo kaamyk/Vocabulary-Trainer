@@ -90,7 +90,7 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 	int	l_nb[2] = {0}; // [0]: actual line; [1]: previous line
 	int	i = 0;
 	// wchar_t	user_input[MAX_LEN_INPUT + 1] = {0};
-	wchar_t	*user_input = calloc(MAX_LEN_INPUT + 1, sizeof(wchar_t));
+	wchar_t	*user_input = (wchar_t *)calloc(MAX_LEN_INPUT + 1, sizeof(wchar_t));
 	if (errno != 0)
 		return (error_loop(errno, &user_input, &buf, data));
 

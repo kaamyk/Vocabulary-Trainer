@@ -26,7 +26,7 @@
 #define LEN_ANSWERS 5
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 127
+#  define BUFFER_SIZE 255
 # endif
 
 
@@ -61,6 +61,7 @@ void	print_results( int nb_fails, int nb_correct );
 
 	// lenght
 int	l_tab( wchar_t **t );
+int	len_file( const char *file_name );
 
 	// Allocation
 wchar_t	**ft_split(wchar_t const *s, wchar_t c);
@@ -119,7 +120,6 @@ bool	error_reset( int err_code, t_data *data );
 /*					*/
 /*		FILES		*/
 /*					*/
-int	len_file( const char *file_name );
 void	parse_priority_error( char *err_mess, wchar_t *buf, t_data *data );
 bool	atoi_file( t_data *data );
 bool	parse_priority_file( t_data *data );

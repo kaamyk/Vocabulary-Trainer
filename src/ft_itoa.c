@@ -30,7 +30,7 @@ wchar_t	*ft_itoa(int n)
 
 	nb = n;
 	len = ft_nblen(n);
-	res = malloc(sizeof(wchar_t) * (len + 1));
+	res = (wchar_t *)malloc(sizeof(wchar_t) * (len + 1));
 	if (!res)
 		return (NULL);
 	res[len] = 0;

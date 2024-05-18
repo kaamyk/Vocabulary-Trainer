@@ -3,7 +3,7 @@ t_data	*init_data( void )
 {
 	t_data	*data = NULL;
 
-	data = malloc(sizeof(t_data));
+	data = (t_data *)malloc(sizeof(t_data));
 	if (data == NULL)
 		return (NULL);
 
@@ -11,7 +11,7 @@ t_data	*init_data( void )
 	data->nb_fails = 0;
 	data->nb_correct = 0;
 	data->l_dico = 0;
-	data->priority = calloc(NB_FAIL + 1, sizeof(int));
+	data->priority = (wchar_t *)calloc(NB_FAIL + 1, sizeof(int));
 	if (data->priority == NULL)
 	{
 		free_data(&data);
@@ -20,7 +20,7 @@ t_data	*init_data( void )
 	data->priority[NB_FAIL] = -1;
 	data->l_prio = 0;
 
-	data->past_ranks = calloc(NB_CORRECT + NB_FAIL + 1, sizeof(int));
+	data->past_ranks = (wchar_t *)calloc(NB_CORRECT + NB_FAIL + 1, sizeof(int));
 	if (data->past_ranks == NULL)
 	{
 		free_data(&data);
@@ -29,7 +29,7 @@ t_data	*init_data( void )
 	data->past_ranks[NB_CORRECT + NB_FAIL] = -1;
 
 	data->l_past_ranks = 0;
-	data->invalid_lines = calloc(MAX_INVALID_LINE + 1, sizeof(int));
+	data->invalid_lines = (wchar_t *)calloc(MAX_INVALID_LINE + 1, sizeof(int));
 	if (data->invalid_lines == NULL)
 	{
 		free_data(&data);
@@ -46,7 +46,10 @@ int main( void )
 	int	return_value = 0;
 	t_data  *data = init_data();
 
-	setlocale(LC_ALL, "C.UTF-8");
+	if (setlocale(LC_ALL, "de_DE.UTF-8") == NULL)
+	{
+		perror(strerror(errno));
+	}
 
 	if (data == NULL)
 		return (print_error(errno));

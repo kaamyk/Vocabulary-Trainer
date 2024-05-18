@@ -39,6 +39,23 @@ int	l_tab( wchar_t **t )
 	return (tmp - t);
 }
 
+int	len_file( const char *file_name )
+{
+	int	res = 0;
+	// size_t	n = 0;
+	wchar_t	buf[MAX_LEN_INPUT] = {0};
+	FILE	*file = fopen(file_name, "r");
+	if (file == NULL)
+		return (-1);
+		
+	while (fgetws(buf, MAX_LEN_INPUT / sizeof(wchar_t), file) != NULL)
+	{
+		++res;
+	}
+	fclose(file);
+	return (res);
+}
+
 	/*	MODIFY VALUES	*/
 
 void	del_nl( wchar_t *s )
@@ -53,13 +70,13 @@ void	del_nl( wchar_t *s )
 
 wchar_t	**init_answers( void )
 {
-	wchar_t	**res = calloc(LEN_ANSWERS + 1, sizeof(wchar_t *));
+	wchar_t	**res = (wchar_t **)calloc(LEN_ANSWERS + 1, sizeof(wchar_t *));
 	if (res == NULL)
 		return (NULL);
 	res[LEN_ANSWERS] = NULL;
 	for (int i = 0; i < LEN_ANSWERS && res != NULL; i++)
 	{
-		res[i] = calloc(MAX_LEN_INPUT + 1, sizeof(wchar_t));
+		res[i] = (wchar_t *)calloc(MAX_LEN_INPUT + 1, sizeof(wchar_t));
 		if (res[i] == NULL)
 		{
 			res = ft_freetab(&res);
@@ -73,7 +90,7 @@ wchar_t	**init_answers( void )
 
 bool	get_input( wchar_t *user_input )
 {
-	if (fgetws(user_input, MAX_LEN_INPUT, stdin) == NULL)
+	if (fgetws(user_input, MAX_LEN_INPUT / sizeof(wchar_t), stdin) == NULL)
 	{
 		printf("The word you typed is too long. (Max wchar_tacters: 45)\n");
 		return (1) ;
@@ -85,6 +102,7 @@ bool	get_input( wchar_t *user_input )
 
 wchar_t	*find_first_not_of( wchar_t *to_find, wchar_t *str )
 {
+	// wprintf(L"find_first_not_of(): *tofind == %ls | *str == %ls\n", to_find, str);
 	if (to_find == NULL || str == NULL)
 		return (NULL);
 	while(*str)
@@ -134,22 +152,22 @@ bool	check_answer( wchar_t *user_input, wchar_t **answers )
 
 int	ft_wcschr( wchar_t *s, wchar_t to_find )//die Fussgängerzone
 {
-	printf(">> ft_wcschr():\n");
-	if (wprintf(L"\ts == %ls\n", s))
+	// printf(">> ft_wcschr():\n");
+	// if (wprintf(L"\ts == %ls\n", s))
 		perror(strerror(errno));
-	if (wprintf(L"\tto_find == %c\n", to_find) < 0)
+	// if (wprintf(L"\tto_find == %c\n", to_find) < 0)
 		perror(strerror(errno));
 	int	i = 0;
 
 	while (s[i])
 	{
-		wprintf(L"\ts[%d] == %lc\n",i, s[i]);
-		wprintf(L"\tto_find == %lc\n", to_find);
+		// wprintf(L"\ts[%d] == %lc\n",i, s[i]);
+		// wprintf(L"\tto_find == %lc\n", to_find);
 		if (s[i] == to_find)
 			return (i);
 		i++;
 	}
-	printf("Return (-1)\n");
+	// printf("Return (-1)\n");
 	return (-1);
 }
 

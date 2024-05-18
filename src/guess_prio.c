@@ -37,7 +37,7 @@ void	prio_right_answer( int l_nb, t_data *data )
 bool	guess_priority( t_data *data )
 {
 	bool	res = 0;
-	wchar_t	*to_guess = calloc(MAX_LEN_INPUT + 1, sizeof(wchar_t));
+	wchar_t	*to_guess = (wchar_t *)calloc(MAX_LEN_INPUT + 1, sizeof(wchar_t));
 	if (errno != 0)
 		return (error_guess(errno, &to_guess, NULL, data));
 

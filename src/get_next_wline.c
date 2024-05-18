@@ -62,7 +62,7 @@ wchar_t	*ft_cpylst(t_list *lst, int mult, int lastlen)
 	t_list	*l_tmp = NULL;
 	int		i = 0;
 	int		j = 0;
-	wchar_t	*s = calloc(BUFFER_SIZE * mult + lastlen + 1, sizeof(wchar_t));
+	wchar_t	*s = (wchar_t *)calloc(BUFFER_SIZE * mult + lastlen + 1, sizeof(wchar_t));
 
 	if (!s || !lst || !lst->content)
 		return (NULL);
@@ -102,7 +102,7 @@ wchar_t	*ft_readfile( FILE *file )
 	static wchar_t	rest[BUFFER_SIZE + 1];
 	int			i = 0;
 	int			j = 0;
-	wchar_t		*s = calloc(BUFFER_SIZE + 1, sizeof(wchar_t));
+	wchar_t		*s = (wchar_t *)calloc(BUFFER_SIZE + 1, sizeof(wchar_t));
 	if (s == NULL)
 		return (NULL);
 
@@ -129,7 +129,7 @@ int	ft_lstnew( t_list **n_elm, FILE *file )
 {
 	int	i = 0;
 
-	*n_elm = malloc (sizeof(t_list));
+	*n_elm = (t_list *)malloc (sizeof(t_list));
 	if (!*n_elm)
 		return (1);
 	(*n_elm)->content = ft_readfile(file);
