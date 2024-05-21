@@ -66,9 +66,9 @@ int main( void )
 
 	if (data->l_invalid_lines > 0)
 	{
-		printf("Information: invalid lines were found in dictionary: ");
+		wprintf(L"Information: invalid lines were found in dictionary: ");
 		print_int_tab(data->invalid_lines);
-		printf("\n");
+		wprintf(L"\n");
 	}
 
 	reset_prioritary_file(data);

@@ -15,13 +15,13 @@ void	print_int_tab( int *t )
 {
 	for (int *ptr = t; ptr != NULL && *ptr != -1  && *ptr != 0; ptr++)
 	{
-		printf("%d\n", *ptr);
+		wprintf(L"%d\n", *ptr);
 	}
 }
 
 void	print_results( int nb_fails, int nb_correct )
 {
-	printf("\tEND OF SESSION !\n");
+	wprintf(L"\tEND OF SESSION !\n");
 	printf(WHT "\n\tRight answers: " reset);
 	printf(BGRN "%d" reset, nb_correct);
 	printf(WHT "\tWrong answers: " reset);
@@ -48,9 +48,11 @@ int	len_file( const char *file_name )
 	if (file == NULL)
 		return (-1);
 		
-	while (fgetws(buf, MAX_LEN_INPUT / sizeof(wchar_t), file) != NULL)
+	while (getwline(buf, MAX_LEN_INPUT / sizeof(wchar_t), file) != NULL)
 	{
-		++res;
+		wprintf(L"line[%d] == %ls\n", res, buf);
+		if (wcschr(buf, '\n') != NULL)
+			++res;
 	}
 	fclose(file);
 	return (res);
@@ -63,7 +65,7 @@ void	del_nl( wchar_t *s )
 	if (s == NULL)
 		return ;
 	wchar_t	*tmp = wcschr(s, '\n');
-	// printf("tmp == %ls\n", tmp);
+	// wprintf(L"tmp == %ls\n", tmp);
 	if (tmp != NULL)
 		*tmp = 0;
 }
@@ -92,11 +94,11 @@ bool	get_input( wchar_t *user_input )
 {
 	if (fgetws(user_input, MAX_LEN_INPUT / sizeof(wchar_t), stdin) == NULL)
 	{
-		printf("The word you typed is too long. (Max wchar_tacters: 45)\n");
+		wprintf(L"The word you typed is too long. (Max wchar_tacters: 45)\n");
 		return (1) ;
 	}
 	del_nl(user_input);
-	// printf("\tuser_input: [%ls]\n", user_input);
+	// wprintf(L"\tuser_input: [%ls]\n", user_input);
 	return (wcslen(user_input) < 1 ? 1 : 0);
 }
 
@@ -128,7 +130,7 @@ bool	find_int_in_tab( int n, int *t )
 bool	check_answer( wchar_t *user_input, wchar_t **answers )
 {
 
-	// printf("check_answers():\n");
+	// wprintf(L"check_answers():\n");
 	// int	tmp = 0;
 	wchar_t	B = L'ß';
 
@@ -152,11 +154,6 @@ bool	check_answer( wchar_t *user_input, wchar_t **answers )
 
 int	ft_wcschr( wchar_t *s, wchar_t to_find )//die Fussgängerzone
 {
-	// printf(">> ft_wcschr():\n");
-	// if (wprintf(L"\ts == %ls\n", s))
-		perror(strerror(errno));
-	// if (wprintf(L"\tto_find == %c\n", to_find) < 0)
-		perror(strerror(errno));
 	int	i = 0;
 
 	while (s[i])
@@ -167,28 +164,28 @@ int	ft_wcschr( wchar_t *s, wchar_t to_find )//die Fussgängerzone
 			return (i);
 		i++;
 	}
-	// printf("Return (-1)\n");
+	// wprintf(L"Return (-1)\n");
 	return (-1);
 }
 
 int	strcmp_spe_wchar_t( wchar_t *s1, wchar_t *s2, wchar_t *rpl, wchar_t sp_c )
 {
-	printf(">> strcmp_spe_wchar_t()\n");
+	wprintf(L">> strcmp_spe_wchar_t()\n");
 	wchar_t	*tmp = rpl;
 	
 	while (*s1 || *s2)
 	{
-		printf("*s1 == %c | *s2 == %c\n", *s1, *s2);
+		wprintf(L"*s1 == %c | *s2 == %c\n", *s1, *s2);
 		if (*s1 != *s2)
 		{
 			if (*s1 != rpl[0] || *s2 != sp_c)
 			{
-				printf("Return (%d)\n", *s1 - *s2);
+				wprintf(L"Return (%d)\n", *s1 - *s2);
 				return (*s1 - *s2);
 			}
 			else
 			{
-				printf("Skipping spe wchar_t: *s1 == %c\n", *s1);
+				wprintf(L"Skipping spe wchar_t: *s1 == %c\n", *s1);
 				tmp = rpl;
 				while (*s1 && *rpl)
 				{

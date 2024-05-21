@@ -38,7 +38,7 @@ bool	guess_dictionary( t_data *data )
 	if (errno != 0)
 		return (error_guess(errno, &to_guess, NULL, data));
 
-	printf(BBLU "\n\t>>> GUESS DICO\n" COLOR_RESET);
+	wprintf(BBLU L"\n\t>>> GUESS DICO\n" COLOR_RESET);
 	res = guess_loop(to_guess, answers, data, 1);
 
 	free_guess(&to_guess, &answers);

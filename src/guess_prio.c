@@ -13,7 +13,7 @@ void	prio_wrong_answer( wchar_t **answers, t_data *data )
 
 void	prio_right_answer( int l_nb, t_data *data )
 {
-	// printf("prio_right_anwer():\n");
+	// wprintf(L"prio_right_anwer():\n");
 	printf(BGRN "\t>>> CORRECT <<<\n" COLOR_RESET);
 	uint8_t	i = 0;
 
@@ -23,7 +23,7 @@ void	prio_right_answer( int l_nb, t_data *data )
 			break ;
 		i++;
 	}
-	// printf("to erase: [%d] && data->l_prio:[%d]\n", data->priority[i], data->l_prio);
+	// wprintf(L"to erase: [%d] && data->l_prio:[%d]\n", data->priority[i], data->l_prio);
 	while (i + 1 < data->l_prio)
 	{
 		data->priority[i] = data->priority[i + 1];
@@ -49,7 +49,7 @@ bool	guess_priority( t_data *data )
 	if (errno != 0)
 		return (error_guess(errno, &to_guess, &answers, data));
 
-	printf(BYEL "\n\t>>> GUESS PRIO\n" COLOR_RESET);
+	wprintf(BYEL L"\n\t>>> GUESS PRIO\n" COLOR_RESET);
 	res = guess_loop(to_guess, answers, data, 0);
 
 	free_guess(&to_guess, &answers);

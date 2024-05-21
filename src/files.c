@@ -37,7 +37,7 @@ bool	atoi_file( t_data *data )
 			return (1);
 		}
 		data->priority[i] = (buf != NULL) ? ft_wctoi(buf) : 0;
-		printf("atoi_file(): data->priority[%d]: %d | l_dico == %d\n", i, data->priority[i], data->l_dico);
+		wprintf(L"atoi_file(): data->priority[%d]: %d | l_dico == %d\n", i, data->priority[i], data->l_dico);
 		if (data->priority[i] > data->l_dico)
 		{
 			parse_priority_error("Error: priority.txt contains an invalid rank.\n", buf, data);
@@ -76,9 +76,7 @@ bool	reset_prioritary_file( t_data *data )
 	for (size_t  i = 0; data->priority[i] != -1 && data->priority[i] != 0; i++)
 	{
 		tmp = ft_itoa(data->priority[i]);
-		if (tmp == NULL
-		|| fwrite(tmp, sizeof(wchar_t), wcslen(tmp), file) == 0
-		|| fwrite("\n", sizeof(wchar_t), 1, file) == 0)
+		if (tmp == NULL || fputws(tmp, file) == -1 || fputws(L"\n", file) == -1)
 		{
 			write(2, "Error: reset_prioritary_files(): failed to write an element in \'tmp\' file\n", 75);
 		}
