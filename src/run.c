@@ -6,7 +6,7 @@ bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf )
 		return (1);
 	
 	// wchar_t	*s_tmp = NULL;
-	bzero(to_guess, wcslen(to_guess));
+	bzero(to_guess, wcslen(to_guess) * sizeof(wchar_t));
 
 	wchar_t	**splitted_line = ft_split(buf, ',');
 	if (splitted_line == NULL)
@@ -125,7 +125,7 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 			}
 			if (data->l_invalid_lines >= MAX_INVALID_LINE)
 			{
-				printf(RED "Information: Too many invalid lines has a format error. Stopping the session ...\n" COLOR_RESET);
+				wprintf(RED "Information: Too many invalid lines has a format error. Stopping the session ...\n" COLOR_RESET);
 				free_loop(&buf, &user_input);
 				return (1);
 			}
@@ -135,14 +135,13 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 
 		//	User guess the answer
 		//	Then parse input and checking if try is Right or Wrong
-		wprintf(L"%ls", to_guess);
-		wprintf(L"Word to guess: %ls\n\tYour answer: ", to_guess);
+		wprintf(L"Word to guess: [%ls]\n\tYour answer: ", to_guess);
 
 		if (get_input(user_input) || check_answer(user_input, answers) == 0)
 		{
 			if (wcscmp(user_input, L"STOP") == 0)
 			{
-				printf(BLU "\n> Stopping the session ..." COLOR_RESET);
+				wprintf(BLU "\n> Stopping the session ..." COLOR_RESET);
 				free_loop(&buf, &user_input);
 				return (1);
 			}

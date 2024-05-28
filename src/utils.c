@@ -22,10 +22,10 @@ void	print_int_tab( int *t )
 void	print_results( int nb_fails, int nb_correct )
 {
 	wprintf(L"\tEND OF SESSION !\n");
-	printf(WHT "\n\tRight answers: " reset);
-	printf(BGRN "%d" reset, nb_correct);
-	printf(WHT "\tWrong answers: " reset);
-	printf(BRED "%d\n" reset, nb_fails);
+	wprintf(WHT "\n\tRight answers: " reset);
+	wprintf(BGRN "%d" reset, nb_correct);
+	wprintf(WHT "\tWrong answers: " reset);
+	wprintf(BRED "%d\n" reset, nb_fails);
 }
 
 	/*		LENGTH		*/
@@ -43,17 +43,18 @@ int	len_file( const char *file_name )
 {
 	int	res = 0;
 	// size_t	n = 0;
-	wchar_t	buf[MAX_LEN_INPUT] = {0};
+	wchar_t	buf[BUFFER_SIZE] = {0};
 	FILE	*file = fopen(file_name, "r");
 	if (file == NULL)
 		return (-1);
 		
-	while (getwline(buf, MAX_LEN_INPUT / sizeof(wchar_t), file) != NULL)
+	while (fgetws(buf, BUFFER_SIZE * sizeof(wchar_t), file) != NULL)
 	{
 		wprintf(L"line[%d] == %ls\n", res, buf);
 		if (wcschr(buf, '\n') != NULL)
 			++res;
 	}
+	perror(strerror(errno));
 	fclose(file);
 	return (res);
 }
@@ -130,9 +131,8 @@ bool	find_int_in_tab( int n, int *t )
 bool	check_answer( wchar_t *user_input, wchar_t **answers )
 {
 
-	// wprintf(L"check_answers():\n");
+	wprintf(L"check_answers():\n");
 	// int	tmp = 0;
-	wchar_t	B = L'ß';
 
 // 348
 // 447
@@ -142,9 +142,9 @@ bool	check_answer( wchar_t *user_input, wchar_t **answers )
 	for (uint8_t i = 0; answers[i] != NULL && answers[i][0] != 0; i++)
 	{
 		// tmp = ft_wcschr(answers[i], 'ß');
-		if (ft_wcschr(answers[i], B) != -1 && ft_wcschr(user_input, B) == -1)
+		if (ft_wcschr(answers[i], L'ß') != -1 && ft_wcschr(user_input, L'ß') == -1)
 		{
-			strcmp_spe_wchar_t(user_input, answers[i], L"ss", B);
+			strcmp_spe_wchar_t(user_input, answers[i], L"ss", L'ß');
 		}
 		if (wcscmp(user_input, answers[i]) == 0)
 			return (1);
@@ -168,7 +168,7 @@ int	ft_wcschr( wchar_t *s, wchar_t to_find )//die Fussgängerzone
 	return (-1);
 }
 
-int	strcmp_spe_wchar_t( wchar_t *s1, wchar_t *s2, wchar_t *rpl, wchar_t sp_c )
+int	strcmp_spe_wchar_t( wchar_t *s1, wchar_t *s2, wchar_t *rpl, const wchar_t sp_c )
 {
 	wprintf(L">> strcmp_spe_wchar_t()\n");
 	wchar_t	*tmp = rpl;

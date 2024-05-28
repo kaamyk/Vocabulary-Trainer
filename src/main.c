@@ -50,17 +50,18 @@ int main( void )
 	{
 		perror(strerror(errno));
 	}
+	fwide(stdout, 1);
 
 	if (data == NULL)
 		return (print_error(errno));
 	else if (parse_priority_file(data))
 	{
 		free_data(&data);
-		printf(RED "> Setup Failed.\n" COLOR_RESET);
+		wprintf(RED "> Setup Failed.\n" COLOR_RESET);
 		return (1);
 	}
 	srand(time(NULL));
-	printf(GRN "> Setup Completed.\n" COLOR_RESET);
+	wprintf(GRN "> Setup Completed.\n" COLOR_RESET);
 
 	run(data);
 
@@ -76,6 +77,6 @@ int main( void )
 	return_value = data->err_code;
 	free_data(&data);
 
-	printf(GRN " Good bye !\n" COLOR_RESET);
+	wprintf(GRN " Good bye !\n" COLOR_RESET);
 	return (return_value);
 }

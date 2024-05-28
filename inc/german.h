@@ -26,7 +26,7 @@
 #define LEN_ANSWERS 5
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 255
+#  define BUFFER_SIZE 256
 # endif
 
 
