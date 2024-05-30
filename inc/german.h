@@ -78,7 +78,7 @@ wchar_t	*find_first_not_of( wchar_t *to_find, wchar_t *str );
 bool	find_int_in_tab( int n, int *t );
 bool	check_answer( wchar_t *user_input, wchar_t **answers );
 int	ft_wcschr( wchar_t *s, wchar_t to_find );
-int	strcmp_spe_wchar_t( wchar_t *s1, wchar_t *s2, wchar_t *rpl, wchar_t sp_c );
+int	wcscmp_spe_wchar( wchar_t *s1, wchar_t *s2, wchar_t *rpl, wchar_t sp_c );
 
 wchar_t	*ft_itoa(int n);
 
@@ -127,7 +127,7 @@ bool	reset_prioritary_file( t_data *data );
 bool	parse_dictionary_line( wchar_t *buf, int l_nb, t_data *data );
 
 
-/*						*/
+ /*						*/
 /*		GUESS DICO		*/
 /*						*/
 void	dico_right_answer( int l_nb, t_data *data );
@@ -147,7 +147,7 @@ bool	guess_priority( t_data *data );
 /*				*/
 int	guess_err( wchar_t *err_mess, wchar_t **buf, wchar_t **to_guess, wchar_t ***answers, t_data *data);
 bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf );
-bool	jump_to_line( int *i, int l_nb[2], t_data *data );
+bool	jump_to_line( wchar_t *buf, int *i, int l_nb[2], t_data *data );
 bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool is_dico );
 bool	run( t_data *data );
 

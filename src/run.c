@@ -65,16 +65,15 @@ int	define_line( t_data *data, bool is_dico )
 	return (res);
 }
 
-bool	jump_to_line( int *i, int l_nb[2], t_data *data )
+bool	jump_to_line( wchar_t *buf, int *i, int l_nb[2], t_data *data )
 {
-	wchar_t	buf[MAX_LEN_INPUT] = {0};
-	
 	while (*i < l_nb[0]) // Jump to the wanted line
 	{
 		// if (get_next_wline(data->file) == NULL)
-		if (fgetws(buf, MAX_LEN_INPUT / sizeof(wchar_t), data->file) == NULL)
+		// if (fgetws(buf, MAX_LEN_INPUT / sizeof(wchar_t), data->file) == NULL)
+		if (fgetws(buf, MAX_LEN_INPUT, data->file) == NULL)
 		{
-			// wprintf(L"Error: File reading failed.\n");
+			wprintf(L"Error: File reading failed.\n");
 			data->err_code = errno;
 			return (1);
 		}
@@ -86,14 +85,14 @@ bool	jump_to_line( int *i, int l_nb[2], t_data *data )
 bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool is_dico )
 {
 	// wprintf(L">> guess_loop() << \n");
-	wchar_t	*buf = NULL;
+	wchar_t	buf[BUFFER_SIZE] = {0};
 	// size_t	n = 0;
 	int	l_nb[2] = {0}; // [0]: actual line; [1]: previous line
 	int	i = 0;
 	// wchar_t	user_input[MAX_LEN_INPUT + 1] = {0};
 	wchar_t	*user_input = (wchar_t *)calloc(MAX_LEN_INPUT + 1, sizeof(wchar_t));
 	if (errno != 0)
-		return (error_loop(errno, &user_input, &buf, data));
+		return (error_loop(errno, &user_input, NULL, data));
 
 	while (data->nb_correct < NB_CORRECT && data->nb_fails < NB_FAIL \
 		&& data->l_past_ranks < data->l_dico && data->l_past_ranks < NB_CORRECT + NB_FAIL )
@@ -113,20 +112,21 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 		{
 			i = l_nb[1];
 		}
-		if (jump_to_line(&i, l_nb, data))
-			return (error_loop(data->err_code, &user_input, &buf, data));
+		if (jump_to_line(buf, &i, l_nb, data))
+			return (error_loop(data->err_code, &user_input, NULL, data));
+		wprintf(L"After jump_to_line() => buf == [%s]\n", buf);
 		if (parse_dictionary_line(buf, l_nb[0], data))
 		{
 			if (!is_dico)
 			{
 				perror("Error: a priority line has a format error.\n");
-				free_loop(&buf, &user_input);
+				free_loop(NULL, &user_input);
 				return (1);
 			}
 			if (data->l_invalid_lines >= MAX_INVALID_LINE)
 			{
 				wprintf(RED "Information: Too many invalid lines has a format error. Stopping the session ...\n" COLOR_RESET);
-				free_loop(&buf, &user_input);
+				free_loop(NULL, &user_input);
 				return (1);
 			}
 			continue ;
@@ -142,7 +142,7 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 			if (wcscmp(user_input, L"STOP") == 0)
 			{
 				wprintf(BLU "\n> Stopping the session ..." COLOR_RESET);
-				free_loop(&buf, &user_input);
+				free_loop(NULL, &user_input);
 				return (1);
 			}
 
@@ -163,7 +163,7 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 		// wprintf(L"last past rank == %d\n", data->past_ranks[data->l_past_ranks]);
 		data->l_past_ranks += 1;
 	}
-	free_loop(&buf, &user_input);
+	free_loop(NULL, &user_input);
 	return (0);
 }
 

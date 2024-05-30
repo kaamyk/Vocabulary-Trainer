@@ -48,9 +48,10 @@ int	len_file( const char *file_name )
 	if (file == NULL)
 		return (-1);
 		
-	while (fgetws(buf, BUFFER_SIZE * sizeof(wchar_t), file) != NULL)
+	// while (fgetws(buf, BUFFER_SIZE * sizeof(wchar_t), file) != NULL)
+	while (fgetws(buf, BUFFER_SIZE, file) != NULL)
 	{
-		wprintf(L"line[%d] == %ls\n", res, buf);
+		// wprintf(L"line[%d] == %ls\n", res, buf);
 		if (wcschr(buf, '\n') != NULL)
 			++res;
 	}
@@ -142,9 +143,9 @@ bool	check_answer( wchar_t *user_input, wchar_t **answers )
 	for (uint8_t i = 0; answers[i] != NULL && answers[i][0] != 0; i++)
 	{
 		// tmp = ft_wcschr(answers[i], 'ß');
-		if (ft_wcschr(answers[i], L'ß') != -1 && ft_wcschr(user_input, L'ß') == -1)
+		if (wcschr(answers[i], L'ß') != NULL && wcschr(user_input, L'ß') == NULL)
 		{
-			strcmp_spe_wchar_t(user_input, answers[i], L"ss", L'ß');
+			return (!wcscmp_spe_wchar(user_input, answers[i], L"ss", L'ß'));
 		}
 		if (wcscmp(user_input, answers[i]) == 0)
 			return (1);
@@ -152,53 +153,37 @@ bool	check_answer( wchar_t *user_input, wchar_t **answers )
 	return (0);
 }
 
-int	ft_wcschr( wchar_t *s, wchar_t to_find )//die Fussgängerzone
-{
-	int	i = 0;
-
-	while (s[i])
-	{
-		// wprintf(L"\ts[%d] == %lc\n",i, s[i]);
-		// wprintf(L"\tto_find == %lc\n", to_find);
-		if (s[i] == to_find)
-			return (i);
-		i++;
-	}
-	// wprintf(L"Return (-1)\n");
-	return (-1);
-}
-
-int	strcmp_spe_wchar_t( wchar_t *s1, wchar_t *s2, wchar_t *rpl, const wchar_t sp_c )
+int	wcscmp_spe_wchar( wchar_t *srpl, wchar_t *sspe, wchar_t *rpl, const wchar_t sp_c )
 {
 	wprintf(L">> strcmp_spe_wchar_t()\n");
 	wchar_t	*tmp = rpl;
 	
-	while (*s1 || *s2)
+	while (*srpl || *sspe)
 	{
-		wprintf(L"*s1 == %c | *s2 == %c\n", *s1, *s2);
-		if (*s1 != *s2)
+		wprintf(L"*srpl == %lc | *sspe == %lc\n", *srpl, *sspe);
+		if (*srpl != *sspe)
 		{
-			if (*s1 != rpl[0] || *s2 != sp_c)
+			if (*srpl == *rpl && *sspe == sp_c)
 			{
-				wprintf(L"Return (%d)\n", *s1 - *s2);
-				return (*s1 - *s2);
-			}
-			else
-			{
-				wprintf(L"Skipping spe wchar_t: *s1 == %c\n", *s1);
-				tmp = rpl;
-				while (*s1 && *rpl)
+				wprintf(L"Skipping spe wchar_t: *srpl == %c\n", *srpl);
+				while (*srpl && *rpl)
 				{
-					++s1;
+					++srpl;
 					++rpl;
 				}
 				rpl = tmp;
-				++s2;
+				++sspe;
 				continue ;
 			}
+			else
+			{
+				wprintf(L"Return (%d)\n", *srpl - *sspe);
+				return (*srpl - *sspe);
+			}
 		}
-		++s1;
-		++s2;
+		++srpl;
+		++sspe;
 	}
+	wprintf(L"Return (0)");
 	return (0);
 }

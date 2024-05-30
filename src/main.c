@@ -46,12 +46,14 @@ int main( void )
 	int	return_value = 0;
 	t_data  *data = init_data();
 
+
 	if (setlocale(LC_ALL, "de_DE.UTF-8") == NULL)
 	{
 		perror(strerror(errno));
 	}
 	fwide(stdout, 1);
 
+	wprintf(L"sizeof(wchar_t) == %ld\n", sizeof(wchar_t));
 	if (data == NULL)
 		return (print_error(errno));
 	else if (parse_priority_file(data))
