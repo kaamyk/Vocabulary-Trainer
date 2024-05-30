@@ -1,13 +1,12 @@
 #include "../inc/german.h"
 
-	/*		PRINT		*/
+	/*		1T		*/
 
 void	print_tab( wchar_t **t )
 {
 	for (wchar_t **ptr = t; ptr != NULL && *ptr != NULL && **ptr != 0; ptr++)
 	{
-		write(1, *ptr, wcslen(*ptr));
-		write(1, "\n", 1);
+		wprintf(L"%ls\n", *ptr);
 	}
 }
 
@@ -111,7 +110,7 @@ wchar_t	*find_first_not_of( wchar_t *to_find, wchar_t *str )
 		return (NULL);
 	while(*str)
 	{
-		if (ft_wcschr(to_find, *str) == -1)
+		if (wcschr(to_find, *str) == NULL)
 			return (str);
 		++str;
 	}
@@ -132,21 +131,13 @@ bool	find_int_in_tab( int n, int *t )
 bool	check_answer( wchar_t *user_input, wchar_t **answers )
 {
 
-	wprintf(L"check_answers():\n");
-	// int	tmp = 0;
-
-// 348
-// 447
-// 539
-
+	// wprintf(L"check_answers():\n");
 	
 	for (uint8_t i = 0; answers[i] != NULL && answers[i][0] != 0; i++)
 	{
 		// tmp = ft_wcschr(answers[i], 'ß');
 		if (wcschr(answers[i], L'ß') != NULL && wcschr(user_input, L'ß') == NULL)
-		{
 			return (!wcscmp_spe_wchar(user_input, answers[i], L"ss", L'ß'));
-		}
 		if (wcscmp(user_input, answers[i]) == 0)
 			return (1);
 	}
@@ -155,17 +146,17 @@ bool	check_answer( wchar_t *user_input, wchar_t **answers )
 
 int	wcscmp_spe_wchar( wchar_t *srpl, wchar_t *sspe, wchar_t *rpl, const wchar_t sp_c )
 {
-	wprintf(L">> strcmp_spe_wchar_t()\n");
+	// wprintf(L">> strcmp_spe_wchar_t()\n");
 	wchar_t	*tmp = rpl;
 	
 	while (*srpl || *sspe)
 	{
-		wprintf(L"*srpl == %lc | *sspe == %lc\n", *srpl, *sspe);
+		// wprintf(L"*srpl == %lc | *sspe == %lc\n", *srpl, *sspe);
 		if (*srpl != *sspe)
 		{
 			if (*srpl == *rpl && *sspe == sp_c)
 			{
-				wprintf(L"Skipping spe wchar_t: *srpl == %c\n", *srpl);
+				// wprintf(L"Skipping spe wchar_t: *srpl == %c\n", *srpl);
 				while (*srpl && *rpl)
 				{
 					++srpl;
@@ -177,13 +168,13 @@ int	wcscmp_spe_wchar( wchar_t *srpl, wchar_t *sspe, wchar_t *rpl, const wchar_t 
 			}
 			else
 			{
-				wprintf(L"Return (%d)\n", *srpl - *sspe);
+				// wprintf(L"Return (%d)\n", *srpl - *sspe);
 				return (*srpl - *sspe);
 			}
 		}
 		++srpl;
 		++sspe;
 	}
-	wprintf(L"Return (0)");
+	// wprintf(L"Return (0)");
 	return (0);
 }

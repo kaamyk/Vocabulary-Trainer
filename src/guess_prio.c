@@ -4,7 +4,7 @@ void	prio_wrong_answer( wchar_t **answers, t_data *data )
 {
 	wprintf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
 	data->nb_fails += 1;
-	wprintf(BCYN "Rights answers were:\n");
+	wprintf(BCYN L"Rights answers were:\n");
 	print_tab(answers);
 	wprintf(COLOR_RESET);
 
@@ -14,7 +14,7 @@ void	prio_wrong_answer( wchar_t **answers, t_data *data )
 void	prio_right_answer( int l_nb, t_data *data )
 {
 	// wprintf(L"prio_right_anwer():\n");
-	wprintf(BGRN "\t>>> CORRECT <<<\n" COLOR_RESET);
+	wprintf(BGRN L"\t>>> CORRECT <<<\n" COLOR_RESET);
 	uint8_t	i = 0;
 
 	while (data->priority[i] != -1)

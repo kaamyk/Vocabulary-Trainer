@@ -11,6 +11,10 @@ bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf )
 	wchar_t	**splitted_line = ft_split(buf, ',');
 	if (splitted_line == NULL)
 		return (1);
+	for (int i = 0; splitted_line[i] != NULL; i++)
+	{
+		wprintf(L"spliited_line[%d] == [%ls]\n", i, splitted_line[i]);
+	}
 
 	bzero(to_guess, wcslen(to_guess) / sizeof(wchar_t));
 	if (rand() % 2)
@@ -18,7 +22,7 @@ bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf )
 		wcscpy(to_guess, splitted_line[0]);
 		for (int i = 0; answers[i] != NULL && answers[i][0] != 0; i++)
 		{
-			bzero(answers[i], wcslen(answers[i]));
+			bzero(answers[i], wcslen(answers[i]) / sizeof(wchar_t));
 		}
 		for (int i = 1; splitted_line[i] != NULL && answers[i] != NULL && i < 6; i++)
 		{
@@ -38,7 +42,7 @@ bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf )
 		++answers;
 		while(*answers != NULL && *answers[0] != 0)
 		{
-			bzero(*answers, wcslen(*answers));
+			bzero(*answers, wcslen(*answers) / sizeof(wchar_t));
 			++answers;	
 		}
 	}
@@ -70,7 +74,7 @@ bool	jump_to_line( wchar_t *buf, int *i, int l_nb[2], t_data *data )
 	while (*i < l_nb[0]) // Jump to the wanted line
 	{
 		// if (get_next_wline(data->file) == NULL)
-		// if (fgetws(buf, MAX_LEN_INPUT / sizeof(wchar_t), data->file) == NULL)
+		bzero(buf, BUFFER_SIZE * sizeof(wchar_t));
 		if (fgetws(buf, MAX_LEN_INPUT, data->file) == NULL)
 		{
 			wprintf(L"Error: File reading failed.\n");
@@ -114,7 +118,7 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 		}
 		if (jump_to_line(buf, &i, l_nb, data))
 			return (error_loop(data->err_code, &user_input, NULL, data));
-		wprintf(L"After jump_to_line() => buf == [%s]\n", buf);
+		wprintf(L"After jump_to_line() => buf == [%ls]\n", buf);
 		if (parse_dictionary_line(buf, l_nb[0], data))
 		{
 			if (!is_dico)

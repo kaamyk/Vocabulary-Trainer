@@ -2,7 +2,7 @@
 
 void	dico_right_answer( int l_nb, t_data *data )
 {
-	wprintf(BGRN "\t>>> CORRECT <<<\n" COLOR_RESET);
+	wprintf(BGRN L"\t>>> CORRECT <<<\n" COLOR_RESET);
 	data->nb_correct += 1;
 	data->past_ranks[data->l_past_ranks] = l_nb;
 	data->l_past_ranks += 1;
@@ -10,7 +10,7 @@ void	dico_right_answer( int l_nb, t_data *data )
 
 void	dico_wrong_answer( int l_nb, wchar_t ** answers, t_data *data )
 {
-	wprintf(BRED "\t>>> FALSE <<<\n" COLOR_RESET);
+	wprintf(BRED L"\t>>> FALSE <<<\n" COLOR_RESET);
 
 	data->nb_fails += 1;
 	data->past_ranks[data->l_past_ranks] = l_nb;
@@ -18,7 +18,7 @@ void	dico_wrong_answer( int l_nb, wchar_t ** answers, t_data *data )
 	data->priority[data->l_prio] = l_nb;
 	data->l_prio += 1;
 
-	wprintf(BCYN "Rights answers were:\n");
+	wprintf(BCYN L"Rights answers were:\n");
 	print_tab(answers);
 	wprintf(COLOR_RESET);
 }
