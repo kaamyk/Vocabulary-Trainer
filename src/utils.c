@@ -93,7 +93,7 @@ wchar_t	**init_answers( void )
 
 bool	get_input( wchar_t *user_input )
 {
-	if (fgetws(user_input, MAX_LEN_INPUT / sizeof(wchar_t), stdin) == NULL)
+	if (fgetws(user_input, MAX_LEN_INPUT, stdin) == NULL)
 	{
 		wprintf(L"The word you typed is too long. (Max wchar_tacters: 45)\n");
 		return (1) ;
@@ -124,22 +124,6 @@ bool	find_int_in_tab( int n, int *t )
 		if (*t == n)
 			return (1);
 		++t;
-	}
-	return (0);
-}
-
-bool	check_answer( wchar_t *user_input, wchar_t **answers )
-{
-
-	// wprintf(L"check_answers():\n");
-	
-	for (uint8_t i = 0; answers[i] != NULL && answers[i][0] != 0; i++)
-	{
-		// tmp = ft_wcschr(answers[i], 'ß');
-		if (wcschr(answers[i], L'ß') != NULL && wcschr(user_input, L'ß') == NULL)
-			return (!wcscmp_spe_wchar(user_input, answers[i], L"ss", L'ß'));
-		if (wcscmp(user_input, answers[i]) == 0)
-			return (1);
 	}
 	return (0);
 }
@@ -176,5 +160,25 @@ int	wcscmp_spe_wchar( wchar_t *srpl, wchar_t *sspe, wchar_t *rpl, const wchar_t 
 		++sspe;
 	}
 	// wprintf(L"Return (0)");
+	return (0);
+}
+
+bool	check_answer( wchar_t *user_input, wchar_t **answers )
+{
+
+	// wprintf(L"check_answers():\n");
+	
+	wprintf(L"user_input == [%ls]\n", user_input);
+	for (uint8_t i = 0; answers[i] != NULL && answers[i][0] != 0; i++)
+	{
+		wprintf(L"*answers[%d] == [%ls]\n", i, answers[i]);
+		if (wcschr(answers[i], L'ß') != NULL && wcschr(user_input, L'ß') == NULL)
+		{
+			wprintf(L">>> Dans if spechar() <<<\n");
+			return (!wcscmp_spe_wchar(user_input, answers[i], L"ss", L'ß'));
+		}
+		else if (wcscmp(user_input, answers[i]) == 0)
+			return (1);
+	}
 	return (0);
 }

@@ -13,16 +13,16 @@ bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf )
 		return (1);
 	for (int i = 0; splitted_line[i] != NULL; i++)
 	{
-		wprintf(L"spliited_line[%d] == [%ls]\n", i, splitted_line[i]);
+		wprintf(L"splitted_line[%d] == [%ls]\n", i, splitted_line[i]);
 	}
 
-	bzero(to_guess, wcslen(to_guess) / sizeof(wchar_t));
+	bzero(to_guess, wcslen(to_guess) * sizeof(wchar_t));
 	if (rand() % 2)
 	{
 		wcscpy(to_guess, splitted_line[0]);
 		for (int i = 0; answers[i] != NULL && answers[i][0] != 0; i++)
 		{
-			bzero(answers[i], wcslen(answers[i]) / sizeof(wchar_t));
+			bzero(answers[i], wcslen(answers[i]) * sizeof(wchar_t));
 		}
 		for (int i = 1; splitted_line[i] != NULL && answers[i] != NULL && i < 6; i++)
 		{
@@ -35,14 +35,13 @@ bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf )
 		wcscpy(to_guess, splitted_line[rand() % (l_tab(splitted_line) - 1) + 1]);
 		del_nl(to_guess);
 		
-		bzero(*answers, wcslen(*answers) / sizeof(wchar_t));
+		bzero(*answers, wcslen(*answers) * sizeof(wchar_t));
 		wcscpy(*answers, splitted_line[0]);
 		del_nl(*answers);
-		// s_tmp = *answers;
 		++answers;
 		while(*answers != NULL && *answers[0] != 0)
 		{
-			bzero(*answers, wcslen(*answers) / sizeof(wchar_t));
+			bzero(*answers, wcslen(*answers) * sizeof(wchar_t));
 			++answers;	
 		}
 	}

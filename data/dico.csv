@@ -4,7 +4,7 @@ enshuldigung,sorry,pardon,desole
 Haus,house,maison
 der Apfel,appel,la pomme
 vorstellen,to introduce,presenter
-begrüen,to welcome,to say hello,accueillir,dire bonjour
+begrüßen,to welcome,to say hello,accueillir,dire bonjour
 buchstabieren,to spell,epeler
 das Land,country,le pays
 das Lernziel,study goal
@@ -652,7 +652,7 @@ der Kanadier,Canadian
 der Monat,month
 ein Mal jeden Monat,one time a month
 ersetzen,to replace
-grillen,to grillto cook on the wchar_tcoal
+grillen,to grill
 nun,now
 studieren,to study
 der Familienstammbaum,family tree
@@ -675,7 +675,7 @@ der September,September
 der Sommer,summer
 der Winter,winter
 das Fest,party
-das Geschenk,presentgif
+das Geschenk,present,gif
 der anrufbeantworter,voice mail
 die Einladung,invitation
 die SMS,SMS
