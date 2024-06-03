@@ -11,10 +11,10 @@ bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf )
 	wchar_t	**splitted_line = ft_split(buf, ',');
 	if (splitted_line == NULL)
 		return (1);
-	for (int i = 0; splitted_line[i] != NULL; i++)
-	{
-		wprintf(L"splitted_line[%d] == [%ls]\n", i, splitted_line[i]);
-	}
+	// for (int i = 0; splitted_line[i] != NULL; i++)
+	// {
+	// 	wprintf(L"splitted_line[%d] == [%ls]\n", i, splitted_line[i]);
+	// }
 
 	bzero(to_guess, wcslen(to_guess) * sizeof(wchar_t));
 	if (rand() % 2)
@@ -89,46 +89,39 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 {
 	// wprintf(L">> guess_loop() << \n");
 	wchar_t	buf[BUFFER_SIZE] = {0};
-	// size_t	n = 0;
 	int	l_nb[2] = {0}; // [0]: actual line; [1]: previous line
 	int	i = 0;
-	// wchar_t	user_input[MAX_LEN_INPUT + 1] = {0};
 	wchar_t	*user_input = (wchar_t *)calloc(MAX_LEN_INPUT + 1, sizeof(wchar_t));
 	if (errno != 0)
 		return (error_loop(errno, &user_input, NULL, data));
 
-	while (data->nb_correct < NB_CORRECT && data->nb_fails < NB_FAIL \
-		&& data->l_past_ranks < data->l_dico && data->l_past_ranks < NB_CORRECT + NB_FAIL )
+	while (data->nb_correct < NB_CORRECT && data->nb_fails < NB_FAIL
+		&& data->l_past_ranks < data->l_dico && data->l_past_ranks < NB_CORRECT + NB_FAIL)
 	{
+		wprintf(L"nb_correct == %d | nb_fails == %d | l_past_ranks == %d\n", data->nb_correct, data->nb_fails, data->l_past_ranks);
 		if (!is_dico && data->l_prio <= 0)
 			break ;
 		//	Setup the word to guess and the answers
 		l_nb[1] = l_nb[0];
 		l_nb[0] =  define_line(data, is_dico);
-		wprintf(L"line == %d\n", l_nb[0]);
+		// wprintf(L"line == %d\n", l_nb[0]);
 		if (l_nb[0] < l_nb[1])
 		{
 			i = 0;
 			fseek(data->file, 0, SEEK_SET);
 		}
 		else
-		{
 			i = l_nb[1];
-		}
+
 		if (jump_to_line(buf, &i, l_nb, data))
 			return (error_loop(data->err_code, &user_input, NULL, data));
-		wprintf(L"After jump_to_line() => buf == [%ls]\n", buf);
+		// wprintf(L"After jump_to_line() => buf == [%ls]\n", buf);
 		if (parse_dictionary_line(buf, l_nb[0], data))
 		{
-			if (!is_dico)
+			if (!is_dico || data->l_invalid_lines >= MAX_INVALID_LINE)
 			{
-				perror("Error: a priority line has a format error.\n");
-				free_loop(NULL, &user_input);
-				return (1);
-			}
-			if (data->l_invalid_lines >= MAX_INVALID_LINE)
-			{
-				wprintf(RED "Information: Too many invalid lines has a format error. Stopping the session ...\n" COLOR_RESET);
+				is_dico == 0 ? perror("Error: a priority line has a format error.\n") 
+					: wprintf(RED "Information: Too many invalid lines has a format error. Stopping the session ...\n" COLOR_RESET);
 				free_loop(NULL, &user_input);
 				return (1);
 			}
@@ -136,8 +129,6 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 		}
 		define_guess_answers(to_guess, answers, buf);
 
-		//	User guess the answer
-		//	Then parse input and checking if try is Right or Wrong
 		wprintf(L"Word to guess: [%ls]\n\tYour answer: ", to_guess);
 
 		if (get_input(user_input) || check_answer(user_input, answers) == 0)
@@ -148,23 +139,13 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 				free_loop(NULL, &user_input);
 				return (1);
 			}
-
-			if (is_dico)
-				dico_wrong_answer(l_nb[0], answers, data);
-			else
-				prio_wrong_answer(answers, data);
+			is_dico ? dico_wrong_answer(l_nb[0], answers, data) : prio_wrong_answer(answers, data);
 		}
 		else
-		{
-			if (is_dico)
-				dico_right_answer(l_nb[0], data);
-			else
-				prio_right_answer(l_nb[0], data);
-		}
-		//	Adding the line to the already seen
-		data->past_ranks[data->l_past_ranks] = l_nb[0];
+			is_dico ? dico_right_answer(l_nb[0], data) : prio_right_answer(l_nb[0], data);
+
+		// data->past_ranks[data->l_past_ranks] = l_nb[0];
 		// wprintf(L"last past rank == %d\n", data->past_ranks[data->l_past_ranks]);
-		data->l_past_ranks += 1;
 	}
 	free_loop(NULL, &user_input);
 	return (0);

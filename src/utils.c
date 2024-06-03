@@ -168,13 +168,13 @@ bool	check_answer( wchar_t *user_input, wchar_t **answers )
 
 	// wprintf(L"check_answers():\n");
 	
-	wprintf(L"user_input == [%ls]\n", user_input);
+	// wprintf(L"user_input == [%ls]\n", user_input);
 	for (uint8_t i = 0; answers[i] != NULL && answers[i][0] != 0; i++)
 	{
-		wprintf(L"*answers[%d] == [%ls]\n", i, answers[i]);
+		// wprintf(L"*answers[%d] == [%ls]\n", i, answers[i]);
 		if (wcschr(answers[i], L'ß') != NULL && wcschr(user_input, L'ß') == NULL)
 		{
-			wprintf(L">>> Dans if spechar() <<<\n");
+			// wprintf(L">>> Dans if spechar() <<<\n");
 			return (!wcscmp_spe_wchar(user_input, answers[i], L"ss", L'ß'));
 		}
 		else if (wcscmp(user_input, answers[i]) == 0)

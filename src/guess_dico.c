@@ -14,9 +14,9 @@ void	dico_wrong_answer( int l_nb, wchar_t ** answers, t_data *data )
 
 	data->nb_fails += 1;
 	data->past_ranks[data->l_past_ranks] = l_nb;
-	data->l_past_ranks += 1;
 	data->priority[data->l_prio] = l_nb;
 	data->l_prio += 1;
+	data->l_past_ranks += 1;
 
 	wprintf(BCYN L"Rights answers were:\n");
 	print_tab(answers);

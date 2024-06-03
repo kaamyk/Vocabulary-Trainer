@@ -7,8 +7,7 @@ void	prio_wrong_answer( wchar_t **answers, t_data *data )
 	wprintf(BCYN L"Rights answers were:\n");
 	print_tab(answers);
 	wprintf(COLOR_RESET);
-
-
+	data->l_past_ranks += 1;
 }
 
 void	prio_right_answer( int l_nb, t_data *data )
@@ -32,6 +31,7 @@ void	prio_right_answer( int l_nb, t_data *data )
 	data->priority[i] = 0;
 	data->l_prio -= 1;
 	data->nb_correct += 1;
+	data->l_past_ranks += 1;
 }
 
 bool	guess_priority( t_data *data )

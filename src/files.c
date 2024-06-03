@@ -27,7 +27,7 @@ bool	atoi_file( t_data *data )
 		return (1);
 	}
 
-	for (int i = 0; (fgetws(buf, MAX_LEN_INPUT / sizeof(wchar_t), data->file)) != NULL && i < data->l_prio; i++)
+	for (int i = 0; (fgetws(buf, MAX_LEN_INPUT, data->file)) != NULL && i < data->l_prio; i++)
 	{
 		del_nl(buf);
 		// wprintf(L"atoi_file():buf == [%ls]\n", buf);
@@ -37,7 +37,7 @@ bool	atoi_file( t_data *data )
 			return (1);
 		}
 		data->priority[i] = (buf != NULL) ? ft_wctoi(buf) : 0;
-		wprintf(L"atoi_file(): data->priority[%d]: %d | l_dico == %d\n", i, data->priority[i], data->l_dico);
+		// wprintf(L"atoi_file(): data->priority[%d]: %d | l_dico == %d\n", i, data->priority[i], data->l_dico);
 		if (data->priority[i] > data->l_dico)
 		{
 			parse_priority_error("Error: priority.txt contains an invalid rank.\n", buf, data);
