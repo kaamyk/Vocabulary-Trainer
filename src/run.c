@@ -6,7 +6,7 @@ bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf )
 		return (1);
 	
 	// wchar_t	*s_tmp = NULL;
-	bzero(to_guess, wcslen(to_guess) * sizeof(wchar_t));
+	memset(to_guess, 0, wcslen(to_guess) * sizeof(wchar_t));
 
 	wchar_t	**splitted_line = ft_split(buf, ',');
 	if (splitted_line == NULL)
@@ -16,13 +16,13 @@ bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf )
 	// 	wprintf(L"splitted_line[%d] == [%ls]\n", i, splitted_line[i]);
 	// }
 
-	bzero(to_guess, wcslen(to_guess) * sizeof(wchar_t));
+	memset(to_guess, 0, wcslen(to_guess) * sizeof(wchar_t));
 	if (rand() % 2)
 	{
 		wcscpy(to_guess, splitted_line[0]);
 		for (int i = 0; answers[i] != NULL && answers[i][0] != 0; i++)
 		{
-			bzero(answers[i], wcslen(answers[i]) * sizeof(wchar_t));
+			memset(answers[i], 0, wcslen(answers[i]) * sizeof(wchar_t));
 		}
 		for (int i = 1; splitted_line[i] != NULL && answers[i] != NULL && i < 6; i++)
 		{
@@ -35,13 +35,13 @@ bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf )
 		wcscpy(to_guess, splitted_line[rand() % (l_tab(splitted_line) - 1) + 1]);
 		del_nl(to_guess);
 		
-		bzero(*answers, wcslen(*answers) * sizeof(wchar_t));
+		memset(*answers, 0, wcslen(*answers) * sizeof(wchar_t));
 		wcscpy(*answers, splitted_line[0]);
 		del_nl(*answers);
 		++answers;
 		while(*answers != NULL && *answers[0] != 0)
 		{
-			bzero(*answers, wcslen(*answers) * sizeof(wchar_t));
+			memset(*answers, 0, wcslen(*answers) * sizeof(wchar_t));
 			++answers;	
 		}
 	}
@@ -73,7 +73,7 @@ bool	jump_to_line( wchar_t *buf, int *i, int l_nb[2], t_data *data )
 	while (*i < l_nb[0]) // Jump to the wanted line
 	{
 		// if (get_next_wline(data->file) == NULL)
-		bzero(buf, BUFFER_SIZE * sizeof(wchar_t));
+		memset(buf, 0, BUFFER_SIZE * sizeof(wchar_t));
 		if (fgetws(buf, MAX_LEN_INPUT, data->file) == NULL)
 		{
 			wprintf(L"Error: File reading failed.\n");
@@ -98,7 +98,7 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 	while (data->nb_correct < NB_CORRECT && data->nb_fails < NB_FAIL
 		&& data->l_past_ranks < data->l_dico && data->l_past_ranks < NB_CORRECT + NB_FAIL)
 	{
-		wprintf(L"nb_correct == %d | nb_fails == %d | l_past_ranks == %d\n", data->nb_correct, data->nb_fails, data->l_past_ranks);
+		// wprintf(L"nb_correct == %d | nb_fails == %d | l_past_ranks == %d\n", data->nb_correct, data->nb_fails, data->l_past_ranks);
 		if (!is_dico && data->l_prio <= 0)
 			break ;
 		//	Setup the word to guess and the answers
@@ -131,7 +131,7 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 
 		wprintf(L"Word to guess: [%ls]\n\tYour answer: ", to_guess);
 
-		if (get_input(user_input) || check_answer(user_input, answers) == 0)
+		if (get_input(user_input, answers) || ft_check_answer(user_input, answers) == -1)
 		{
 			if (wcscmp(user_input, L"STOP") == 0)
 			{

@@ -91,16 +91,27 @@ wchar_t	**init_answers( void )
 
 	/*	OTHER */
 
-bool	get_input( wchar_t *user_input )
+bool	get_input( wchar_t *user_input, wchar_t **answers )
 {
 	if (fgetws(user_input, MAX_LEN_INPUT, stdin) == NULL)
 	{
-		wprintf(L"The word you typed is too long. (Max wchar_tacters: 45)\n");
+		wprintf(L"Word too long. (Max: 45)\n");
 		return (1) ;
 	}
 	del_nl(user_input);
 	// wprintf(L"\tuser_input: [%ls]\n", user_input);
-	return (wcslen(user_input) < 1 ? 1 : 0);
+	// return (wcslen(user_input) < 1 ? 1 : 0);
+	if (wcslen(user_input) < 1)
+		return (1);
+	
+	int8_t	r = ft_check_answer(user_input, answers);
+	if (r == -1)
+		return (1);
+	else if (r == 0)
+		return (0);
+	
+	//	if (r == 1)
+	//		loop for one more try = print retry message
 }
 
 wchar_t	*find_first_not_of( wchar_t *to_find, wchar_t *str )
@@ -165,8 +176,8 @@ int	wcscmp_spe_wchar( wchar_t *srpl, wchar_t *sspe, wchar_t *rpl, const wchar_t 
 
 bool	check_answer( wchar_t *user_input, wchar_t **answers )
 {
-
 	// wprintf(L"check_answers():\n");
+	bool	wrong_char = 0;
 	
 	// wprintf(L"user_input == [%ls]\n", user_input);
 	for (uint8_t i = 0; answers[i] != NULL && answers[i][0] != 0; i++)
@@ -175,10 +186,47 @@ bool	check_answer( wchar_t *user_input, wchar_t **answers )
 		if (wcschr(answers[i], L'ß') != NULL && wcschr(user_input, L'ß') == NULL)
 		{
 			// wprintf(L">>> Dans if spechar() <<<\n");
-			return (!wcscmp_spe_wchar(user_input, answers[i], L"ss", L'ß'));
+			if (wcscmp_spe_wchar(user_input, answers[i], L"ss", L'ß') == 0)
+			{
+				return (0);
+			}
 		}
 		else if (wcscmp(user_input, answers[i]) == 0)
-			return (1);
+			return (0);
 	}
-	return (0);
+	return (1);
+}
+
+int8_t	ft_check_answer( wchar_t *user_input, wchar_t **answers )
+{
+	bool	wrong_char = 0;
+	const wchar_t	*tmp = user_input;
+
+	while (*answers != NULL)
+	{
+		while (**answers != L'\0' || *user_input != L'\0')		
+		{
+			if (**answers != *user_input)
+			{
+				if (**answers == L'ß' && *user_input == L's' && *(user_input + 1) == L's')
+				{
+					user_input += 2;
+					*answers += 1;
+					continue ;
+				}
+
+				if (wrong_char)
+					break ;
+				else
+					wrong_char += 1;
+			}
+			*answers += 1;
+			user_input += 1;
+		}
+		if (**answers == L'\0' && *user_input == L'\0')
+			return (wrong_char); // !wrong_char => OK else 1 wrong =>retry 
+		user_input = tmp;
+		answers += 1;
+	}
+	return (-1);// no match
 }

@@ -1,6 +1,8 @@
 #ifndef GERMAN
 #define GERMAN
 
+#define _POSIX_C_SOURCE 200809L
+
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -16,6 +18,7 @@
 #include <stddef.h>
 #include <locale.h>
 #include <wchar.h>
+#include <signal.h>
 
 #include "color.h"
 
@@ -28,13 +31,6 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 256
 # endif
-
-
-typedef struct s_list
-{
-	wchar_t			*content;
-	struct s_list	*next;
-}					t_list;
 
 typedef struct  s_data
 {
@@ -73,7 +69,7 @@ wchar_t	**init_answers( void );
 	// Define values
 
 	// Other
-bool	get_input( wchar_t *user_input );
+bool	get_input( wchar_t *user_input, wchar_t **answers );
 wchar_t	*find_first_not_of( wchar_t *to_find, wchar_t *str );
 bool	find_int_in_tab( int n, int *t );
 bool	check_answer( wchar_t *user_input, wchar_t **answers );
@@ -85,16 +81,16 @@ wchar_t	*ft_itoa(int n);
 /*							*/
 /*		GET_LINE_WLINE		*/
 /*							*/
-int	ft_nlinstr(wchar_t *s);
-wchar_t	*ft_calloc(size_t nmemb, size_t size);
-int	ft_lstclear(t_list **lst, void (*del)(void *));
-void	*ft_lstdelone(t_list *lst, void (*del)(void*));
-void	ft_assigne(t_list **l, t_list **n_elm, t_list **tmp, int n);
-wchar_t	*ft_cpylst(t_list *lst, int mult, int lastlen);
-wchar_t	*ft_resetrest(wchar_t *rest, wchar_t *s, int i);
-wchar_t	*ft_readfile( FILE *file );
-int	ft_lstnew(t_list **n_elm,  FILE *file );
-wchar_t	*get_next_wline( FILE *file );
+// int	ft_nlinstr(wchar_t *s);
+// wchar_t	*ft_calloc(size_t nmemb, size_t size);
+// int	ft_lstclear(t_list **lst, void (*del)(void *));
+// void	*ft_lstdelone(t_list *lst, void (*del)(void*));
+// void	ft_assigne(t_list **l, t_list **n_elm, t_list **tmp, int n);
+// wchar_t	*ft_cpylst(t_list *lst, int mult, int lastlen);
+// wchar_t	*ft_resetrest(wchar_t *rest, wchar_t *s, int i);
+// wchar_t	*ft_readfile( FILE *file );
+// int	ft_lstnew(t_list **n_elm,  FILE *file );
+// wchar_t	*get_next_wline( FILE *file );
 
 /*						*/
 /*		FT_WCTOI		*/
@@ -108,6 +104,12 @@ wchar_t	**ft_freetab(wchar_t ***s);
 void	free_loop( wchar_t **buf, wchar_t **user_input );
 void	free_guess( wchar_t **to_guess, wchar_t ***answers );
 void	free_data( t_data **data );
+
+/*					*/
+/*		SIGNAL		*/
+/*					*/
+void	sig_handler( int signum );
+void	set_signal( void );
 
 /*					*/
 /*		ERROR		*/
