@@ -72,25 +72,11 @@ wchar_t	**init_answers( void );
 bool	get_input( wchar_t *user_input, wchar_t **answers );
 wchar_t	*find_first_not_of( wchar_t *to_find, wchar_t *str );
 bool	find_int_in_tab( int n, int *t );
-bool	check_answer( wchar_t *user_input, wchar_t **answers );
+int8_t	check_answer( wchar_t *user_input, wchar_t **answers );
 int	ft_wcschr( wchar_t *s, wchar_t to_find );
 int	wcscmp_spe_wchar( wchar_t *s1, wchar_t *s2, wchar_t *rpl, wchar_t sp_c );
 
 wchar_t	*ft_itoa(int n);
-
-/*							*/
-/*		GET_LINE_WLINE		*/
-/*							*/
-// int	ft_nlinstr(wchar_t *s);
-// wchar_t	*ft_calloc(size_t nmemb, size_t size);
-// int	ft_lstclear(t_list **lst, void (*del)(void *));
-// void	*ft_lstdelone(t_list *lst, void (*del)(void*));
-// void	ft_assigne(t_list **l, t_list **n_elm, t_list **tmp, int n);
-// wchar_t	*ft_cpylst(t_list *lst, int mult, int lastlen);
-// wchar_t	*ft_resetrest(wchar_t *rest, wchar_t *s, int i);
-// wchar_t	*ft_readfile( FILE *file );
-// int	ft_lstnew(t_list **n_elm,  FILE *file );
-// wchar_t	*get_next_wline( FILE *file );
 
 /*						*/
 /*		FT_WCTOI		*/

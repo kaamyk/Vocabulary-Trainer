@@ -5,13 +5,13 @@ wchar_t	**ft_freetab(wchar_t ***s)
 	if (s == NULL || s[0] == NULL)
 		return (NULL);
 	
-	int	i = 0;
+	unsigned int	i = 0;
 	while (s[0][i] != NULL)
 	{
 		free(s[0][i]);
 		i++;
 	}
-	free(s[0]);
+	free(*s);
 	return (NULL);
 }
 
