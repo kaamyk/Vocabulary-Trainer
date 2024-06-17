@@ -245,8 +245,8 @@ teuer,expensive,cher
 wenig,little,peu
 der Kaufer,buyer,l'acheteur
 die Kauferin,buyer(F)
-der VerkAufer,sales man,le vendeur
-die VerfAuerin,sales woman,la vendeuse
+der Verkäufer,sales man,le vendeur
+die Verkäuferin,sales woman,la vendeuse
 nennen,to name,nommer
 das Nomen,noun,le nom
 das Buch,book,le livre
@@ -331,7 +331,7 @@ das interview,interview
 die Pause,break
 zum,to the
 berichten,to report
-mitkommen,er kommt mit,to come along
+mitkommen,to come along
 ist mitgekommen,about
 ca,end,food
 das ende,end
@@ -400,7 +400,7 @@ telefonieren,to telephone,to call
 träumen,to dream
 von,of
 warten,to wait
-weg,to be gone/away
+weg,to be gone,to be away
 wegen,because of
 stehen,to be
 zu sein,to be closed
@@ -439,7 +439,8 @@ blau,blue
 braun,brown
 das Kochrezept,recipe
 der Einkaufsdialog,shopping dialogue
-der Einkaufszettel,die Vergangenheitsform,forms of the past tense
+der Einkaufszettel,shopping list
+die Vergangenheitsform,forms of the past tense
 die Farbe,color
 gelb,yellow
 grün,green
@@ -597,7 +598,7 @@ das Kilogramm,kilogram
 nächst,next
 dahinten,back there
 davorne,up in front
-links,lef
+links,left
 rechts,right
 der Kuss,kiss
 beim,atat the
@@ -606,7 +607,7 @@ das Datum,date
 das Familienleben,family life
 finden,to find,to consider
 langweilig,boring
-das Picknick,der Ausflug,tripexcursion
+der Ausflug,trip,excursion
 das Vergangene,the past
 der Bruder,brother
 der Ehemann,husband
@@ -619,7 +620,7 @@ die Tante,aunt
 die Wohngemeinschaf,people sharing their residence
 leben,to live
 mitnehmen,to take along
-schwer,dificult,hard
+schwer,difficult,hard
 zwischen,between
 der Haushalt,household
 der onkel,uncle

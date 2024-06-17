@@ -6,7 +6,7 @@ void	print_tab( wchar_t **t )
 {
 	for (wchar_t **ptr = t; ptr != NULL && *ptr != NULL && **ptr != 0; ptr++)
 	{
-		wprintf(L"%ls\n", *ptr);
+		wprintf(L"[%ls]\n", *ptr);
 	}
 }
 
@@ -102,6 +102,7 @@ bool	get_input( wchar_t *user_input, wchar_t **answers )
 			return (1) ;
 		}
 		del_nl(user_input);
+		wprintf(L"input == [%ls]\n", user_input);
 		if (wcslen(user_input) < 1)
 			return (1);
 		
@@ -187,6 +188,7 @@ int8_t	check_answer( wchar_t *user_input, wchar_t **answers )
 	{
 		j = 0;
 		i = 0;
+		wrong_char = 0;
 		while (answers[k][i] != L'\0' || user_input[j] != L'\0')		
 		{
 			if (answers[k][i] != user_input[j])

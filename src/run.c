@@ -57,9 +57,11 @@ int	define_line( t_data *data, bool is_dico )
 	}
 	else
 		res = data->priority[rand() % data->l_prio];
+
 	//	Reset random to make it more random.
 	if (res % 3 == 0)
-		srand(time(NULL));	
+		srand(time(NULL));
+	wprintf(L"line = %d\n", res);
 	return (res);
 }
 
@@ -118,7 +120,7 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 		}
 		define_guess_answers(to_guess, answers, buf);
 
-		wprintf(L"Word to guess: %ls\n\tYour answer: ", to_guess);
+		wprintf(L"Word to guess: [%ls]\n\tYour answer: ", to_guess);
 
 		if (get_input(user_input, answers) || check_answer(user_input, answers) == -1)
 		{
