@@ -102,7 +102,7 @@ bool	get_input( wchar_t *user_input, wchar_t **answers )
 			return (1) ;
 		}
 		del_nl(user_input);
-		wprintf(L"input == [%ls]\n", user_input);
+		// wprintf(L"input == [%ls]\n", user_input);
 		if (wcslen(user_input) < 1)
 			return (1);
 		

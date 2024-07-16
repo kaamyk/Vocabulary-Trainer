@@ -17,6 +17,7 @@ bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf )
 	memset(to_guess, 0, wcslen(to_guess) * sizeof(wchar_t));
 	if (rand() % 2)
 	{
+		// wprintf(L"Ger\n");
 		wcscpy(to_guess, splitted_line[0]);
 		for (i = 0; answers[i] != NULL && answers[i][0] != 0; i++)
 		{
@@ -29,7 +30,12 @@ bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf )
 	}
 	else
 	{
-		wcscpy(to_guess, splitted_line[rand() % (l_tab(splitted_line) - 1) + 1]);
+		// wprintf(L"Eng\n");
+		int tmp = rand() % l_tab(splitted_line);
+		if (tmp == 0)
+			tmp = 1;
+		// wprintf(L"tmp == %d\n", tmp);
+		wcscpy(to_guess, splitted_line[tmp]);
 		
 		memset(*answers, 0, wcslen(*answers) * sizeof(wchar_t));
 		wcscpy(*answers, splitted_line[0]);
@@ -67,7 +73,7 @@ int	define_line( t_data *data, bool is_dico )
 
 bool	jump_to_line( wchar_t *buf, int *i, int l_nb[2], t_data *data )
 {
-	while (*i < l_nb[0]) // Jump to the wanted line
+	while (*i < l_nb[0])
 	{
 		memset(buf, 0, BUFFER_SIZE * sizeof(wchar_t));
 		if (fgetws(buf, MAX_LEN_INPUT, data->file) == NULL)

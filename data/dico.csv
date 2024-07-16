@@ -33,7 +33,7 @@ der Deutschkurs,german course,le cours d'allemand
 der Dialog,dialogue,le dialogue
 der Lehrer,teacher(M)
 die Lehrerin,teacher(F)
-ergAnzen,to complete,completer
+ergänzen,to complete,completer
 Herr,mister,monsieur
 hOren,to listen,ecouter
 in,in,en
@@ -90,7 +90,7 @@ nein,no,non
 die Leute,people,les gens
 das Deutsch,german,l'allemand
 verstehen,to understand,comprendre
-das Auto,the car,la voiture
+das Auto,car,la voiture
 der Mechaniker,mechanic(M),le mecanicien
 die Mechanikerin,mechanic(F)
 der Sekretar,secretary,le secretaire
@@ -194,7 +194,8 @@ der Cappuccino,cappuccino,le cappuccino
 die Cola,coke,le coca
 die Uhrzeit,time,le temps
 wiedersehen,to see again,retrouvaille
-anrufen,to call,appeler
+anrufen,to call by phone
+rufen,to call
 aus sein,to be off,turned off,etre sorti
 da sein,to be here,etre la
 das Gleis,platform,track,la voie
@@ -340,10 +341,10 @@ das Rathaus,town hall,city hall
 der Eintritt,admission
 der/die Erwachsene,adult,grown-up
 der Park,park
-der Spọrt,sports
+der Sport,sport
 der Trefpunkt,meeting point
 die Aktivität,activity
-die eltern,parents
+die Eltern,parents
 die Fitness,fitness
 die Fußgängerzone,pedestrian zone
 die Reservierung,reservation 
@@ -358,7 +359,7 @@ das Stadtfest,city festival/party
 der Biergarten,beer garden
 der Zirkus,circus
 die Verabredung,date,arrangment for a meeting
-ins,to 
+ins,to
 leider,unfortunately
 morgen,tomorrow
 vielleicht,perhaps,maybe
@@ -452,11 +453,11 @@ kilo,kilogram
 das Paket,package
 das Pfund,pound
 der Fisch,fish
-der Kasten,casebox
+der Kasten,case,box
 der Reis,rice
 der Wein,wine
 die Flasche,bottle
-die Nudel,noodlepasta
+die Nudel,noodle,pasta
 die Packung,package
 die Pizza,pizza
 die/der Paprika,paprika
@@ -505,8 +506,8 @@ zu wenig,too little
 am Stück,in one pieceunsliced
 dahaben,Is something available
 die Kundin,customer
-drankommen,to be so‘s turn (It‘s his turn)
-etwas,a little/something (Anything else?)
+drankommen,to be someone's turn
+etwas,a little,something
 geben,to give
 in Scheiben,in slices
 nichts,nothing
@@ -522,7 +523,7 @@ die Fleischerei,butcher's shop
 die Tankstelle,gas/petrol station
 der Nachtisch,dessert
 die Hauptspeise,main course
-die Vorspeise,entréeappetizer
+die Vorspeise,entrée,appetizer
 die Zubereitung,preparation
 fehlen,to miss
 der akkusativ,accusative
@@ -540,7 +541,7 @@ die Scheibe,slice
 die Soße,sauce,gravy
 reichen,to be enough
 schneiden,to cut
-sonst,otherwise,further (Nothing else?)
+sonst,otherwise,further
 das Femininum,feminine
 das Maskulinum,masculine
 das Neutrum,neuter
@@ -592,7 +593,7 @@ der Chefkoch,chef
 international,international
 die Kreditkarte,credit card
 die Tüte,paper bag
-dran sein,to be one‘s turn
+dran sein,to be one's turn
 dürfen,to be allowed to
 das Kilogramm,kilogram
 nächst,next
@@ -625,7 +626,7 @@ zwischen,between
 der Haushalt,household
 der onkel,uncle
 die Geschwister,siblings
-erziehen,to raise / to bring up children
+erziehen,to raise a children,to bring up children
 getrennt,seperated
 manchmal,sometimes
 das Familienfoto,family photograph
@@ -642,7 +643,7 @@ wie alt,how old
 zusammenpassen,to match,to go together
 bald,soon
 der/die Verwandte,relative
-die Hochzeit,marriagewedding
+die Hochzeit,marriage,wedding
 die Lösung,solution
 heiraten,to get marriedto marry
 ledig,single
@@ -688,3 +689,640 @@ später,later
 Alles Gute,All the best!
 der Glückwunsch,congratulation,best wishes
 herzlich,sincerely
+der Cognac,brandy,cognac
+der Gruß,greeting,salutation
+der Käsekuchen,cheese cake
+der Spaß,fun
+zusammen sein,to stay together,to be together
+die Live-Musik,live music
+das Präsens,simple present
+das Präteritum,simple past
+ausblasen,to blow out
+aussehen,to look,to look like
+besonders,especially
+das Geburtstagskind,birthday child,birthday boy,birthday girl
+das Glück,luck,fortune
+das Lebensjahr,year of life
+das Restaurant,restaurant
+der Autoführerschein,driver's license for cars
+der Gast,guest
+der Geburtstagskafee,birthday cofee party
+der Kindergeburtstag,children's birthday
+der Mopedführerschein,driver's license for moped
+der Opa,grandpa
+die Jugendliche,youth,adolescent
+die Entschuldigung,excuse,apology,sick note
+die Geburtstagsanzeige,birthday announcement
+die Geburtstagskerze,birthday candle
+die Geburtstagstorte,birthday cake
+die Kerze,candle
+eislaufen,to ice-skate
+erwachsen,grown-up,adult
+feiern,to celebrate
+fleißig,diligent,industrious
+gehören zu,to belong to
+hupen,to sound,hoot the horn
+meistens,mostly
+müssen,must,to have to
+organisieren,to arrange,to organize
+rund,round
+tanzen,to dance
+unterschreiben,to sign
+vom,of the
+wahr,true
+weiter,further
+werden,to become
+das Geburtstagswort,word containing birthday
+die Kombination,combination
+die Torte,cake
+an,on
+das Neujahr,New Years Eve
+der Mensch,person,human being,man
+der Papa,daddy
+geschieden,divorced
+manch,some
+der Erfolg,success
+die Geburtstagsparty,birthday party
+die Gesundheit,health
+die Party,party
+freuen,to be pleased
+die Geburtstagskarte,birthday card
+die Ordinalzahl,ordinal number
+signalisieren,to signal
+vorgestern,day before yesterday
+das Wortende,word ending
+die Vorsilbe,prefix
+schwach,weak
+antreten,to start
+die Arbeitsstelle,work position
+der Hinweis,information,suggestion,hint
+die Ortsangabe,direction
+der Weg,way,route
+willkommen,welcome
+ankommen,to arrive
+anschauen,to look at
+besichtigen,to visit
+das Hostel,hostel
+das Hotel,hotel
+die Jugendherberge,youth hostel
+der Regenschirm,umbrella
+das Regierungsviertel,government section
+die S-Bahn,commuter train,suburban train
+der Sprachkurs,language course
+der Stadtplan,city map
+das Ticket,ticket
+die U-Bahn,underground train,subway
+die Hitliste,hit list
+die VHS,Adult Education Center
+kennenlernen,to meet,to get to know
+beid,both
+der Fuß,foot
+der Hauptbahnhof,main station
+die Nähe,neighborhood
+die Touristeninformation,tourist information
+die Bank,bank
+der Dank,gratitude
+der Eingang,entrance
+geradeaus,straight ahead
+gleich,immediately after,the same
+die Grundschule,elementary school
+die Kirche,church
+der Meter,meter
+der Ort,place,spot
+das Seniorenwohnheim,retirement home
+ungefähr,about
+der Senior,senior citizen(M)
+die Seniorin,senior citizen(F)
+der Standort,position,location
+das Wohnheim,dormitory
+das Ziel,destination
+die Auskunf,information
+der Imperativ,imperative
+am besten,best
+aussteigen,to get of,to get out
+der Fahrer,driver(M)
+die Fahrerin,driver(F)
+halten,to stop
+das Pronomen,pronoun
+die Imperativ-Form,imperative form
+das Taxi,taxi
+umsteigen,to change trains,to change buses
+der Dativ,dative
+die Präposition,preposition
+die Apotheke,pharmacy
+der Bahnhof,station
+der Zug,train
+die Straßenbahn,streetcar,tram
+die Ampel,trafc light
+die Bushaltestelle,bus stop
+die Kreuzung,crossing,intersection
+die Sparkasse,savings bank
+der Stadtteil,part of a town,district
+stimmen,to be correct
+vorher,before
+davorne,up there
+wohin,where to
+die Gruppe,group
+mehr,more
+täglich,daily
+die Universität,university
+weit,far
+der Kilometer,kilometer
+die Linie,line
+der Platz,square
+die Station,station
+die Straße,street
+wissen,to know
+das Zentrum,center
+die anmeldung,reception
+die Monatskarte,monthly pass,monthly ticket
+nummerieren,to number
+das Personalbüro,HR
+der Termin,appointment
+der Ausdruck,expression
+die Situation,situation
+ausfüllen,to fll in
+eröffnen,to open an account
+das Gehalt,salary
+das Girokonto,checking account,current account
+das Konto,account
+mehrer,several
+die Möglichkeit,possibility
+die Passnummer,passport number
+der Personalbogen,personal data sheet
+der Stock,foor
+der Tarifbereich,pay scale
+überweisen,to transfer money
+die Notiz,note
+das Büro,office
+dort,there
+gegenüber,across
+hart,hard
+leidtun,to besorry,feel sorry
+weich,soft
+das Wortpaar,word pair
+das Ausländeramt,office for foreign citizens
+der Kollege,colleague(F)
+die Kollegin,colleague(M)
+aufhängen,to hang up
+der Fahrplan,bus schedule,train schedule
+der Geldautomat,ATM
+der Suchaufrag,search task
+die Verkehrsverbindung,connection,transfer
+verteilen,to distribute
+der anfang,beginning
+bequem,comfortable
+berühmt,famous
+die Disco,disco
+fantastisch,fantastischer,
+am fantastischsten,fantastic
+das Geschäft,shop
+die Geschichte,history
+hoch,tall,high
+interessant,interesting
+die Kultur,culture
+das Kulturprogramm,cultural program
+lieb,dear
+die Mitte,middle,mid
+die Natur,nature
+die Postkarte,postcard
+der Regen,rain
+das Schif,boat
+die Sehenswürdigkeit,sight
+das Shopping,shopping
+das Stadtmagazin,city magazine
+erleben,to experience
+fremd,foreign,strange
+der Quadratmeter,square meter
+die Technik,technology
+der Tourist,tourist(M)
+die Touristin,tourist(F)
+der Verkehr,trafc
+die Welt,world
+wollen,to want
+die abfahrt,departure
+die Bar,bar
+bekannt,known,famous
+dienstags,on Tuesdays
+donnerstags,on Thursdays
+das Eis,ice
+historisch,historical
+mal,once
+die Mauer,wall
+mittwochs,on Wednesdays
+neben,next to
+stattﬁnden,to take place
+wirken,to appear,to seem
+der Superlativ,superlative
+der Komparativ,comparative
+der Marktplatz,market square
+der Rathausplatz,town hall square
+die Richtung,direction
+abholen,to pick up
+der Ausweis,pass,ID card
+das Formular,form to fll out
+der Pass,passport
+die Personalien,personal data
+die Zone,zone
+der Plural,plural
+das Stadtzentrum,city center,down town
+der imperativsatz,imperative phrase
+die Küche,kitchen
+plus,plus
+das WC,toilet,bathroom
+das Zimmer,room
+der altbau,old building,older building
+das Apartment,apartment
+ausdrücken,to express
+die Badewanne,bathtub
+der Balkon,balcony
+die Diele,hall
+die Dusche,shower
+die Heizung,heating
+informieren sich,to inform oneself,to obtain information
+die Kaution,deposit
+klärento clarify
+die Monatsmiete,monthly rent
+die Nebenkosten,utility payments
+das Obergeschoss,upper foor
+das Schlafzimmer,bedroom
+separat,separate
+der Strom,electricity
+die Toilette,toilet
+das Wohnzimmer,living room
+der Wunsch,wish,request
+die abkürzung,abbreviation
+die Etage,foor,storey
+hell,light
+das Kabel-TV,cable TV
+die Miete,rent
+möbliert,furnished
+ruhig,quiet
+der Zeitraum,period
+das Auto,car
+das Stichwort,note
+die Wohnsituation,living condition
+der arbeitsplatz,work place
+der Garten,garden,yard
+der Parkplatz,parking spot,parking space
+der Spielplatz,playground
+die Sportmöglichkeit,possibility for sports
+die Terrasse,terrace,patio
+der Partner,partner(M),peer(M)
+die Partnerin,partner(F),peer(F)
+das Baby,baby
+der Babysitter,babysitter(M)
+die Babysitterin,babysitter(F)
+betreuen,to look afer
+denn,because
+der Ingenieur,engineer(M)
+die Ingenieurin,engineer(F)
+der Italiener,Italian(M)
+die Italienerin,Italian(F)
+die Kindergruppe,group of children
+das Kinderzimmer,children’s room
+mieten,to rent,to hire
+netto,net
+schwanger,pregnant
+seit,for,since
+der Taxifahrer,taxi driver(M)
+die Taxifahrerin,taxi driver(F)
+der Toningenieur,sound engineer
+die Toningenieurin,sound engineer
+umziehen,to move
+unterrichten,to teach,to instruct
+verdienen,to earn,to make money
+zurzeit,presently,right now
+zweimal,twice,two times
+dazu,adding to this,in addition
+etwa,about
+ideal,ideal
+das Modalverb,-en
+weiter,further,additional
+bezahlen,to pay
+mitbenutzen,to share something with someone
+abstellen,to park,to store
+einziehen,to move in
+der Flur,hall
+der Hof,court
+installieren,to install,to mount
+der Kabelanschluss,cable hook up,cable connection
+der Keller,cellar,basement
+der Speicher,attic
+trocknen,to dry
+die Wäsche,laundry
+bleiben,to stay,to remain
+früh,early
+weiterschreiben,to continue to write
+der Karton,cardboard box
+plötzlich,suddenly
+tragen,to carry
+der Umzug,move
+auspacken,to unpack
+benutzen,to use
+eigentlich,in fact,actually
+die Hilfe,help
+die Kontrolle,control
+der Mietvertrag,lease contract,tenancy agreement
+die Möbel,furniture
+nett,nice,pleasant
+die ordnung,to be correct,to be in order
+schlafen,to sleep
+der Schreibtisch,desk
+sofort,immediately
+der Standard-Mietvertrag,standard lease
+die Untermiete,subletting,sublease
+der Vermieter,landlord
+die Vermieterin,landlady
+die Perfektform,perfect form
+bilden,to form,to make
+das Partizip,participle
+die Regel,rule
+hochtragen,to carry up
+packen,to pack
+schließlich,fnally,in the end
+zuerst,frst,at frst
+zuletzt,at last
+montags,on Mondays
+sauber,clean
+vermieten,to rent,to let
+warm,warm
+die Aussage,statement
+leise,soft
+der Schlüssel,key
+die Tonne,trash can,trash bin,dustbin
+tun,to do
+abschließen,to lock
+beachten,to notice,to pay attention to
+dafür,for something
+dass,that
+eintragen,to sign up
+die Einzugsparty,house warming party
+der Fahrradkeller,bike cellar
+der Hausflur,hall
+die Hausgemeinschaf,residents of a house
+der Hausmeister,caretaker(M),janitor(M)
+die Hausmeisterin,caretaker(F),janitor(F)
+die Hausordnung,house rule
+der Hausschlüssel,house key
+die Haustür,front door of the house
+die Hausverwaltung,property management,building management
+der Kontakt,contact
+der Lärm,noise
+der Müll,waste
+die Mülltrennung,waste separation
+parken,to park
+reinigen,to park
+die Ruhe,to clean
+sauber halten,to keep clean
+sorgen,to make sure
+trennen,to separate
+die Treppe,stair case
+die Treppenreinigung,stair case cleaning
+verboten,forbidden
+vermeiden,to avoid
+die Waschküche,laundry room
+die Waschzeiten,laundry schedule
+schnell,fast
+die Ahnung,idea
+anhalten,to stop
+Halt,stop
+die Jungs,fellows,guys
+passieren,to happen
+ausräumen,to empty
+ausziehen,to move out
+die Garage,parking garage
+konjugieren,to conjugate
+eigen,of one's own
+erfragen,to fnd out by questioning
+der Lebenslauf,curriculum vitae,CV
+persönlich,personal
+der Kindergarten,kindergarden,nursery school
+das Schulfest,school party
+der unfall,accident
+backen,to bake
+das Krankenhaus,hospital
+renovieren,to redecorate,to renovate
+bald,soon
+die Hauptstadt,capital
+spontan,spontaneous
+der Wecker,alarm clock
+wegbringen,to carry,to take away
+die Geschichte,story
+der Krankenwagen,ambulance
+rufen,to call
+weitergehen,to go on,to continue
+die Bewegung,movement
+dies,this,these
+der Test,test
+der Samstagabend,Saturday night
+der Sonntagmittag,Sunday afernoon
+der Hunger,hunger
+das Fotoalbum,Fotoalben
+die Familienfeier,family reunion
+korrigieren,er korrigiert,korrigiert
+der Urlaub,holiday,vacation
+die Vermutung,assumption
+die Weihnachtsfeier,Christmas party
+der angestellte,employee(M)
+die angestellte,employee(F)
+die Ausbildung,job training
+ausreisen,to leave the country
+das Bauunternehmen,builder,building contractor
+der Buchhalter,book keeper(M)
+die Buchhalterin,book keeper(F)
+der Einzelhandel,retail business
+der Handel,trade,business
+die Handelsschule,buiness school
+der Kassierer,cashier(M)
+die Kassiererin,cashier(F)
+das Lager,stock room
+der Lehrgang,training,workshop
+der Textabschnitt,text passage
+die umschulung,retraining
+der Versand,shipping,dispatch
+wieder,again,once more
+ziehen,to move
+zunächst,first,at first
+die Ausreise,departure from a country
+die Berufsausbildung,professional training
+die Schulbildung,school education
+die Busfahrt,bus trip,bus ride
+abfahren,to depart,to take of
+das Programm,program
+das Riesenrad,ferris wheel
+der Schluss,end(finally)
+superbillig,super cheap
+das Weinlokal,wine pub
+der Wortschatz,vocabulary
+die Idee,idea
+echt,real
+einfach,simple 
+indiskret,indiscret
+lachen,to laugh
+verliebt,to be in love
+wirklich,really
+die altstadt,old town
+spazieren,to go for a walk,to stroll
+der Stopp,stop
+weiterhören,to continue to listen
+weiterlesen,to continue to read
+singen,to sing
+überlegen,to think,to reflect
+der Geburtsort,place of birth
+die Ausnahme,exception
+die Zustandsveränderung,change of state,change of condition
+der alkohol,alcohol
+der Wortanfang,beginning of the word
+endlich,finally
+lächeln,to smile
+der Makler,real estate agent(M)
+die Maklerin,real estate agent(F)
+der Außendienst,external service
+beruflich,job related
+der Elektriker,electrician(M)
+die Elektrikerin,electrician(F)
+der Fehler,mistake
+gefallen,to please
+der Job,job
+die Lohnabrechnung,payroll slip
+die Stellenanzeige,job ad
+das Telefongespräch,telephone conversation
+verbinden,to connect
+der Erzieher,teacher(M)
+die Erzieherin,teacher(F)
+der Hotelfachmann,hotel manager(M)
+die Hotelfachfrau,hotel manager(F)
+der Kellner,waiter
+die Kellnerin,waitress
+der Koch,cook
+der Kraftfahrzeugmechaniker,car mechanic(M)
+die Kraftfahrzeugmechanikerin,car mechanic(F)
+der Raumpfleger,cleaning person
+die Buchhaltung,book keeping
+reparieren,to repair
+der arbeitsalltag,work day routine
+beraten,to advise
+der Bereitschafsdienst,stand-by duty
+das Computerproblem,computer problem
+dabeihaben,to have something with oneself
+die Gleitzeit,flexi-time
+die Homepage,homepage
+der Kauf,purchase
+nie,never
+pflegen,to maintain,keep up
+das Programm,program
+schlecht,bad
+selbstständig,independant
+der Betrieb,company,business,firm
+dabei,with it
+deshalb,therefore
+hofentlich,hopefully
+klappen,to work out
+der Meister,foreman(M),master crafsman(M)
+die Meisterin,foreman(F),master crafsman(F)
+die Meisterprüfung,master crafsman's diploma
+die Montage,assembly work,construction job
+der Stundenlohn,hourly wage
+die Überstunde,overtime
+arbeitslos,unemployed,jobless
+die arbeitszeit,working hours
+die Bewerbung,application
+die Bezahlung,payment
+hierbleiben,to stay,remain
+die Putzfrau,cleaning lady
+sogar,even
+die Stelle,work position
+wechseln,to change
+die Zeitarbeitsﬁrma,temporary employment agency
+zum Glück,fortunately
+die Großstadt,big city
+samstags,on Saturdays
+anmelden,to sign up for
+auch,also,too
+einverstanden,to agree to something
+die Hochzeitsreise,honey moon
+die Sommerferien,summer vacation
+anstrengend,strenuous
+aufhören,to stop,to finish
+auswählen,to select,to choose
+bezahlt,well-paid
+einteilen,to organize,to arrange
+frisch,fresh
+die Hand,hand
+kreativ,creative
+die Luf,air
+sicher,safe,secure
+die Pantomime,pantomime
+das Kapitel,chapter
+erfinden,to make up
+der Sänger,singer(M)
+die Sängerin,singer(F)
+angenehm,pleasant
+befristet,limited
+der Bekannte,acquaintance,friend
+der Bereich,sector,department
+bieten,to ofer
+die Buchhandlung,bookstore
+die Dame,lady
+der Direktor,director(M)
+die Direktorin,director(F)
+die Erfahrung,experience
+freundlich,friendly
+der Führerschein,drivers licence
+garantieren,to guarantee
+jung,young
+der Mitarbeiter,co-worker
+die Mitarbeiterin,
+der Service,service
+die Stadtmitte,town center,city center
+das Team,team
+üblich,customary
+die Voraussetzung,requirement
+der Vorteil,advantage
+zentral,central
+zusammenarbeiten,to work together,to cooperate
+zuverlässig,reliable
+möglich,possible
+anstellen,to employ,to hire
+die Anstellung,employment
+nachschlagen,to look up,to consult a dictionary
+der Arbeitsvertrag,employment contract,job contract
+die Provision,commission,fee
+das Plakat,poster
+die Regionalzeitung,regional newspaper
+brutto,gross
+der Künstler,artist(M)
+die Künstlerin,artist(F)
+der Politiker,politician(M)
+die Politikerin,politician(F)
+der Apparat,telephone
+nachfragen,to inquire,to ask again
+reagieren,to react
+verwählen,to misdial
+der Krakenwagen,ambulance
+beilben,to stay
+verlassen,to leave
+ausgehen,to go out
+bei jemandem sein,to be at someones place
+der Unfall,accident
+der Fall,fall
+renovieren,to renovate
+to bake,backen
+der Mord,murder
+los sein,to happen
+der Garten,garden
+der See,lake
+das Meer,ocean
+dort,there
+die Gurke,cucumber
+hoffen,to hope
+hoffentlich,hopefully
+aufhören,to stop
+gar nicht,not at all
+spontan,spontaneus
+die Hauptstadt,capital
+der Hof,court,courtyard
+das Brauhaus,brewery
+viele Grüße,best regards
+der Spaß,fun
