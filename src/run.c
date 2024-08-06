@@ -67,21 +67,23 @@ int	define_line( t_data *data, bool is_dico )
 	//	Reset random to make it more random.
 	if (res % 3 == 0)
 		srand(time(NULL));
-	wprintf(L"line = %d\n", res);
+	// wprintf(L"line = %d\n", res);
 	return (res);
 }
 
-bool	jump_to_line( wchar_t *buf, int *i, int l_nb[2], t_data *data )
+bool	jump_to_line( wchar_t *buf, int *i, int l_nb, t_data *data )
 {
-	while (*i < l_nb[0])
+	// wprintf(L">>> jump_to_line()\n\t*i == %d\n", *i);
+	while (*i < l_nb)
 	{
 		memset(buf, 0, BUFFER_SIZE * sizeof(wchar_t));
-		if (fgetws(buf, MAX_LEN_INPUT, data->file) == NULL)
+		if (fgetws(buf, BUFFER_SIZE, data->file) == NULL)
 		{
 			wprintf(L"Error: File reading failed.\n");
 			data->err_code = errno;
 			return (1);
 		}
+		// wprintf(L"buf: [%ls]\n", buf);
 		(*i)++;
 	}
 	return (0);
@@ -103,6 +105,7 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 			break ;
 		l_nb[1] = l_nb[0];
 		l_nb[0] =  define_line(data, is_dico);
+		// wprintf(L"line defined: [%d]\n", l_nb[0]);
 		if (l_nb[0] < l_nb[1])
 		{
 			i = 0;
@@ -111,8 +114,9 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 		else
 			i = l_nb[1];
 
-		if (jump_to_line(buf, &i, l_nb, data))
+		if (jump_to_line(buf, &i, l_nb[0], data))
 			return (error_loop(data->err_code, &user_input, NULL, data));
+		// wprintf(L"After jump_to_line: i == [%d]\n", i);
 		if (parse_dictionary_line(buf, l_nb[0], data))
 		{
 			if (!is_dico || data->l_invalid_lines >= MAX_INVALID_LINE)
@@ -126,7 +130,7 @@ bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool 
 		}
 		define_guess_answers(to_guess, answers, buf);
 
-		wprintf(L"Word to guess: [%ls]\n\tYour answer: ", to_guess);
+		wprintf(L"Word to guess(l.%d): [%ls]\n\tYour answer: ", i, to_guess);
 
 		if (get_input(user_input, answers) || check_answer(user_input, answers) == -1)
 		{

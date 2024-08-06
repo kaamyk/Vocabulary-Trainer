@@ -135,7 +135,7 @@ bool	guess_priority( t_data *data );
 /*				*/
 int	guess_err( wchar_t *err_mess, wchar_t **buf, wchar_t **to_guess, wchar_t ***answers, t_data *data);
 bool	define_guess_answers( wchar_t *to_guess, wchar_t **answers, wchar_t *buf );
-bool	jump_to_line( wchar_t *buf, int *i, int l_nb[2], t_data *data );
+bool	jump_to_line( wchar_t *buf, int *i, int l_nb, t_data *data );
 bool	guess_loop( wchar_t *to_guess, wchar_t **answers, t_data *data, const bool is_dico );
 bool	run( t_data *data );
 
